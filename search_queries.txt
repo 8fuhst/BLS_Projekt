@@ -1,0 +1,8 @@
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1ahs/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bverfg
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1ahu/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bgh
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1ai4/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bverwg
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1ai8/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bfh
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1aig/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bag
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1aii/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bsg
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1ail/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=bpatg
+https://www.rechtsprechung-im-internet.de/jportal/portal/t/1aio/page/bsjrsprod.psml/js_peid/Suchportlet1?action=portlets.jw.MainAction&eventSubmit_doNavigate=searchInSubtree&p1=gmsogb
