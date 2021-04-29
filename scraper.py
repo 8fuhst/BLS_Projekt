@@ -5,6 +5,7 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 from xml.etree import cElementTree as ET
 
+# TODO Method for getting sites
 # Get first site
 s = requests.Session()
 test = s.get("https://www.rechtsprechung-im-internet.de/jportal/portal/page/bsjrsprod.psml")
@@ -21,7 +22,7 @@ def extract_links(urlstring):
         first_hit = soup.find('a', id='tlid1')['href']
         first_site = s.get("https://www.rechtsprechung-im-internet.de/" + first_hit).text
         #if i % 25 == 0:
-            # TODO Seiten ziehen von den einzelnen Suchergebnissen
+            # TODO Seiten ziehen von den einzelnen Suchergebnissen, Overflowen
 
 
 def remove_point(passstring):
@@ -41,6 +42,7 @@ def get_xml(urlstring):
     zipfile = ZipFile(BytesIO(first_xml.read()))
     # Get XML contents
     xml_string = zipfile.read(zipfile.namelist()[0]).decode("utf-8")
+    # TODO Return
 
 
 def eval_xml(xml_string):
