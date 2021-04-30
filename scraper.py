@@ -1,51 +1,74 @@
 from bs4 import BeautifulSoup
 import requests
+import pycurl
 from io import BytesIO
 from zipfile import ZipFile
 from urllib.request import urlopen
-from xml.etree import cElementTree as ET
+from xml.etree import ElementTree as ET
+import certifi
 
-# TODO Method for getting sites
-# Get first site
-s = requests.Session()
-test = s.get("https://www.rechtsprechung-im-internet.de/jportal/portal/page/bsjrsprod.psml")
-site = s.get("https://www.rechtsprechung-im-internet.de/jportal/portal/t/ub6/page/bsjrsprod.psml/js_peid/Suchportlet1/media-type/html?formhaschangedvalue=yes&eventSubmit_doSearch=suchen&action=portlets.jw.MainAction&deletemask=no&wt_form=1&form=bsjrsFastSearch&sugline=-1&sugstart=&sugcountrows=10&sugshownorelevanz=false&sugactive=true&sugportal=ETMsDgAAAXkdtnBWABRBRVMvQ0JDL1BLQ1M1UGFkZGluZwCAABAAEFxs4g79d4qNUZz6lwjiedwAAABAQKo%2BUP4vdOQay%2BOY6RAyUqPnVWUN8uku3lt9bBnEhV1y6jiVzUf0xWvmuE7XNX%2F4n52u4pp%2F1yBW9ELAn7kWEAAU4Nj9K1P4mzfXZxpjHrqp1FLROc0%3D&sugportalport=8080&sughashcode=752441794982660026236356826285894282340001&sugwebhashcode=&sugcmspath=%2Fjportal%2Fcms%2F&desc=all&sug_all=&query=*&standardsuche.x=0&standardsuche.y=0&rqfcb=2571607").text
-soup = BeautifulSoup(site, "lxml")
-# Extract Link to first article
 
-def extract_links(urlstring):
+def extract_links(urlstring): # TODO: Löschen?
     site = requests.get(urlstring).text
     soup = BeautifulSoup(site, "lxml")
     upper_limit = remove_point(soup.find('strong', id='numberhits').text)
-    print(upper_limit)
-    for i in range(1, upper_limit):
-        first_hit = soup.find('a', id='tlid1')['href']
-        first_site = s.get("https://www.rechtsprechung-im-internet.de/" + first_hit).text
-        #if i % 25 == 0:
-            # TODO Seiten ziehen von den einzelnen Suchergebnissen, Overflowen
+    with open("./links.txt", "a") as file:
+
+        for i in range(1, upper_limit):
+            article_id = 'tlid' + str(i)
+            hit = soup.find('a', id=article_id)['href']
+            file.write("https://www.rechtsprechung-im-internet.de/" + hit + "\n")
+            #result_site = s.get("https://www.rechtsprechung-im-internet.de/" + hit).text
+            #if i % 25 == 0:
+                #site =
+
+                # TODO Seiten ziehen von den einzelnen Suchergebnissen, Overflowen
 
 
-def remove_point(passstring):
-    modstring = passstring.replace('.','')
+def remove_point(passstring): # TODO: Löschen?
+    modstring = passstring.replace('.', '')
     modstring = modstring.rsplit()[0]
     return int(modstring)
 
-def get_xml(urlstring):
-    urltext = requests.get(urlstring)
-    urlsoup = BeautifulSoup(urltext, "lxml")
-    # Get XML Link from site
-    xml_link = urlsoup.find('a', {"name": "XML"})['href']
+# TODO: Call once per day
+def update_xml_table_of_contents():
+    """
+    Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
+    :return:
+    """
+    # Create curl object:
+    curl = pycurl.Curl()
+    # Set certificate:
+    curl.setopt(pycurl.CAINFO, certifi.where())
+    # Set URL:
+    curl.setopt(pycurl.URL, 'https://www.rechtsprechung-im-internet.de/rii-toc.xml')
+    with open('./rii-toc.xml', 'wb') as toc_file:
+        curl.setopt(curl.WRITEFUNCTION, toc_file.write)
+        curl.perform()
+    curl.close()
 
-    # Get XML from site
-    first_xml = urlopen("https://www.rechtsprechung-im-internet.de/" + xml_link)
+#update_xml_table_of_contents()
+
+def get_xml_from_file(xml_link):
+    """
+    Unzips the file and converts its to string
+    :param xml_link: link for zip file
+    """
+    first_xml = urlopen(xml_link)
     # Unzip XML file
     zipfile = ZipFile(BytesIO(first_xml.read()))
     # Get XML contents
     xml_string = zipfile.read(zipfile.namelist()[0]).decode("utf-8")
-    # TODO Return
+    eval_xml(xml_string)
 
 
 def eval_xml(xml_string):
+    """
+    Extracts Dokumentennummer, ECLI, Gerichtstyp, Gerichtsort, Spruchkoerper, Entscheidungs-Datum, Aktenzeichen, Dokumententyp, Norm and
+    Vorinstanz from an XML File.
+    TODO: Writes the extracted information into the database.
+    TODO: Get the description texts (long version) too
+    """
     # Parse XML string
     doc = ET.fromstring(xml_string)
     # List containing the relevant tags
@@ -56,7 +79,28 @@ def eval_xml(xml_string):
         if tag_value:
             print(tag + ": " + tag_value) # TODO: Was wenn wir missing Values in der DB haben?
 
-#doknr = doc.find('doknr').text
-#print(doknr)
 
-extract_links("https://www.rechtsprechung-im-internet.de/jportal/portal/t/1b7i/page/bsjrsprod.psml/js_peid/Suchportlet2/media-type/html?formhaschangedvalue=yes&eventSubmit_doSearch=suchen&action=portlets.jw.MainAction&deletemask=no&wt_form=1&sugline=-1&sugstart=&sugcountrows=10&sugshownorelevanz=false&sugactive=true&sugportal=ETMsDgAAAXkeWiZXABRBRVMvQ0JDL1BLQ1M1UGFkZGluZwCAABAAEPuGCLz7URi7GQwvY7ab0ugAAABAq22HIaRog0kgy%2FxMRsyk65cRVLT4CBhoYaJ2yBFucxEi63r9MPaG%2BTCoPCxweB340S7YDVDQC6hS0IZBgZVD5QAUX6fdTsVUZWzIwFXE0Z0iN%2B9xeEs%3D&sugportalport=8080&sughashcode=752441794982660026236356826285894282340001&sugwebhashcode=&sugcmspath=%2Fjportal%2Fcms%2F&form=jurisExpertSearch&desc=text&sug_text=&query=&desc=norm&sug_norm=&query=&desc=date&query=date&dateFrom=&dateTo=&desc=court_author&query=BVerfG&desc=filenumber&sug_filenumber=&query=&standardsuche=suchen")
+get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
+
+
+def extract_links_from_toc_xml():
+    """
+    Writes the links of zip files in links.txt
+    """
+    doc = ET.parse("./rii-toc.xml")
+    root = doc.getroot()
+    with open("./links.txt", "a") as file:
+        for item in root:
+            file.write(str(item.find('link').text) + "\n")
+
+
+def get_xml_files():
+    """
+    Reads the links in the links.txt File, unzips them and extracts metadata.
+    """
+    with open("./links.txt", "r") as file:
+        for line in file.readlines():
+            get_xml_from_file(line)
+
+# get_xml_files()
+#extract_links_from_toc_xml()
