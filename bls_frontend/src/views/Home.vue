@@ -22,9 +22,7 @@ export default {
     async fetchVerdicts() {
       const res = await fetch(`api/urteil`)
 
-      const data = await res.json()
-
-      return data
+      return await res.json()
     }
   },
   async created() {
@@ -40,6 +38,7 @@ export default {
         },
         docType: data.dokumenttyp,
         keySentence: data.Kurztext,
+        tenor: data.tenor,
         langtext: data.Langtext
       }
     ]

@@ -1,5 +1,7 @@
 <template>
-  <p>{{ texts }}</p>
+  <div :key="text.id" v-for="text in texts">
+    <span>{{ text }}</span>
+  </div>
 </template>
 
 <script>
