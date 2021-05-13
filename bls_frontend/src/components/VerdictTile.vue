@@ -7,7 +7,7 @@
             <b-card-text>{{ verdict.metaData.gericht }}</b-card-text>
           </b-col>
           <b-col class="al-right entry">
-            <DropDownText :items="verdict.metaData.aktenzeichen" />
+            <DropDownText :items="verdict.metaData.aktenzeichen" :id="verdict.id" />
           </b-col>
         </b-row>
         <b-row>

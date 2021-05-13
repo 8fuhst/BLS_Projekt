@@ -1,11 +1,16 @@
 <template>
   <div class="dropdown">
-    <!-- Wir wollen hier wahrscheinlich eher ne andere bootstrap component anstatt dieses dropdown !-->
-    <b-dropdown :text="main">
-      <div :key="item.id" v-for="item in options">
-        <b-dropdown-item>{{ item }}</b-dropdown-item>
-      </div>
-    </b-dropdown>
+    <b-list-group v-b-toggle="id">
+      <b-list-group-item class="background" block>
+        {{ main }}
+      </b-list-group-item>
+      <b-collapse :id="id" accordion="my-accordion" role="tabpanel">
+        <div :key="item.id" v-for="item in options">
+          <b-list-group-item class="background">{{ item }}</b-list-group-item>
+        </div>
+      </b-collapse>
+    </b-list-group>
+
   </div>
 </template>
 
@@ -14,6 +19,7 @@ export default {
   name: "DropDownText",
   props: {
     items: Array,
+    id: String,
   },
   data() {
     return {
@@ -38,7 +44,8 @@ export default {
     margin-right: -4px;
   }
 
-  button {
+  .background {
     background-color: white;
+    z-index: 1;
   }
 </style>

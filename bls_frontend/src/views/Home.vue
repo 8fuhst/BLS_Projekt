@@ -36,6 +36,7 @@ export default {
       const data = await this.fetchVerdicts()
       this.verdicts = [
         {
+          id: '1',
           metaData: {
             gericht: data.gericht,
             datum: data.entscheidungsdatum,
@@ -49,6 +50,7 @@ export default {
           langtext: data.Langtext
         },
         {
+          id: '2',
           metaData: {
             gericht: data.gericht,
             datum: data.entscheidungsdatum,
@@ -62,6 +64,7 @@ export default {
           langtext: data.Langtext
         },
         {
+          id: '3',
           metaData: {
             gericht: data.gericht,
             datum: data.entscheidungsdatum,

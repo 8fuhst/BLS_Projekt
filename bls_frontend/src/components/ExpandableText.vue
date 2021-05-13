@@ -28,9 +28,6 @@ export default {
   methods: {
     toggleShowFullContent() {
       this.showFullContent = !this.showFullContent;
-
-      const button = document.getElementById("button");
-      button.classList.toggle("expanded");
     }
   }
 }
