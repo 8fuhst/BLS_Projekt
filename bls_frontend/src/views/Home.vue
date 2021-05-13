@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <VerdictTileList :verdicts="verdicts" />
+    <b-container class="center">
+      <h3>Neue Urteile:</h3>
+      <b-row>
+        <VerdictTileList :verdicts="verdicts" />
+      </b-row>
+    </b-container>
+
   </div>
 </template>
 
@@ -26,22 +32,32 @@ export default {
     }
   },
   async created() {
-    const data = await this.fetchVerdicts()
-    this.verdicts = [
-      {
-        metaData: {
-          gericht: data.gericht,
-          datum: data.entscheidungsdatum,
-          aktenzeichen: data.aktenzeichen,
-          ecli: data.ecli,
-          normen: data.normen,
-        },
-        docType: data.dokumenttyp,
-        keySentence: data.Kurztext,
-        tenor: data.tenor,
-        langtext: data.Langtext
-      }
-    ]
+    try {
+      const data = await this.fetchVerdicts()
+      this.verdicts = [
+        {
+          metaData: {
+            gericht: data.gericht,
+            datum: data.entscheidungsdatum,
+            aktenzeichen: data.aktenzeichen,
+            ecli: data.ecli,
+            normen: data.normen,
+          },
+          docType: data.dokumenttyp,
+          keySentence: data.Kurztext,
+          tenor: data.tenor,
+          langtext: data.Langtext
+        }
+      ]
+    } catch (e) {
+      console.log('Error')
+    }
   }
 }
 </script>
+
+<style scoped>
+.center {
+  max-width: 25rem;
+}
+</style>

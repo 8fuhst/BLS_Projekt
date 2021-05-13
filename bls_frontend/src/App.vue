@@ -1,9 +1,18 @@
 <template>
-  <Header />
-  <router-view/>
+  <div>
+    <Header />
+    <router-view/>
+  </div>
 </template>
 
-<style>
+<script>
+import Header from "@/components/Header";
+export default {
+  components: {Header}
+}
+</script>
+
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -14,20 +23,14 @@
 
 #nav {
   padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
-<script>
-import Header from "@/components/Header";
-export default {
-  components: {Header}
-}
-</script>
