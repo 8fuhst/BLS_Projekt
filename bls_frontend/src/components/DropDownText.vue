@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="dropdown">
+    <!-- Wir wollen hier wahrscheinlich eher ne andere bootstrap component anstatt dieses dropdown !-->
     <b-dropdown :text="main">
       <div :key="item.id" v-for="item in options">
         <b-dropdown-item>{{ item }}</b-dropdown-item>
@@ -17,21 +18,27 @@ export default {
   data() {
     return {
       main: '',
-      options: []
+      options: [],
+      data: [],
     }
   },
   created() {
-    this.main = this.items[0]
-    this.items.shift()
-    this.options = this.items
+    this.data = this.items.slice(0)
+    this.main = this.data[0]
+    this.data.shift()
+    this.options = this.data
   }
 }
 </script>
 
 <style scoped>
-  .btn-secondary.focus, .btn-secondary:focus {
-    color: #fff;
-    background-color: #ffffff;
-    border-color: #6c757d;
+  .dropdown {
+    min-height: 54px;
+    width: auto;
+    margin-right: -4px;
+  }
+
+  button {
+    background-color: white;
   }
 </style>

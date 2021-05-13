@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <b-button @click="toggleShowFullContent" block>{{ showFullContent ? content : contentBrief }}</b-button>
+  <div class="exp-text">
+    <b-button block v-b-toggle.accordion-1 class="btn-secondary" @click="toggleShowFullContent">
+      {{ showFullContent ? '' : contentBrief }}
+      <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+        <b-card-text>{{ content }}</b-card-text>
+      </b-collapse>
+    </b-button>
+
   </div>
 </template>
 
@@ -21,14 +27,35 @@ export default {
   },
   methods: {
     toggleShowFullContent() {
-      this.showFullContent = !this.showFullContent
+      this.showFullContent = !this.showFullContent;
+
+      const button = document.getElementById("button");
+      button.classList.toggle("expanded");
     }
   }
 }
 </script>
 
 <style scoped>
-  .normal {
-    max-height: 30px;
+  .exp-text {
+    min-height: 54px;
+    width: 100%;
+  }
+
+  .btn-secondary {
+    color: black;
+    background: white;
+    border-color: black;
+    min-height: 54px;
+  }
+
+  .btn-secondary:hover {
+    color: black;
+    background: white;
+    box-shadow: none;
+  }
+
+  .btn-secondary:focus {
+    box-shadow: none;
   }
 </style>

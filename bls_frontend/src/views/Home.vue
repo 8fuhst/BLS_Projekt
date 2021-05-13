@@ -47,6 +47,32 @@ export default {
           keySentence: data.Kurztext,
           tenor: data.tenor,
           langtext: data.Langtext
+        },
+        {
+          metaData: {
+            gericht: data.gericht,
+            datum: data.entscheidungsdatum,
+            aktenzeichen: data.aktenzeichen,
+            ecli: data.ecli,
+            normen: data.normen,
+          },
+          docType: data.dokumenttyp,
+          keySentence: data.Kurztext,
+          tenor: data.tenor,
+          langtext: data.Langtext
+        },
+        {
+          metaData: {
+            gericht: data.gericht,
+            datum: data.entscheidungsdatum,
+            aktenzeichen: data.aktenzeichen,
+            ecli: data.ecli,
+            normen: data.normen,
+          },
+          docType: data.dokumenttyp,
+          keySentence: data.Kurztext,
+          tenor: data.tenor,
+          langtext: data.Langtext
         }
       ]
     } catch (e) {
@@ -58,6 +84,6 @@ export default {
 
 <style scoped>
 .center {
-  max-width: 25rem;
+  max-width: 480px;
 }
 </style>
