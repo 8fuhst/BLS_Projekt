@@ -56,7 +56,7 @@ export default {
             datum: data.entscheidungsdatum,
             aktenzeichen: data.aktenzeichen,
             ecli: data.ecli,
-            normen: data.normen,
+            normen: data.normen.slice(0, 3),
           },
           docType: data.dokumenttyp,
           keySentence: data.Kurztext,

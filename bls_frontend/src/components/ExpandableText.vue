@@ -1,11 +1,11 @@
 <template>
-  <div class="exp-text">
-    <b-button block v-b-toggle.accordion-1 class="btn-secondary" @click="toggleShowFullContent">
+  <div class="expandable-text" v-b-toggle="id" @click="toggleShowFullContent">
+    <b-card-text block >
       {{ showFullContent ? '' : contentBrief }}
-      <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+      <b-collapse :id="id" accordion="my-accordion" role="tabpanel">
         <b-card-text>{{ content }}</b-card-text>
       </b-collapse>
-    </b-button>
+    </b-card-text>
 
   </div>
 </template>
@@ -15,15 +15,13 @@ export default {
   name: "ExpandableText",
   props: {
     content: String,
+    contentBrief: String,
+    id: String,
   },
   data() {
     return {
-      contentBrief: '',
       showFullContent: false,
     }
-  },
-  created() {
-    this.contentBrief = this.content.substr(0, 40) + '...'
   },
   methods: {
     toggleShowFullContent() {
@@ -34,25 +32,20 @@ export default {
 </script>
 
 <style scoped>
-  .exp-text {
+  .expandable-text {
     min-height: 54px;
     width: 100%;
-  }
 
-  .btn-secondary {
     color: black;
     background: white;
-    border-color: black;
-    min-height: 54px;
-  }
+    border: 1px solid black;
+    border-radius: .25rem;
 
-  .btn-secondary:hover {
-    color: black;
-    background: white;
-    box-shadow: none;
-  }
+    text-align: center;
+    vertical-align: middle;
 
-  .btn-secondary:focus {
-    box-shadow: none;
+    padding: 14px 12px;
+
+    text-align: left;
   }
 </style>

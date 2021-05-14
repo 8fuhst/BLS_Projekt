@@ -1,16 +1,20 @@
 <template>
-  <div class="dropdown">
-    <b-list-group v-b-toggle="id">
-      <b-list-group-item class="background" block>
-        {{ main }}
+  <div class="dropdown-text">
+    <b-list-group class="list-group" >
+      <b-list-group-item class="list-item first-item" block>
+        <b-card-text class="siblings text">
+          {{ main }}
+        </b-card-text>
+        <img class="siblings icon" src="@/assets/list-icon.svg" v-b-toggle="id">
       </b-list-group-item>
       <b-collapse :id="id" accordion="my-accordion" role="tabpanel">
         <div :key="item.id" v-for="item in options">
-          <b-list-group-item class="background">{{ item }}</b-list-group-item>
+          <b-list-group-item class="list-item">{{ item }}
+            <b-card-text></b-card-text>
+          </b-list-group-item>
         </div>
       </b-collapse>
     </b-list-group>
-
   </div>
 </template>
 
@@ -38,14 +42,50 @@ export default {
 </script>
 
 <style scoped>
-  .dropdown {
+  .dropdown-text {
     min-height: 54px;
     width: auto;
-    margin-right: -4px;
+    margin-top: -15px;
   }
 
-  .background {
+  .list-item {
     background-color: white;
+    border: 1px solid transparent;
+    border-top-color: black;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+
+    min-height: 54px;
+    width: auto;
+    text-align: left;
+
     z-index: 1;
+  }
+
+  .first-item {
+    border-top-color: transparent;
+  }
+
+  .list-group {
+    border: 1px solid black;
+    border-radius: .25rem;
+    background-color: white;
+  }
+
+  .siblings {
+    float:left;
+    display:inline;
+    width: auto;
+  }
+
+  .icon {
+    float: right;
+    width: 24px;
+  }
+
+  .text {
+    cursor: auto;
+    margin: 0;
+    margin-right: 12px;
   }
 </style>
