@@ -329,5 +329,4 @@ public class VerdictController {
         return result.toJSONString();
     }
 
-
 }
