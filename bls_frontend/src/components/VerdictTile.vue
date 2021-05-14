@@ -1,51 +1,60 @@
 <template>
   <div class="card-div">
     <b-card>
+      <template #header>
+        <b-card-text>{{ verdict.court }}</b-card-text>
+      </template>
+
       <b-container>
-        <!-- Gericht/Aktenzeichen row !-->
-        <b-row>
-          <b-col class="entry">
-            <b-card-text>{{ verdict.metaData.gericht }}</b-card-text>
-          </b-col>
-          <b-col class="al-right entry no-col-padding">
-            <DropDownText :items="verdict.metaData.aktenzeichen" :id="verdict.id + 'drop'" />
-          </b-col>
-        </b-row>
-
-        <!-- Date/Ecli row !-->
-        <b-row>
-          <b-col class="entry">
-            <b-card-text>{{ verdict.metaData.datum }}</b-card-text>
-          </b-col>
-          <b-col class="al-right entry">
-            <b-card-text>
-              {{verdict.metaData.ecli}}
-            </b-card-text>
-          </b-col>
-        </b-row>
-
-        <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
-        <b-row class="bottom-margin">
-          <ExpandableText :content="normenStr" :content-brief="normenStrBrief" :id="verdict.id + 'exp'" />
-        </b-row>
-
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
-          <b-col class="al-center">
+          <b-col class="al-left no-col-padding">
             <div class="doc-type-tag">
               <b-card-text class="doc-type-text">
-                {{ verdict.docType }}
+                {{ verdict.documenttype }}
               </b-card-text>
             </div>
           </b-col>
         </b-row>
+
+        <!-- Gericht/Aktenzeichen row !-->
+        <b-row class="bottom-margin">
+          <b-col class="al-right entry no-col-padding">
+            <DropDownText :items="verdict.filenumber" :id="verdict.documentnumber + 'drop'" />
+          </b-col>
+        </b-row>
+
+
+
+        <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
+        <b-row class="bottom-margin">
+          <ExpandableText :content="norms" :content-brief="normsBrief" :id="verdict.documentnumber + 'exp'" />
+        </b-row>
+
+
       </b-container>
 
       <!-- Texte !-->
       <h5>Leitsatz</h5>
-      <b-card-text class="text-padding">{{ verdict.keySentence }}</b-card-text>
+      <b-card-text class="text-padding">{{ verdict.keysentence }}</b-card-text>
       <h5>Tenor</h5>
-      <b-card-text class="text-padding">{{ verdict.keySentence }}</b-card-text>
+      <b-card-text class="text-padding">{{ verdict.tenor }}</b-card-text>
+
+      <template #footer>
+        <!-- Date/Ecli row !-->
+        <b-row>
+          <b-col class="footer-color">
+            <b-card-text>
+              {{ verdict.date }}
+            </b-card-text>
+          </b-col>
+          <b-col class="al-right footer-color">
+            <b-card-text>
+              {{verdict.ecli}}
+            </b-card-text>
+          </b-col>
+        </b-row>
+      </template>
     </b-card>
   </div>
 </template>
@@ -67,18 +76,18 @@ export default {
   },
   data() {
     return {
-      normenStr: '',
-      normenStrBrief: '',
+      norms: '',
+      normsBrief: '',
     }
   },
   created() {
-    const normen = this.verdict.metaData.normen.slice(0)
-    this.normenStr = normen.join(', ');
-    if (normen.length > 3) {
-      this.normenStrBrief = normen.slice(0, 3).join(', ') + '...'
+    const norms = this.verdict.norms.slice(0)
+    this.norms = norms.join(', ');
+    if (norms.length > 3) {
+      this.normsBrief = norms.slice(0, 3).join(', ') + ' ...'
     } else {
       // TODO: Dann auch dafür sorgen, dass das Ding nicht expandable ist
-      this.normenStrBrief = normen.join(', ')
+      this.normsBrief = norms.join(', ')
     }
   }
 }
@@ -129,5 +138,9 @@ export default {
   .no-col-padding {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .footer-color {
+    color: rgba(69,69,69,0.5);
   }
 </style>

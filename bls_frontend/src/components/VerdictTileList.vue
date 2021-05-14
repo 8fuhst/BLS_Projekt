@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="verdict in verdicts" :key="verdict.ecli">
+    <div v-for="verdict in verdicts" :key="verdict.documentnumber">
       <VerdictTile :verdict="verdict" />
     </div>
   </div>
