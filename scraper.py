@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 from xml.etree import ElementTree as ET
 import certifi
+import json
 
 
 def extract_links(urlstring): # TODO: Löschen?
@@ -69,15 +70,42 @@ def eval_xml(xml_string):
     TODO: Writes the extracted information into the database.
     TODO: Get the description texts (long version) too
     """
+    result_dict = {}
     # Parse XML string
     doc = ET.fromstring(xml_string)
     # List containing the relevant tags
-    tags = ['doknr', 'ecli', 'gertyp', 'gerort', 'spruchkoerper', 'entsch-datum', 'aktenzeichen', 'doktyp', 'norm', 'vorinstanz']
+    tags = ['doknr', 'ecli', 'gertyp', 'gerort', 'spruchkoerper', 'entsch-datum', 'aktenzeichen', 'doktyp', 'norm', 'vorinstanz', 'gruende', 'entscheidungsgruende', 'identifier', 'sonstlt', 'abwmeinung', 'tatbestand', 'tenor', 'sonstosatz', 'leitsatz', 'titelzeile', 'mitwirkung', 'region']
+    tags_translation = {'doknr': 'documentnumber',
+                        'ecli': 'ecli',
+                        'gertyp': 'court',
+                        'gerort': 'courtlocation',
+                        'spruchkoerper': 'spruchkoerper',
+                        'entsch-datum': 'date',
+                        'aktenzeichen': 'filenumber',
+                        'doktyp': 'documenttype',
+                        'entscheidungsgruende': 'reasonfordecision',
+                        'abwmeinung': 'abwmeinung',
+                        'sonstosatz': 'miscsentence',
+                        'norm': 'norms',
+                        'vorinstanz': 'previouscourt',
+                        'gruende': 'reasons',
+                        'identifier': 'identifier',
+                        'sonstlt': 'other',
+                        'tatbestand': 'offense',
+                        'tenor': 'tenor',
+                        'leitsatz': 'keysentence',
+                        'titelzeile': 'title',
+                        'mitwirkung': 'mitwirkung',
+                        'region': 'region'}
 
     for tag in tags:
-        tag_value = doc.find(tag).text
-        if tag_value:
-            print(tag + ": " + tag_value) # TODO: Was wenn wir missing Values in der DB haben?
+        tag_value = doc.find(tag).text # TODO: bei tags mit unter-tags funktioniert es noch nicht (z.b.gruende)
+        #if tag_value:
+        result_dict[tags_translation[tag]] = tag_value
+    json_object = json.dumps(result_dict)
+    print(json_object)
+            # json.put(tag, doc.find(tag).text)
+            #print(tag + ": " + tag_value) # TODO: Was wenn wir missing Values in der DB haben?
 
 
 get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
