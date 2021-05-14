@@ -1,13 +1,13 @@
 <template>
-  <div class="dropdown-text">
+  <div class="dropdown-text" v-click-outside="hide">
     <b-list-group class="list-group" >
       <b-list-group-item class="list-item first-item" block>
         <b-card-text class="siblings text">
           {{ main }}
         </b-card-text>
-        <img class="siblings icon" src="@/assets/list-icon.svg" v-b-toggle="id">
+        <img class="siblings icon" src="@/assets/list-icon.png" v-b-toggle="id">
       </b-list-group-item>
-      <b-collapse :id="id" accordion="my-accordion" role="tabpanel">
+      <b-collapse :id="id" role="tabpanel" v-model="visible">
         <div :key="item.id" v-for="item in options">
           <b-list-group-item class="list-item">{{ item }}
             <b-card-text></b-card-text>
@@ -19,17 +19,25 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
+
 export default {
   name: "DropDownText",
   props: {
     items: Array,
     id: String,
   },
+  methods: {
+    hide() {
+      this.visible = false
+    }
+  },
   data() {
     return {
       main: '',
       options: [],
       data: [],
+      visible: false,
     }
   },
   created() {
@@ -37,6 +45,9 @@ export default {
     this.main = this.data[0]
     this.data.shift()
     this.options = this.data
+  },
+  directives: {
+    ClickOutside
   }
 }
 </script>
@@ -51,7 +62,7 @@ export default {
   .list-item {
     background-color: white;
     border: 1px solid transparent;
-    border-top-color: black;
+    border-top-color: rgba(0, 0, 0, .1);
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
 
@@ -69,7 +80,7 @@ export default {
   }
 
   .list-group {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, .3);
     border-radius: .25rem;
     background-color: white;
   }

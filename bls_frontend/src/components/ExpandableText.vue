@@ -1,12 +1,10 @@
 <template>
-  <div class="expandable-text" v-b-toggle="id" @click="toggleShowFullContent">
-    <b-card-text block >
-      {{ showFullContent ? '' : contentBrief }}
-      <b-collapse :id="id" accordion="my-accordion" role="tabpanel">
-        <b-card-text>{{ content }}</b-card-text>
-      </b-collapse>
+  <div class="expandable-text transition">
+    <b-card-text :class="['siblings', 'text', 'collapse', showFullContent? '' : 'brief-text']">
+      {{ content }}
     </b-card-text>
-
+    <img class="siblings icon" src="@/assets/show-more.png" v-b-toggle="id" @click="toggleShowFullContent" v-show="!showFullContent">
+    <img class="icon" src="@/assets/show-less.png" v-b-toggle="id" @click="toggleShowFullContent" v-show="showFullContent">
   </div>
 </template>
 
@@ -38,7 +36,7 @@ export default {
 
     color: black;
     background: white;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, .3);
     border-radius: .25rem;
 
     text-align: center;
@@ -47,5 +45,29 @@ export default {
     padding: 14px 12px;
 
     text-align: left;
+  }
+
+  .siblings {
+    float:left;
+    display:inline;
+    width: auto;
+  }
+
+  .icon {
+    float: right;
+    width: 24px;
+  }
+
+  .text {
+    cursor: auto;
+    margin: 0 12px 0 0;
+  }
+
+  .brief-text {
+    text-overflow: ellipsis;
+    height: 24px;
+    overflow: hidden;
+    max-width: 376px;
+    white-space: nowrap;
   }
 </style>
