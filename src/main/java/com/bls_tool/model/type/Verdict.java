@@ -368,7 +368,7 @@ public class Verdict {
 
     public JSONObject toJSON() {
         JSONObject result = toJsonMetadata();
-        result.put("tenor",tenor);
+
         result.put("offense",offense);
         result.put("reasons", reasons);
         result.put("reasonfordecision", reasonfordecision);
@@ -403,6 +403,9 @@ public class Verdict {
             norms_json.add(n);
         }
         result.put("norms", norms_json);
+        result.put("tenor",tenor);
+        result.put("keysentence", keysentence);
+        result.put("documentnumber", documentnumber);
         return result;
     }
 }
