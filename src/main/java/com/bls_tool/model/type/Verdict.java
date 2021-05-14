@@ -1,36 +1,55 @@
 package com.bls_tool.model.type;
 
-public class Urteil {
-    private Gericht gericht;
-    private String entscheidungsdatum;
-    private String[] aktenzeichen;
-    private String ecli;
-    private String dokumenttyp;
-    private String[] normen;
-    private String langtext;
-    private String kurztext;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+
+public class Verdict {
+    private Court court; // Gericht
+    private String date; // Entscheidungsdatum
+    private String[] filenumber; // Aktenzeiche
+    private String ecli; // ECLI
+    private String documenttype; // Dokumenttyp
+    private String[] norms; // Normen
+    private String reasons; // Gründe
+    private String documentnumber; // Dokumentennummer todo eindeutig? -> id
+    private String courtlocation; // Gerichts-Ort todo
+    private String spruchkoerper; // Spruchkörper
+    private String[] previouscourt; // Vorinstanzen
+    private String region;
+    private String mitwirkung;
+    private String title; // Titelzeile
+    private String keysentence; // Leitsatz
+    private String miscsentence; // Sonstosatz
+    private String tenor;
+    private String offense; // Tatbestand
+    private String reasonfordecision; // Entscheidungsgründe
+    private String abwmeinung; // abwmeinung todo was ist das?
+    private String other; // sonstlt
+    private String identifier; //Juris Link
+    //private String plaintext; // Text ohne Formatierungen
 
     /**
      * Erstmal noch mit Dummy-Daten
      */
-    public Urteil(/*Gericht gericht, String entscheidungsdatum, String[] aktenzeichen, String ecli, String dokumenttyp, String[] normen*/) {
-        this.gericht = Gericht.BVerfG;
-        this.entscheidungsdatum = "05.05.2021";
-        this.aktenzeichen = new String[]{"1 BvR 781/21", "1 BvR 805/2", "1 BvR 820/21", "1 BvR 854/21", "1 BvR 889/21"};
+    public Verdict(/*Gericht court, String date, String[] filenumber, String ecli, String documenttype, String[] norms*/) {
+        this.courtlocation = "Karlsruhe";
+        this.spruchkoerper = "1. Senat";
+        this.previouscourt = new String[]{"vorgehend OLG Köln, 30. April 2020, Az: I-25 U 53/18", "vorgehend LG Aachen, 26. Oktober 2018, Az: 7 O 115/18"};
+        this.region = "DEU";
+        this.mitwirkung = "Fuhst & Co. KG";
+        this.documentnumber = "KVRE443182101";
+        this.court = Court.BVerfG;
+        this.date = "05.05.2021";
+        this.filenumber = new String[]{"1 BvR 781/21", "1 BvR 805/2", "1 BvR 820/21", "1 BvR 854/21", "1 BvR 889/21"};
         this.ecli = "ECLI:DE:BVerfG:2021:rs20210505.1bvr078121";
-        this.dokumenttyp = "Ablehnung einstweilige Anordnung";
-        this.normen = new String[]{"Art 2 Abs 1 GG", "Art 3 Abs 3 S 2 GG", "Art 6 Abs 1 GG", "Art 12 Abs 1 GG",
+        this.documenttype = "Ablehnung einstweilige Anordnung";
+        this.norms = new String[]{"Art 2 Abs 1 GG", "Art 3 Abs 3 S 2 GG", "Art 6 Abs 1 GG", "Art 12 Abs 1 GG",
                 "Art 77 Abs 2 GG","Art 104a Abs 4 GG","§ 32 Abs 1 BVerfGG", "§ 32 Abs 2 S 2 BVerfGG",
                 "Art 1 Nr 2 EpiBevSchG 4", "§ 28a Abs 2 S 1 Nr 2 IfSG", "§ 28b Abs 1 S 1 Nr 2 IfSG vom 22.04.2021",
                 "§ 28b Abs 1 S 1 Nr 2 Buchst b IfSG vom 22.04.2021", "§ 28b Abs 1 S 1 Nr 2 Buchst c IfSG vom 22.04.2021",
                 "§ 28b Abs 1 S 1 Nr 2 Buchst d IfSG vom 22.04.2021", "§ 28b Abs 1 S 1 Nr 2 Buchst f IfSG vom 22.04.2021",
                 "§ 28b Abs 3 S 1 IfSG vom 22.04.2021", "§ 56 Abs 1a IfSG vom 29.03.2021, § 73 Abs 1a Nr 11c IfSG vom 22.04.2021"};
-        this.kurztext = "Eilanträge gegen bundesrechtliche nächtliche Ausgangsbeschränkung (§ 28b Abs 1 S 1 Nr 2 IfSG idF vom 22.04.2021) erfolglos - angegriffene Normen weder formell noch materiell offensichtlich verfassungswidrig - Folgenabwägung\n" + "\n";
-        this.langtext = "Eilanträge gegen bundesrechtliche nächtliche Ausgangsbeschränkung (§ 28b Abs 1 S 1 Nr 2 IfSG idF vom 22.04.2021) erfolglos - angegriffene Normen weder formell noch materiell offensichtlich verfassungswidrig - Folgenabwägung\n" +
-                "\n" +
-                "Tenor\n" +
-                "Die Anträge auf Erlass einer einstweiligen Anordnung werden abgelehnt.\n" +
-                "\n" +
+        this.reasons =
                 "Gründe\n" +
                 "A.\n" +
                 "\n" +
@@ -245,36 +264,130 @@ public class Urteil {
                 "Da der Gesetzgeber die Wirkungen der mit der Ausgangsbeschränkung verbundenen Freiheitsbeeinträchtigungen zudem über Ausnahmetatbestände abgemildert hat und die Geltungsdauer der angegriffenen Regelung nach derzeitiger Rechtslage zeitlich relativ eng begrenzt ist, überwiegen die Nachteile für die Betroffenen ungeachtet der erheblichen Eingriffsintensität der Ausgangsbeschränkung nicht gegenüber den Nachteilen für einen wirksamen Infektionsschutz bei Aussetzen der Regelung in § 28b Abs. 1 Satz 1 Nr. 2 IfSG. Damit ist die einstweilige Anordnung nicht zu erlassen. Über die Frage, ob es einer einstweiligen Anordnung nach § 32 BVerfGG insoweit bedarf, als bei Personen von einer Immunisierung auszugehen ist, ist mit diesem Verfahren noch nicht entschieden. Hierfür bedürfte es weiterer Aufklärung.";
     }
 
-    public Gericht get_gericht(){
-        return gericht;
+
+    public String getDocumentnumber() {
+        return documentnumber;
     }
 
-    public String get_entscheidungsdatum(){
-        return entscheidungsdatum;
+    public Court getCourt(){
+        return court;
     }
 
-    public String[] get_aktenzeichen(){
-        return aktenzeichen;
+    public String getDate(){
+        return date;
     }
 
+    public String[] getFilenumber(){
+        return filenumber;
+    }
 
-    public String get_ecli(){
+    public String getEcli(){
         return ecli;
     }
 
-    public String get_dokumenttyp(){
-        return dokumenttyp;
+    public String getDocumenttype(){
+        return documenttype;
     }
 
-    public String get_langtext(){
-        return langtext;
+    public String getLongtext(){
+        return reasons;
     }
 
-    public String get_kurztext(){
-        return kurztext;
+    public String[] getNorms(){
+        return norms;
     }
 
-    public String[] get_normen(){
-        return normen;
+    private String getReasonfordecision() { return reasonfordecision; }
+
+    public String getReason() { return reasons; }
+
+    public String getAbwmeinung() {return abwmeinung; }
+
+    public String getOther() { return other; }
+
+    public String getIdentifier() { return identifier; }
+
+    public String getCourtlocation() {
+        return courtlocation;
+    }
+
+    public String getSpruchkoerper() {
+        return spruchkoerper;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getMitwirkung() {
+        return mitwirkung;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public String getKeysentence() {
+        return keysentence;
+    }
+
+    public String getMiscsentence() {
+        return miscsentence;
+    }
+
+    public String getTenor() {
+        return tenor;
+    }
+
+    public String getOffense() {
+        return offense;
+    }
+
+    public String[] getPreviouscourt() {
+        return previouscourt;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject result = toJsonMetadata();
+        result.put("tenor",tenor);
+        result.put("offense",offense);
+        result.put("reasons", reasons);
+        result.put("reasonfordecision", reasonfordecision);
+        result.put("abwmeinung", abwmeinung);
+        result.put("other", other);
+        result.put("identifier", identifier);
+        return result;
+    }
+
+    public JSONObject toJsonMetadata() {
+        JSONObject result = new JSONObject();
+        result.put("court", court);
+        result.put("date", date);
+        result.put("courtlocation", courtlocation);
+        result.put("spruchkoerper", spruchkoerper);
+        result.put("region", region);
+        result.put("mitwirkung", mitwirkung);
+        JSONArray previouscourts_json = new JSONArray();
+        for(String s : previouscourt) {
+            previouscourts_json.add(s);
+        }
+        result.put("previouscourts", previouscourts_json);
+        JSONArray filenumber_json = new JSONArray();
+        for(String s : filenumber) {
+            filenumber_json.add(s);
+        }
+        result.put("filenumber", filenumber_json);
+        result.put("ecli", ecli);
+        result.put("documenttype", documenttype);
+        JSONArray norms_json = new JSONArray();
+        for(String n: norms){
+            norms_json.add(n);
+        }
+        result.put("norms", norms_json);
+        return result;
     }
 }
