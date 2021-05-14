@@ -1,14 +1,13 @@
 package com.bls_tool.controller;
 
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
+import com.bls_tool.model.type.Verdict;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/urteil")
-public class UrteilController {
+@RequestMapping("/verdict")
+public class VerdictController {
 
     @GetMapping
     public String urteil() {
