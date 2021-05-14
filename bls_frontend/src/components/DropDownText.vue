@@ -59,6 +59,8 @@ export default {
     width: auto;
     text-align: left;
 
+    padding: 14px 12px;
+
     z-index: 1;
   }
 
@@ -85,7 +87,6 @@ export default {
 
   .text {
     cursor: auto;
-    margin: 0;
-    margin-right: 12px;
+    margin: 0 12px 0 0;
   }
 </style>
