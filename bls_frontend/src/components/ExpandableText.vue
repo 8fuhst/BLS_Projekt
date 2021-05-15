@@ -1,10 +1,12 @@
 <template>
   <div class="expandable-text transition">
-    <b-card-text :class="['siblings', 'text', 'collapse', showFullContent? '' : 'brief-text']">
-      {{ content }}
-    </b-card-text>
-    <img class="siblings icon" src="@/assets/show-more.png" v-b-toggle="id" @click="toggleShowFullContent" v-show="!showFullContent">
-    <img class="icon" src="@/assets/show-less.png" v-b-toggle="id" @click="toggleShowFullContent" v-show="showFullContent">
+    <b-collapse class="" :id="id">
+      <b-card-text :class="['siblings', 'text']">
+        {{ content }}
+      </b-card-text>
+      <b-icon-chevron-down :rotate="showFullContent ? -180 : 0" :class="['siblings', 'show-more-less']" v-b-toggle="id" @click="toggleShowFullContent" />
+    </b-collapse>
+
   </div>
 </template>
 
@@ -53,21 +55,72 @@ export default {
     width: auto;
   }
 
-  .icon {
+  .heightclass {
+    height: 1.5rem !important;
+    display: block !important;
+  }
+
+  .show-more-less {
     float: right;
     width: 24px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: all .25s;
+    text-decoration: none;
+  }
+
+  .expandable-text .collapse:before {
+    content: ' ...';
+    position: absolute;
+    right: 2rem;
+    bottom: 0;
+  }
+
+  .show-more-less:focus {
+    outline: 0;
+  }
+
+  .show-more {
+    transform: rotate(0);
+  }
+
+  .show-less {
+    transform: rotate(-180deg);
   }
 
   .text {
     cursor: auto;
     margin: 0 12px 0 0;
+    max-width: 350px;
   }
 
   .brief-text {
-    text-overflow: ellipsis;
-    height: 24px;
     overflow: hidden;
-    max-width: 376px;
     white-space: nowrap;
+    display: block;
+  }
+
+  .min-height {
+    min-height: 54px;
+  }
+
+  .expandable-text .collapse, .expandable-text .collapsing {
+    height: 1.5rem;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
+    min-height: 1.5rem !important;
+  }
+
+  .expandable-text .collapse {
+    position: relative;  /* For ...'s content absolute positioning */
+    display: block !important;
+    overflow: hidden;
+  }
+
+  .expandable-text .collapse.show {
+    height: auto;  /* You need to reset the height when not collapsed */
+  }
+
+  .expandable-text .collapse.show:before {
+    display: none;  /* Of course you don't want to display ... */
   }
 </style>
