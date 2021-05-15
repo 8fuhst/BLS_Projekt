@@ -1,12 +1,11 @@
 <template>
-  <div class="expandable-text transition">
-    <b-collapse class="" :id="id">
-      <b-card-text :class="['siblings', 'text']">
+  <div class="expandable-text">
+    <b-collapse :id="id">
+      <b-card-text class="siblings text">
         {{ content }}
       </b-card-text>
-      <b-icon-chevron-down :rotate="showFullContent ? -180 : 0" :class="['siblings', 'show-more-less']" v-b-toggle="id" @click="toggleShowFullContent" />
+      <b-icon-chevron-down :rotate="showFullContent ? -180 : 0" class="show-more-less" v-b-toggle="id" @click="toggleShowFullContent" />
     </b-collapse>
-
   </div>
 </template>
 
@@ -49,15 +48,11 @@ export default {
     text-align: left;
   }
 
-  .siblings {
+  .text {
     float:left;
     display:inline;
     width: auto;
-  }
-
-  .heightclass {
-    height: 1.5rem !important;
-    display: block !important;
+    max-width: 365px;
   }
 
   .show-more-less {
@@ -79,30 +74,6 @@ export default {
 
   .show-more-less:focus {
     outline: 0;
-  }
-
-  .show-more {
-    transform: rotate(0);
-  }
-
-  .show-less {
-    transform: rotate(-180deg);
-  }
-
-  .text {
-    cursor: auto;
-    margin: 0 12px 0 0;
-    max-width: 350px;
-  }
-
-  .brief-text {
-    overflow: hidden;
-    white-space: nowrap;
-    display: block;
-  }
-
-  .min-height {
-    min-height: 54px;
   }
 
   .expandable-text .collapse, .expandable-text .collapsing {
