@@ -66,11 +66,11 @@ export default {
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
 
-    min-height: 54px;
+    min-height: 52px;
     width: auto;
     text-align: left;
 
-    padding: 14px 12px;
+    padding: 13px 12px;
 
     z-index: 1;
   }
