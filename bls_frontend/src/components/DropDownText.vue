@@ -5,7 +5,9 @@
         <b-card-text class="siblings text">
           {{ main }}
         </b-card-text>
-        <img class="siblings icon" src="@/assets/list-icon.png" v-b-toggle="id">
+        <div class="icon-container">
+          <b-icon-list-ul class="siblings icon" v-b-toggle="id" />
+        </div>
       </b-list-group-item>
       <b-collapse :id="id" role="tabpanel" v-model="visible">
         <div :key="item.id" v-for="item in options">
@@ -75,6 +77,12 @@ export default {
     z-index: 1;
   }
 
+  .icon-container {
+    float: right;
+    height: 24px;
+    width: 24px;
+  }
+
   .first-item {
     border-top-color: transparent;
   }
@@ -92,8 +100,13 @@ export default {
   }
 
   .icon {
-    float: right;
+    position: relative;
+    top: 4px;
     width: 24px;
+  }
+
+  .icon:focus {
+    outline: 0;
   }
 
   .text {

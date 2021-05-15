@@ -59,10 +59,9 @@ export default {
     float: right;
     width: 24px;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     right: 0;
     transition: all .25s;
-    text-decoration: none;
   }
 
   .expandable-text .collapse:before {
@@ -77,21 +76,21 @@ export default {
   }
 
   .expandable-text .collapse, .expandable-text .collapsing {
-    height: 1.5rem;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
+    height: 1.5rem;
     min-height: 1.5rem !important;
   }
 
   .expandable-text .collapse {
-    position: relative;  /* For ...'s content absolute positioning */
+    position: relative;
     display: block !important;
     overflow: hidden;
   }
 
   .expandable-text .collapse.show {
-    height: auto;  /* You need to reset the height when not collapsed */
+    height: auto;
   }
 
   .expandable-text .collapse.show:before {
-    display: none;  /* Of course you don't want to display ... */
+    display: none;
   }
 </style>
