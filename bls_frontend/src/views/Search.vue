@@ -1,7 +1,8 @@
 <template>
   <div>
+    <Searchbar @searchQuery="onSearchQuery" :query="query" />
     <b-container class="center">
-      <h3>Neue Urteile:</h3>
+      <h3>Ergebnisse:</h3>
       <b-row>
         <VerdictTileList :verdicts="verdicts" />
       </b-row>
@@ -10,35 +11,39 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import VerdictTileList from "@/components/VerdictTileList";
 import ApiService from "../services/ApiService.js";
+import Searchbar from "@/components/Searchbar";
 
 const apiService = new ApiService()
 
 export default {
-  name: 'Home',
+  name: "Search",
   components: {
-    VerdictTileList,
+    Searchbar,
+    VerdictTileList
+  },
+  props: {
+    query: String,
   },
   data() {
     return {
-      verdicts: [],
+      verdicts: []
     }
   },
   async created() {
-    this.verdicts = await apiService.fetchVerdicts('')
+    this.verdicts = await apiService.fetchVerdicts(this.query)
   },
   methods: {
-    onSearchQuery(query) {
-      this.$emit('searchQuery', query)
+    async onSearchQuery(query) {
+      this.verdicts = await apiService.fetchVerdicts(query)
     }
   }
 }
 </script>
 
 <style scoped>
-.center {
-  max-width: 480px;
-}
+  .center {
+    max-width: 480px;
+  }
 </style>

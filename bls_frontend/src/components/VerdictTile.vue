@@ -5,7 +5,7 @@
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
           <b-col class="al-left no-side-padding">
-            <b-button  to="/suche" variant="danger" class="doc-type-tag doc-type-text">
+            <b-button  to="/urteil" variant="danger" class="doc-type-tag doc-type-text">
               <b-card-text style="display: inline;">
                 {{ verdict.documenttype }}
               </b-card-text>

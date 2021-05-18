@@ -1,10 +1,12 @@
 <template>
-  <p>Hier ist eine andere Seite (Iwann mal die Suche vlt)</p>
+  <div>
+    <p>Dies ist eine Seite für ein Urteil</p>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Suche"
+  name: "Verdict"
 }
 </script>
 

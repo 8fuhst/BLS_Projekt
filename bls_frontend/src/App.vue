@@ -1,14 +1,25 @@
 <template>
   <div>
-    <Header />
-    <router-view/>
+    <Header @searchQuery="onSearchQuery" />
+    <router-view @searchQuery="onSearchQuery" :query="this.query" />
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
 export default {
-  components: {Header}
+  components: {Header},
+  data() {
+    return {
+      query: '',
+    }
+  },
+  methods: {
+    onSearchQuery(query) {
+      this.$router.push('suche')
+      this.query = query
+    }
+  }
 }
 </script>
 

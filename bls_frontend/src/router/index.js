@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Suche from "@/views/Suche";
+import Verdict from "@/views/Verdict";
+import Search from "@/views/Search";
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,17 @@ const routes = [
   },
   {
     path: '/suche',
-    name: 'Suche',
-    component: Suche
-  }
+    name: 'Search',
+    component: Search
+  },
+  {
+    path: '/urteil',
+    name: 'Verdict',
+    meta: {
+      hidden: true
+    },
+    component: Verdict
+  },
 ]
 
 const router = new VueRouter({
