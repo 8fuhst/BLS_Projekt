@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header @searchQuery="onSearchQuery" />
-    <router-view @searchQuery="onSearchQuery" :query="this.query" />
+    <Header />
+    <router-view />
   </div>
 </template>
 
@@ -9,17 +9,6 @@
 import Header from "@/components/Header";
 export default {
   components: {Header},
-  data() {
-    return {
-      query: '',
-    }
-  },
-  methods: {
-    onSearchQuery(query) {
-      this.$router.push('suche')
-      this.query = query
-    }
-  }
 }
 </script>
 

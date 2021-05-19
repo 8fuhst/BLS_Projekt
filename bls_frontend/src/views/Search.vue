@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Searchbar @searchQuery="onSearchQuery" :query="query" />
-    <b-container class="center">
+    <Searchbar />
+    <b-container class="center" v-if="verdicts.length !== 0">
       <h3>Ergebnisse:</h3>
       <b-row>
         <VerdictTileList :verdicts="verdicts" />
@@ -12,10 +12,7 @@
 
 <script>
 import VerdictTileList from "@/components/VerdictTileList";
-import ApiService from "../services/ApiService.js";
 import Searchbar from "@/components/Searchbar";
-
-const apiService = new ApiService()
 
 export default {
   name: "Search",
@@ -23,22 +20,11 @@ export default {
     Searchbar,
     VerdictTileList
   },
-  props: {
-    query: String,
-  },
-  data() {
-    return {
-      verdicts: []
+  computed: {
+    verdicts() {
+      return this.$store.getters.getVerdicts
     }
   },
-  async created() {
-    this.verdicts = await apiService.fetchVerdicts(this.query)
-  },
-  methods: {
-    async onSearchQuery(query) {
-      this.verdicts = await apiService.fetchVerdicts(query)
-    }
-  }
 }
 </script>
 

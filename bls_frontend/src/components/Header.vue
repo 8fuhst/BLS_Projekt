@@ -11,10 +11,11 @@
           </b-navbar-nav>
         </b-collapse>
 
-        <b-nav-form @submit.prevent="$emit('searchQuery', query)" v-if="currentRoute.name !== 'Search'">
-          <b-form-input size="sm" v-model="query" class="mr-sm-2" placeholder="Search..."></b-form-input>
+        <b-nav-form @submit.prevent="onSubmit" v-if="currentRoute.name !== 'Search'">
+          <b-form-input size="sm" v-model="newQuery" class="mr-sm-2" placeholder="Search..."></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
+
       </b-navbar>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       currentRoute: this.$route,
-      query: '',
+      newQuery: '',
     }
   },
   computed: {
@@ -35,6 +36,12 @@ export default {
   },
   watch: {
     $route(to) {this.currentRoute = to}
+  },
+  methods: {
+    onSubmit() {
+      this.$store.dispatch('setQuery', this.newQuery)
+      this.$router.push('suche')
+    },
   },
 }
 </script>

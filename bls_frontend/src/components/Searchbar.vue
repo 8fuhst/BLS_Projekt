@@ -1,13 +1,13 @@
 <template>
   <div class="margin">
     <b-form @submit.prevent="onSubmit" inline class="mx-auto form">
-      <b-form-input class="searchbar" v-model="queryReal" placeholder="Search..."></b-form-input>
+      <b-form-input class="searchbar" v-model="newQuery" :placeholder="'Search...'"></b-form-input>
       <b-button class="my-2 my-sm-0 btn" type="submit">
         <b-card-text class="text">
           {{ 'Search ' }}
         </b-card-text>
         <div class="icon-container">
-          <b-icon-search class="icon" v-b-toggle="id" />
+          <b-icon-search class="icon" />
         </div>
       </b-button>
     </b-form>
@@ -15,22 +15,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: "Searchbar",
-  props: {
-    query: String,
-  },
   data() {
     return {
-      queryReal: ''
+      newQuery: '',
     }
   },
+  computed: {
+    ... mapGetters({
+      query: 'getQuery',
+    }),
+  },
   created() {
-    this.queryReal = this.query
+    this.newQuery = this.query
   },
   methods: {
     onSubmit() {
-      this.$emit('searchQuery', this.queryReal)
+      this.$store.dispatch('setQuery', this.newQuery)
     }
   }
 }

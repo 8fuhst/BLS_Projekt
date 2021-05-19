@@ -12,27 +12,19 @@
 <script>
 // @ is an alias to /src
 import VerdictTileList from "@/components/VerdictTileList";
-import ApiService from "../services/ApiService.js";
-
-const apiService = new ApiService()
 
 export default {
   name: 'Home',
   components: {
     VerdictTileList,
   },
-  data() {
-    return {
-      verdicts: [],
+  computed: {
+    verdicts() {
+      return this.$store.getters.getVerdicts
     }
   },
-  async created() {
-    this.verdicts = await apiService.fetchVerdicts('')
-  },
-  methods: {
-    onSearchQuery(query) {
-      this.$emit('searchQuery', query)
-    }
+  mounted() {
+    this.$store.dispatch('setQuery', '')
   }
 }
 </script>
