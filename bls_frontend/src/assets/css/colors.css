@@ -1,0 +1,23 @@
+.ablehnung-color {
+    border-color: rgba(255, 0, 0, 0.59);
+}
+
+.ablehnung-color div div div div a {
+    background-color: rgba(255, 0, 0, 0.59); /* TODO: Pseudo klassen für button setzen */
+}
+
+.ablehnung-color .card-footer {
+    border-top: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.urteil-color {
+    border-color: rgba(0, 136, 255, 0.59);
+}
+
+.urteil-color div div div div a {
+    background-color: rgba(0, 136, 255, 0.59);
+}
+
+.urteil-color .card-footer {
+    border-top: 1px solid rgba(0, 136, 255, 0.2);
+}

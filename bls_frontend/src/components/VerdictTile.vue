@@ -1,6 +1,6 @@
 <template>
   <div class="card-div">
-    <b-card class="border-color">
+    <b-card :class="colorClass">
       <b-container>
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
@@ -15,7 +15,7 @@
         </b-row>
 
         <b-row class="bottom-margin text-padding">
-          <b-card-text>{{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+          <b-card-text>{{ verdict.date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>
 
         <!-- Gericht/Aktenzeichen row !-->
@@ -24,28 +24,35 @@
             <DropDownText :items="verdict.filenumber" :id="verdict.documentnumber + 'drop'" />
           </b-col>
         </b-row>
-
-        <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
-        <b-row class="bottom-margin">
-          <ExpandableText :content="norms" :content-brief="normsBrief" :id="verdict.documentnumber + 'exp'" />
-        </b-row>
       </b-container>
 
       <!-- Texte !-->
-      <h5>Leitsatz</h5>
-      <b-card-text class="text-padding">{{ verdict.keysentence }}</b-card-text>
-      <h5>Tenor</h5>
-      <b-card-text class="text-padding">{{ verdict.tenor }}</b-card-text>
+      <div v-if="verdict.keysentence" class="bottom-margin">
+        <h5>Leitsatz</h5>
+        <div class="icon-container" @click="copyToClipboard(verdict.documentnumber + 'keysentence')" v-b-tooltip.click title="Kopiert">
+          <b-icon-clipboard class="icon" />
+        </div>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
+      </div>
+      <div v-if="verdict.tenor" class="bottom-margin">
+        <h5>Tenor</h5>
+        <div class="icon-container" @click="copyToClipboard(verdict.documentnumber + 'tenor')" v-b-tooltip.click title="Kopiert">
+          <b-icon-clipboard class="icon" />
+        </div>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ verdict.tenor }}</b-card-text>
+      </div>
+
+      <b-container>
+        <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
+        <b-row>
+          <ExpandableText :content="norms" :content-brief="normsBrief" :id="verdict.documentnumber + 'exp'" />
+        </b-row>
+      </b-container>
 
       <template #footer>
         <!-- Date/Ecli row !-->
         <b-row>
           <b-col class="footer-color">
-            <b-card-text>
-              {{ verdict.date }}
-            </b-card-text>
-          </b-col>
-          <b-col class="al-right footer-color">
             <b-card-text>
               {{verdict.ecli}}
             </b-card-text>
@@ -61,6 +68,7 @@
 
 import DropDownText from "@/components/DropDownText";
 import ExpandableText from "@/components/ExpandableText";
+import { colorDictionary } from "@/services/ColorService";
 
 export default {
   name: "VerdictTile",
@@ -75,6 +83,7 @@ export default {
     return {
       norms: '',
       normsBrief: '',
+      colorClass: '',
     }
   },
   created() {
@@ -85,6 +94,19 @@ export default {
     } else {
       // TODO: Dann auch dafür sorgen, dass das Ding nicht expandable ist
       this.normsBrief = norms.join(', ')
+    }
+
+    this.colorClass = colorDictionary[this.verdict.documenttype]
+  },
+  methods: {
+    copyToClipboard(id) {
+      const text = document.querySelector('#' + id).innerHTML
+      const elem = document.createElement("textarea")
+      document.body.appendChild(elem)
+      elem.value = text
+      elem.select()
+      document.execCommand("copy")
+      document.body.removeChild(elem)
     }
   }
 }
@@ -120,8 +142,6 @@ export default {
     border-radius: .25rem;
     padding: 14px 12px;
     border: none;
-
-    background-color: rgba(255, 0, 0, 0.59);
   }
 
   .doc-type-text {
@@ -141,11 +161,25 @@ export default {
     color: rgba(69,69,69,0.5);
   }
 
-  .border-color {
-    border-color: rgba(255, 0, 0, 0.5);
+  h5 {
+    display: inline;
+    margin-right: 8px;
   }
 
-  .card-footer {
-    border-top: 1px solid rgba(255, 0, 0, 0.2);
+  .icon-container {
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .icon-container:hover {
+    background: rgba(75,75,75,0.15);
+  }
+
+  .icon {
+    position: relative;
+    left: 4px;
   }
 </style>

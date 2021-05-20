@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="svg4038" viewBox="0 0 150 30" width="2419px" height="115" xmlns="http://www.w3.org/2000/svg">
+  <style>.st0{clip-path:url(#SVGID_2_)}.st1{fill:#1e1f1d}.st2{fill:#a21d29}</style>
+  <g id="g4046" transform="matrix(1.25 0 0 -1.25 0 30)">
+    <g id="g4048">
+      <defs>
+        <path id="SVGID_1_" d="M-65.2-3h652.5v30H-65.2z"/>
+      </defs>
+      <clipPath id="SVGID_2_">
+        <path d="M-65.2-3h652.5v30H-65.2z" transform="matrix(1, 0, 0, 1, 0, 0)" overflow="visible"/>
+      </clipPath>
+      <g id="g4050" class="st0">
+        <path id="path4122" class="st2" d="M0 16h50V2H0v14z"/>
+        <path id="path4124" class="st2" d="M70 16h50V2H70v14z"/>
+        <path id="path4126" class="st2" d="M53 24h14V0H53v24z"/>
+      </g>
+    </g>
+  </g>
+</svg>

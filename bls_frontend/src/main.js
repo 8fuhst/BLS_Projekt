@@ -6,6 +6,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import './assets/css/colors.css';
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)

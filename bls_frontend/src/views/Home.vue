@@ -3,7 +3,7 @@
     <b-container class="center">
       <h3>Neue Urteile:</h3>
       <b-row>
-        <VerdictTileList :verdicts="verdicts" />
+        <VerdictTileList />
       </b-row>
     </b-container>
   </div>
@@ -17,11 +17,6 @@ export default {
   name: 'Home',
   components: {
     VerdictTileList,
-  },
-  computed: {
-    verdicts() {
-      return this.$store.getters.getVerdicts
-    }
   },
   mounted() {
     this.$store.dispatch('setQuery', '')

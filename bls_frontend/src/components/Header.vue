@@ -1,7 +1,8 @@
 <template>
     <div class="margin">
-      <b-navbar toggleable="lg" type="dark" variant="primary">
-        <b-navbar-brand to="/">BLS-Tool</b-navbar-brand>
+      <b-navbar toggleable="lg" type="dark" class="color">
+        <!-- TODO: Logo größe anpassen !-->
+        <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -11,6 +12,7 @@
           </b-navbar-nav>
         </b-collapse>
 
+        <!-- TODO: Responsive ist die Searchbar weird !-->
         <b-nav-form @submit.prevent="onSubmit" v-if="currentRoute.name !== 'Search'">
           <b-form-input size="sm" v-model="newQuery" class="mr-sm-2" placeholder="Search..."></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
@@ -39,7 +41,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('setQuery', this.newQuery)
+      this.$store.commit('setQuery', this.newQuery)
       this.$router.push('suche')
     },
   },
@@ -49,5 +51,14 @@ export default {
 <style scoped>
   .margin {
     margin-bottom: 54px;
+  }
+
+  .color {
+    background-color: rgb(162, 30, 41);
+  }
+
+  .logo {
+    height: 40px;
+    width: 140px;
   }
 </style>

@@ -11,8 +11,10 @@ import VerdictTile from "@/components/VerdictTile";
 
 export default {
   name: "VerdictTileList",
-  props: {
-    verdicts: Array,
+  computed: {
+    verdicts() {
+      return this.$store.getters.getVerdicts
+    }
   },
   components: {VerdictTile}
 }

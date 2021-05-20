@@ -1,10 +1,10 @@
 <template>
   <div>
     <Searchbar />
-    <b-container class="center" v-if="verdicts.length !== 0">
+    <b-container class="center">
       <h3>Ergebnisse:</h3>
       <b-row>
-        <VerdictTileList :verdicts="verdicts" />
+        <VerdictTileList />
       </b-row>
     </b-container>
   </div>
@@ -21,10 +21,13 @@ export default {
     VerdictTileList
   },
   computed: {
-    verdicts() {
-      return this.$store.getters.getVerdicts
+    query() {
+      return this.$store.getters.getQuery
     }
   },
+  mounted() {
+    this.$store.dispatch('setQuery', this.query)
+  }
 }
 </script>
 
