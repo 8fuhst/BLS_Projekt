@@ -108,9 +108,13 @@ def extract_links_from_toc_xml():
     doc = ET.parse("./rii-toc.xml")
     root = doc.getroot()
 
+    counter = 0
     with open("links.txt", "w") as file:
         for item in root:
+            if counter > 100:
+                break
             file.write(str(item.find('link').text) + "\n")
+            counter += 1
 
 def update_database(linklist):
     """
