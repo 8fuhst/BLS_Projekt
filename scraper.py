@@ -134,7 +134,7 @@ def update_database(linklist):
         json_list.append(json_object)
     if len(linklist) == len(json_list):
          for json_object in json_list:
-            es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datanbank zu speichern
+            es.index(index='verdicts2', doc_type='verdict', body=json_object)  #todo wegnehmen um in datanbank zu speichern
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
