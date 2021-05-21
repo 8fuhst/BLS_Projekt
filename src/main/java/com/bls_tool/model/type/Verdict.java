@@ -3,6 +3,7 @@ package com.bls_tool.model.type;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
+@Document(indexName = "verdicts2") //
 public class Verdict {
     private Court court; // Gericht
     private String date; // Entscheidungsdatum
