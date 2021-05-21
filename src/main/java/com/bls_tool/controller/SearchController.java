@@ -20,11 +20,12 @@ public class SearchController {
     public Page<Verdict> search(@RequestParam(required = false) String query) {
         // JSONArray result = new JSONArray();
 
-        // TODO: Suche in DB
-        Verdict verdict1 = new Verdict();
-        JSONObject verdict_json = verdict1.toJsonMetadata();
+        Page<Verdict> verdictByQuery
+                = verdictRepository.findVerdictBy(query, PageRequest.of(0, 10)); // todo alle ergebnisse? Page request?
 
-        result.add(verdict_json);
+        // Verdict verdict1 = new Verdict();
+        // JSONObject verdict_json = verdict1.toJsonMetadata();
+        // result.add(verdict_json);
 
         return verdictByQuery;
     }
