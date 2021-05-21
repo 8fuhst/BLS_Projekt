@@ -10,7 +10,7 @@ import json
 from elasticsearch import Elasticsearch
 from shutil import copyfile
 
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
 # TODO: Call once per day
 def update_xml_table_of_contents():
@@ -126,14 +126,11 @@ def update_database(linklist):
     #         count = count + 1
     json_list = []
     for link in linklist:
-        try:
-            json_object = get_xml_from_file(link)
-        except UnicodeDecodeError:
-            print(json_list[len(json_list)-1]) # todo Bilder betrachten
+        json_object = get_xml_from_file(link)  # todo Bilder betrachten
         json_list.append(json_object)
     if len(linklist) == len(json_list):
-        #for json_object in json_list:
-            #es.index(index='verdicts', doc_type='verdict', body=json_object)
+         for json_object in json_list:
+            es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datanbank zu speichern
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
