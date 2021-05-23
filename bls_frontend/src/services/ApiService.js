@@ -1,9 +1,12 @@
+import {VerdictModel} from "@/models/verdict-model";
 
 export default class ApiService {
     async fetchVerdicts(query) {
         try {
             const res = await fetch(`api/search?query=` + query)
-            return await res.json()
+            let data = await res.json()
+            data = data.map((verdict) => new VerdictModel(verdict))
+            return data
         } catch (e) {
             console.log('Error requesting verdicts!')
         }

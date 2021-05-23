@@ -72,7 +72,7 @@ export default {
     width: auto;
     text-align: left;
 
-    padding: 13px 12px;
+    padding: 13px 12px 13px 10px;
 
     z-index: 1;
   }

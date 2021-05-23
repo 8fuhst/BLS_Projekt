@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "Verdict"
+  name: "VerdictView"
 }
 </script>
 

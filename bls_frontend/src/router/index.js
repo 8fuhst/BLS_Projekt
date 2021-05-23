@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Verdict from "@/views/Verdict";
+import Verdict from "@/views/VerdictView";
 import Search from "@/views/Search";
 
 Vue.use(VueRouter)

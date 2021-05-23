@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
   .margin {
-    margin-bottom: 54px;
+    margin-bottom: 27px;
   }
 
   .color {

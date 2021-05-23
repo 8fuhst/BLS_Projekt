@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 import ApiService from "../services/ApiService.js";
 
 const apiService = new ApiService()
-
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
