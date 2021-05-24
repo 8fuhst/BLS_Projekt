@@ -1,7 +1,7 @@
 <template>
   <div class="expandable-text">
     <b-collapse :id="id">
-      <b-card-text class="text">
+      <b-card-text class="text" :id="textId">
         {{ content }}
       </b-card-text>
       <b-icon-chevron-down :rotate="showFullContent ? -180 : 0" class="show-more-less" v-b-toggle="id" @click="toggleShowFullContent" />
@@ -15,6 +15,7 @@ export default {
   props: {
     content: String,
     id: String,
+    textId: String,
   },
   data() {
     return {
@@ -31,18 +32,16 @@ export default {
 
 <style scoped>
   .expandable-text {
-    min-height: 54px;
+    min-height: 24px;
     width: 100%;
 
     color: black;
     background: white;
-    border: 1px solid rgba(0, 0, 0, .3);
-    border-radius: .25rem;
 
     text-align: center;
     vertical-align: middle;
 
-    padding: 14px 12px;
+    padding: 0px 12px;
 
     text-align: left;
   }

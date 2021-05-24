@@ -56,6 +56,35 @@
     background-color: rgba(0, 136, 255, 0.59);
 }
 
+.beschluss-color {
+    border-color: rgba(8, 178, 0, 0.59);
+}
+
+.beschluss-color div div div div a {
+    background-color: rgba(8, 178, 0, 0.59);
+}
+
+.beschluss-color div div div div a:hover {
+    background-color: rgba(8, 178, 0, 0.7);
+}
+
+.beschluss-color div div div div a:focus {
+    background-color: rgba(8, 178, 0, 0.59);
+    box-shadow: 0 0 0 3px rgba(8, 178, 0, 0.25) !important;
+}
+
+.beschluss-color div div div div a:active {
+    background-color: rgba(8, 178, 0, 0.85) !important;
+}
+
+.beschluss-color .card-footer {
+    border-top: 1px solid rgba(8, 178, 0, 0.2);
+}
+
+.beschluss-color div div div div div span {
+    background-color: rgba(8, 178, 0, 0.59);
+}
+
 .default-color {
     border-color: rgba(42, 46, 49, 0.59);
 }
