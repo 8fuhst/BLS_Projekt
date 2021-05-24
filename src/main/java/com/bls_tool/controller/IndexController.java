@@ -11,7 +11,7 @@ public class IndexController {
 
     @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model) {
-        String message = "Hallo, für die Dummydaten bitte auf /urteil zugreifen!";
+        String message = "Hallo, für die Dummydaten bitte auf /verdict zugreifen!";
 
         model.addAttribute("message", message);
 
