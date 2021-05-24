@@ -2,6 +2,10 @@ package com.bls_tool.model.type;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+
 
 @Document(indexName = "verdicts2") //
 public class Verdict {
@@ -12,6 +16,7 @@ public class Verdict {
     private String documenttype; // Dokumenttyp
     private String[] norms; // Normen
     private String reasons; // Gründe
+    @Id
     private String documentnumber; // Dokumentennummer todo eindeutig? -> id
     private String courtlocation; // Gerichts-Ort todo
     private String spruchkoerper; // Spruchkörper
