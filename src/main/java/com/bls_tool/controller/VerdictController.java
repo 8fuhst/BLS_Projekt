@@ -27,7 +27,7 @@ public class VerdictController {
     @GetMapping
     @ResponseBody
     public Verdict getSpecificVerdict(@RequestParam String documentnumber) {
-        Verdict verdict = verdictRepository.findVerdictByDocumentnumber(documentnumber);
+        Verdict verdict = verdictRepository.findByDocumentnumber(documentnumber);
         return verdict;
     }
 }

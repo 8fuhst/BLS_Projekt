@@ -4,17 +4,27 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 
-
-@Document(indexName = "verdicts2") //
+@Document(indexName = "verdicts") //
 public class Verdict {
+    @Id
+    private String _id;
+    @Field(type = FieldType.Keyword, name = "court")
     private Court court; // Gericht
-    private String date; // Entscheidungsdatum
-    private String[] filenumber; // Aktenzeiche
+    @Field(type = FieldType.Integer, name = "date")
+    private int date; // Entscheidungsdatum
+    @Field(type = FieldType.Keyword, name = "filenumber")
+    private String[] filenumber; // Aktenzeichen
+    @Field(type = FieldType.Keyword, name = "ecli")
     private String ecli; // ECLI
+    @Field(type = FieldType.Keyword, name = "documenttype")
     private String documenttype; // Dokumenttyp
+    @Field(type = FieldType.Keyword, name = "norms")
     private String[] norms; // Normen
+    @Field(type = FieldType.Text, name = "reasons")
     private String reasons; // Gründe
     @Id
     private String documentnumber; // Dokumentennummer todo eindeutig? -> id
@@ -45,7 +55,7 @@ public class Verdict {
         this.mitwirkung = "Fuhst & Co. KG";
         this.documentnumber = "KVRE443182101";
         this.court = Court.BVerfG;
-        this.date = "05.05.2021";
+        this.date = 20210505;
         this.filenumber = new String[]{"1 BvR 781/21", "1 BvR 805/2", "1 BvR 820/21", "1 BvR 854/21", "1 BvR 889/21"};
         this.ecli = "ECLI:DE:BVerfG:2021:rs20210505.1bvr078121";
         this.documenttype = "Ablehnung einstweilige Anordnung";
@@ -294,7 +304,7 @@ public class Verdict {
         return court;
     }
 
-    public String getDate(){
+    public int getDate(){
         return date;
     }
 

@@ -20,16 +20,15 @@ public class SearchController {
 
     @GetMapping("/search")
     @ResponseBody
-    public Page<Verdict> search(@RequestParam(required = false) String query) {
-        // JSONArray result = new JSONArray();
+    public List<Verdict> search(@RequestParam(required = false) String query) {
 
-        Page<Verdict> verdictByQuery
-                = verdictRepository.findVerdictBy(query, PageRequest.of(0, 10)); // todo alle ergebnisse? Page request?
+        List<Verdict> verdictByQuery
+                = verdictRepository.findAllByTitleLike(query); // todo alle ergebnisse? Page request?
 
-        // Verdict verdict1 = new Verdict();
-        // JSONObject verdict_json = verdict1.toJsonMetadata();
-        // result.add(verdict_json);
+        List<Verdict> second_list = verdictRepository.findAllByTenorOrOffenseOrReasonsOrReasonfordecision(query, query, query, query);
+        second_list.removeAll(verdictByQuery);
 
+        verdictByQuery.addAll(second_list);
         return verdictByQuery;
     }
 
