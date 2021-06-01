@@ -85,8 +85,10 @@ def eval_xml(xml_string):
         # Iterate through child tags of a tag:
         for child in doc.find(tag).iter():
             if child.text and not child.text.startswith("\n"):
-                tag_array.append(child.text)  # Append child tag to array
-        # If the array only contains one element, or the tag doesn't have child-tags,
+                if tag == 'entsch-datum':
+                    tag_array.append(int(child.text)) # Append child date to array as int
+                else:
+                    tag_array.append(child.text)  # Append child tag to array        # If the array only contains one element, or the tag doesn't have child-tags,
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
             result_dict[tags_translation[tag]] = tag_array[0]
