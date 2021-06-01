@@ -5,7 +5,7 @@ export default class ApiService {
         try {
             const res = await fetch(`api/search?query=` + query)
             let data = await res.json()
-            data = data.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict))
             return data
         } catch (e) {
             console.log('Error requesting verdicts!')

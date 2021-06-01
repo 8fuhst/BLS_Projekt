@@ -6,12 +6,12 @@ export const colorDictionary = {
     ['nichtannahmebeschluss']: '',
     ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: '',
     ['stattgebender kammerbeschluss']: '',
-    ['beschluss']: '',
+    ['beschluss']: 'beschluss-color',
 };
 
 export class ColorService {
     constructor() {
-        //this.generateColor('urteil', '0, 136, 255')
+        //this.generateColor('beschluss', '8, 178, 0')
     }
 
     colorClass(docType) {

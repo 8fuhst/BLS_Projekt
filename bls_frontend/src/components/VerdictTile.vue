@@ -15,20 +15,20 @@
         </b-row>
 
         <b-row class="bottom-margin text-padding">
-          <b-card-text>{{ verdict.date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+          <b-card-text>{{ date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>
 
         <b-row class="bottom-margin">
           <KeyWordTags :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']" />
         </b-row>
-
-        <!-- Aktenzeichen row !-->
-        <b-row class="bottom-margin">
-          <b-col class="aktenzeichen no-side-padding">
-            <DropDownText :items="verdict.filenumber" :id="verdict.documentnumber + 'drop'" />
-          </b-col>
-        </b-row>
       </b-container>
+
+      <!-- Aktenzeichen row !-->
+      <div v-if="verdict.filenumber" class="bottom-margin">
+        <h5>Aktenzeichen</h5>
+        <CopyButton :id="verdict.documentnumber + 'filenumber'" />
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
+      </div>
 
       <!-- Texte !-->
       <div v-if="verdict.keysentence" class="bottom-margin">
@@ -42,10 +42,18 @@
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ verdict.tenor }}</b-card-text>
       </div>
 
+
       <b-container v-if="verdict.norms">
+        <h5 class="no-indent">Normen</h5>
+        <CopyButton :id="verdict.documentnumber + 'norms'" />
         <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
-        <b-row>
-          <ExpandableText :content="norms" :id="verdict.documentnumber + 'exp'" />
+
+        <b-row v-if="showNormsExpandable">
+          <ExpandableText :content="norms" :id="verdict.documentnumber + 'exp'" :textId="verdict.documentnumber + 'norms'" />
+        </b-row>
+
+        <b-row class="text-padding" v-if="!showNormsExpandable">
+          <b-card-text :id="verdict.documentnumber + 'norms'">{{ norms }}</b-card-text>
         </b-row>
       </b-container>
 
@@ -66,7 +74,6 @@
 
 <script>
 
-import DropDownText from "@/components/DropDownText";
 import ExpandableText from "@/components/ExpandableText";
 import {ColorService} from "@/services/ColorService";
 import CopyButton from "@/components/CopyButton";
@@ -84,22 +91,34 @@ export default {
     KeyWordTags,
     CopyButton,
     ExpandableText,
-    DropDownText,
   },
   data() {
     return {
       norms: '',
-      normsBrief: '',
       colorClass: '',
+      date: '',
+      showNormsExpandable: false,
+      filenumbers: '',
     }
   },
   created() {
     if (this.verdict.norms) {
       const norms = this.verdict.norms.slice(0)
-      this.norms = norms.join(',   ');
+      this.norms = norms.join(', ');
+      if (this.norms.length > 50) {
+        this.showNormsExpandable = true
+      }
+    }
+
+    if (this.verdict.filenumber) {
+      const filenumbers = this.verdict.filenumber.slice(0)
+      this.filenumbers = filenumbers.join(', ');
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
+
+    const date = this.verdict.date
+    this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   },
 }
 </script>
@@ -126,6 +145,10 @@ export default {
   h5 {
     display: inline;
     margin-right: 8px;
+  }
+
+  .no-indent {
+    margin-left: -15px;
   }
 
   .inline-text {

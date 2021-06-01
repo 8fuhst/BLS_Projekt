@@ -17,7 +17,6 @@ export default {
 
 <style scoped>
   .key-words-container {
-    margin-bottom: 4px;
     padding: 0 8px;
   }
 
