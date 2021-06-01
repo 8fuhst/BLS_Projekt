@@ -5,19 +5,32 @@ export default class ApiService {
         try {
             const res = await fetch(`api/search?query=` + query)
             let data = await res.json()
-            data = data.content.map((verdict) => new VerdictModel(verdict))
+            data = data.map((verdict) => new VerdictModel(verdict))
             return data
         } catch (e) {
-            console.log('Error requesting verdicts!')
+            console.log('Error requesting verdicts by query: ' + e)
         }
     }
 
-    async fetchVerdict() {
+    async fetchVerdict(documentnumber) {
         try {
-            const res = await fetch(`api/verdict`)
-            return await res.json()
+            const res = await fetch(`api/verdict?documentnumber=` + documentnumber)
+            let data = await res.json()
+            data = new VerdictModel(data)
+            return data
         } catch (e) {
-            console.log('Error requesting verdicts!')
+            console.log('Error requesting verdict by documentnumber: ' + e)
+        }
+    }
+
+    async fetchNewest() {
+        try {
+            const res = await fetch(`api/newest`)
+            let data = await res.json()
+            data = data.content.map((verdict) => new VerdictModel(verdict))
+            return data
+        } catch (e) {
+            console.log('Error requesting newest verdicts: ' + e)
         }
     }
 }

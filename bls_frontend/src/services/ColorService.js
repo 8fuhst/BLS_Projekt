@@ -2,11 +2,13 @@
 export const colorDictionary = {
     ['ablehnung einstweilige anordnung']: 'ablehnung-color',
     ['urteil']: 'urteil-color',
+    ['teilurteil']: '',
     // TODO: Farben aussuchen, generieren
     ['nichtannahmebeschluss']: '',
     ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: '',
     ['stattgebender kammerbeschluss']: '',
     ['beschluss']: 'beschluss-color',
+    ['vorlagebeschluss']: '',
 };
 
 export class ColorService {
@@ -36,20 +38,20 @@ export class ColorService {
             '    border-color: rgba(' + rgb + ', 0.59);\n' +
             '}\n' +
             '\n' +
-            '.' + name + '-color div div div div a {\n' +
+            '.' + name + '-color div div div div button {\n' +
             '    background-color: rgba(' + rgb + ', 0.59);\n' +
             '}\n' +
             '\n' +
-            '.' + name + '-color div div div div a:hover {\n' +
+            '.' + name + '-color div div div div button:hover {\n' +
             '    background-color: rgba(' + rgb + ', 0.7);\n' +
             '}\n' +
             '\n' +
-            '.' + name + '-color div div div div a:focus {\n' +
+            '.' + name + '-color div div div div button:focus {\n' +
             '    background-color: rgba(' + rgb + ', 0.59);\n' +
             '    box-shadow: 0 0 0 3px rgba(' + rgb + ', 0.25) !important;\n' +
             '}\n' +
             '\n' +
-            '.' + name + '-color div div div div a:active {\n' +
+            '.' + name + '-color div div div div button:active {\n' +
             '    background-color: rgba(' + rgb + ', 0.85) !important;\n' +
             '}\n' +
             '\n' +

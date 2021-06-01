@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="margin">
     <b-container class="center">
       <h3>Neue Urteile:</h3>
       <b-row>
@@ -11,7 +11,7 @@
 
 <script>
 // @ is an alias to /src
-import VerdictTileList from "@/components/VerdictTileList";
+import VerdictTileList from "@/components/VerdictTileComponents/VerdictTileList";
 
 export default {
   name: 'Home',
@@ -19,13 +19,17 @@ export default {
     VerdictTileList,
   },
   mounted() {
-    this.$store.dispatch('setQuery', '')
+    this.$store.dispatch('getNewest')
   }
 }
 </script>
 
 <style scoped>
-.center {
-  max-width: 480px;
-}
+  .center {
+    max-width: 480px;
+  }
+
+  .margin {
+    margin-top: 27px;
+  }
 </style>

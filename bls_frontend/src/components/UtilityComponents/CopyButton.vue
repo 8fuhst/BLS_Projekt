@@ -1,5 +1,5 @@
 <template>
-  <div class="icon-container" @click="copyToClipboard(id)" v-on:mouseleave="noCopied" v-b-tooltip.hover :title="copied ? 'Kopiert!' : 'Kopieren'">
+  <div class="icon-container" @click="copyToClipboard(textId)" v-on:mouseleave="noCopied" v-b-tooltip.hover :title="copied ? 'Kopiert!' : 'Kopieren'">
     <b-icon-clipboard class="icon" />
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: "CopyButton",
   props: {
-    id: String,
+    textId: String,
   },
   data() {
     return {

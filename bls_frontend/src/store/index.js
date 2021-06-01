@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import ApiService from "../services/ApiService.js";
+import {VerdictModel} from "@/models/verdict-model";
 
 const apiService = new ApiService()
 Vue.use(Vuex)
@@ -9,6 +10,7 @@ export default new Vuex.Store({
   state: {
     query: '',
     verdicts: [],
+    currentVerdict: new VerdictModel(null),
   },
   mutations: {
     setVerdicts(state, payload) {
@@ -16,6 +18,9 @@ export default new Vuex.Store({
     },
     setQuery(state, payload) {
       state.query = payload
+    },
+    setVerdict(state, payload) {
+      state.currentVerdict = payload
     }
   },
   actions: {
@@ -23,6 +28,14 @@ export default new Vuex.Store({
       state.commit('setQuery', newQuery)
       const verdicts = await apiService.fetchVerdicts(newQuery)
       state.commit('setVerdicts', verdicts)
+    },
+    async getNewest(state) {
+      const verdicts = await apiService.fetchNewest()
+      state.commit('setVerdicts', verdicts)
+    },
+    async setCurrent(state, documentnumber) {
+      const verdict = await apiService.fetchVerdict(documentnumber)
+      state.commit('setVerdict', verdict)
     }
   },
   modules: {
@@ -30,5 +43,6 @@ export default new Vuex.Store({
   getters: {
     getVerdicts: state => state.verdicts,
     getQuery: state => state.query,
+    getCurrentVerdict: state => state.currentVerdict,
   }
 })
