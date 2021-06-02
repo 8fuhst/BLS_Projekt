@@ -47,7 +47,7 @@ public class Verdict {
     /**
      * Erstmal noch mit Dummy-Daten
      */
-    public Verdict(/*Gericht court, String date, String[] filenumber, String ecli, String documenttype, String[] norms*/) {
+    /*public Verdict(/*Gericht court, String date, String[] filenumber, String ecli, String documenttype, String[] norms) {
         this.courtlocation = "Karlsruhe";
         this.spruchkoerper = "1. Senat";
         this.previouscourt = new String[]{"vorgehend OLG Köln, 30. April 2020, Az: I-25 U 53/18", "vorgehend LG Aachen, 26. Oktober 2018, Az: 7 O 115/18"};
@@ -293,7 +293,7 @@ public class Verdict {
     this.other = "Nichts";
     this.identifier = "http://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&amp;docid=KVRE443182101&amp;psml=bsjrsprod.psml&amp;max=true";
     // this.plaintext = ""; todo
-    }
+    }*/
 
 
     public String getDocumentnumber() {
@@ -320,17 +320,17 @@ public class Verdict {
         return documenttype;
     }
 
-    public String getLongtext(){
+    /*public String getLongtext(){
         return reasons;
-    }
+    }*/
 
     public String[] getNorms(){
         return norms;
     }
 
-    private String getReasonfordecision() { return reasonfordecision; }
+    private String[] getReasonfordecision() { return reasonfordecision; }
 
-    public String getReason() { return reasons; }
+    /*public String getReason() { return reasons; }*/
 
     public String getAbwmeinung() {return abwmeinung; }
 
@@ -358,11 +358,15 @@ public class Verdict {
         return title;
     }
 
-    public String getReasons() {
+    public String[] getReasons() {
         return reasons;
     }
 
-    public String getKeysentence() {
+    public String[] getReasonsForDecision() {
+        return reasonfordecision;
+    }
+
+    public String[] getKeysentence() {
         return keysentence;
     }
 
@@ -370,11 +374,11 @@ public class Verdict {
         return miscsentence;
     }
 
-    public String getTenor() {
+    public String[] getTenor() {
         return tenor;
     }
 
-    public String getOffense() {
+    public String[] getOffense() {
         return offense;
     }
 
