@@ -26,7 +26,6 @@ public class Verdict {
     private String[] norms; // Normen
     @Field(type = FieldType.Text, name = "reasons")
     private String reasons; // Gründe
-    @Id
     private String documentnumber; // Dokumentennummer todo eindeutig? -> id
     private String courtlocation; // Gerichts-Ort todo
     private String spruchkoerper; // Spruchkörper

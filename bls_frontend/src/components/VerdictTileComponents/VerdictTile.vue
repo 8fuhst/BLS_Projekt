@@ -5,7 +5,7 @@
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
           <b-col class="no-side-padding">
-            <b-button  to="/urteil" class="doc-type-tag">
+            <b-button @click="setCurrentVerdict" class="doc-type-tag">
               <b-card-text class="inline-text">
                 {{ verdict.documenttype }}
               </b-card-text>
@@ -26,26 +26,26 @@
       <!-- Aktenzeichen row !-->
       <div v-if="verdict.filenumber" class="bottom-margin">
         <h5>Aktenzeichen</h5>
-        <CopyButton :id="verdict.documentnumber + 'filenumber'" />
+        <CopyButton :textId="verdict.documentnumber + 'filenumber'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
 
       <!-- Texte !-->
       <div v-if="verdict.keysentence" class="bottom-margin">
-        <h5>Leitsatz</h5>
-        <CopyButton :id="verdict.documentnumber + 'keysentence'" />
+        <h5 class="linktest" @click="setCurrentVerdict">Leitsatz</h5>
+        <CopyButton :textId="verdict.documentnumber + 'keysentence'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
       </div>
       <div v-if="verdict.tenor" class="bottom-margin">
-        <h5>Tenor</h5>
-        <CopyButton :id="verdict.documentnumber + 'tenor'" />
+        <h5 class="linktest" @click="setCurrentVerdict">Tenor</h5>
+        <CopyButton :textId="verdict.documentnumber + 'tenor'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ verdict.tenor }}</b-card-text>
       </div>
 
 
       <b-container v-if="verdict.norms">
         <h5 class="no-indent">Normen</h5>
-        <CopyButton :id="verdict.documentnumber + 'norms'" />
+        <CopyButton :textId="verdict.documentnumber + 'norms'"/>
         <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
 
         <b-row v-if="showNormsExpandable">
@@ -74,9 +74,9 @@
 
 <script>
 
-import ExpandableText from "@/components/ExpandableText";
+import ExpandableText from "@/components/UtilityComponents/ExpandableText";
 import {ColorService} from "@/services/ColorService";
-import CopyButton from "@/components/CopyButton";
+import CopyButton from "@/components/UtilityComponents/CopyButton";
 import {VerdictModel} from "@/models/verdict-model";
 import KeyWordTags from "@/components/KeyWordTags";
 
@@ -105,7 +105,7 @@ export default {
     if (this.verdict.norms) {
       const norms = this.verdict.norms.slice(0)
       this.norms = norms.join(', ');
-      if (this.norms.length > 50) {
+      if (this.norms.length > 50 ) {
         this.showNormsExpandable = true
       }
     }
@@ -117,9 +117,15 @@ export default {
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
 
-    const date = this.verdict.date
+    const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   },
+  methods: {
+    setCurrentVerdict() {
+      this.$store.dispatch('setCurrent', this.verdict.documentnumber)
+      this.$router.push('urteil')
+    }
+  }
 }
 </script>
 
@@ -164,7 +170,7 @@ export default {
     display: inline-block;
     min-height: 54px;
     width: auto;
-    border-radius: .25rem;
+    border-radius: 4px;
     padding: 14px 12px;
     border: none;
     color: white;

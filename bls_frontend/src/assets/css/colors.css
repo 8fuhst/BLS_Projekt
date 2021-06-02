@@ -2,20 +2,20 @@
     border-color: rgba(255, 0, 0, 0.59);
 }
 
-.ablehnung-color div div div div a {
+.ablehnung-color div div div div button {
     background-color: rgba(255, 0, 0, 0.59);
 }
 
-.ablehnung-color div div div div a:hover {
+.ablehnung-color div div div div button:hover {
     background-color: rgba(255, 0, 0, 0.7);
 }
 
-.ablehnung-color div div div div a:focus {
+.ablehnung-color div div div div button:focus {
     background-color: rgba(255, 0, 0, 0.59);
     box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25) !important;
 }
 
-.ablehnung-color div div div div a:active {
+.ablehnung-color div div div div button:active {
     background-color: rgba(255, 0, 0, 0.85) !important;
 }
 
@@ -31,20 +31,20 @@
     border-color: rgba(0, 136, 255, 0.59);
 }
 
-.urteil-color div div div div a {
+.urteil-color div div div div button {
     background-color: rgba(0, 136, 255, 0.59);
 }
 
-.urteil-color div div div div a:hover {
+.urteil-color div div div div button:hover {
     background-color: rgba(0, 136, 255, 0.7);
 }
 
-.urteil-color div div div div a:focus {
+.urteil-color div div div div button:focus {
     background-color: rgba(0, 136, 255, 0.59);
     box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.25) !important;
 }
 
-.urteil-color div div div div a:active {
+.urteil-color div div div div button:active {
     background-color: rgba(0, 136, 255, 0.85) !important;
 }
 
@@ -60,20 +60,20 @@
     border-color: rgba(8, 178, 0, 0.59);
 }
 
-.beschluss-color div div div div a {
+.beschluss-color div div div div button {
     background-color: rgba(8, 178, 0, 0.59);
 }
 
-.beschluss-color div div div div a:hover {
+.beschluss-color div div div div button:hover {
     background-color: rgba(8, 178, 0, 0.7);
 }
 
-.beschluss-color div div div div a:focus {
+.beschluss-color div div div div button:focus {
     background-color: rgba(8, 178, 0, 0.59);
     box-shadow: 0 0 0 3px rgba(8, 178, 0, 0.25) !important;
 }
 
-.beschluss-color div div div div a:active {
+.beschluss-color div div div div button:active {
     background-color: rgba(8, 178, 0, 0.85) !important;
 }
 
@@ -89,20 +89,20 @@
     border-color: rgba(42, 46, 49, 0.59);
 }
 
-.default-color div div div div a {
+.default-color div div div div button {
     background-color: rgba(42, 46, 49, 0.59);
 }
 
-.default-color div div div div a:hover {
+.default-color div div div div button:hover {
     background-color: rgba(42, 46, 49, 0.7);
 }
 
-.default-color div div div div a:focus {
+.default-color div div div div button:focus {
     background-color: rgba(42, 46, 49, 0.59);
     box-shadow: 0 0 0 3px rgba(42, 46, 49, 0.25) !important;
 }
 
-.default-color div div div div a:active {
+.default-color div div div div button:active {
     background-color: rgba(42, 46, 49, 0.85) !important;
 }
 

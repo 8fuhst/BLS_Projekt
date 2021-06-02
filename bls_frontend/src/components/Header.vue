@@ -1,5 +1,5 @@
 <template>
-    <div class="margin">
+    <div>
       <b-navbar toggleable="lg" type="dark" class="color">
         <!-- TODO: Logo größe anpassen !-->
         <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
@@ -49,10 +49,6 @@ export default {
 </script>
 
 <style scoped>
-  .margin {
-    margin-bottom: 27px;
-  }
-
   .color {
     background-color: rgb(162, 30, 41);
   }

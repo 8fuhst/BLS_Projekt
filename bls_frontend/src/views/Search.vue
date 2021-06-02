@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="margin">
     <Searchbar />
     <b-container class="center">
       <h3>Ergebnisse:</h3>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import VerdictTileList from "@/components/VerdictTileList";
+import VerdictTileList from "@/components/VerdictTileComponents/VerdictTileList";
 import Searchbar from "@/components/Searchbar";
 
 export default {
@@ -34,5 +34,9 @@ export default {
 <style scoped>
   .center {
     max-width: 480px;
+  }
+
+  .margin {
+    margin-top: 27px;
   }
 </style>
