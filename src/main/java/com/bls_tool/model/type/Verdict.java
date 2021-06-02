@@ -422,6 +422,7 @@ public class Verdict {
         result.put("tenor",tenor);
         result.put("keysentence", keysentence);
         result.put("documentnumber", documentnumber);
+        result.put("title", title);
         return result;
     }
 }
