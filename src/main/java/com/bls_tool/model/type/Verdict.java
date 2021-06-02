@@ -25,22 +25,36 @@ public class Verdict {
     @Field(type = FieldType.Keyword, name = "norms")
     private String[] norms; // Normen
     @Field(type = FieldType.Text, name = "reasons")
-    private String reasons; // Gründe
-    @Id
-    private String documentnumber; // Dokumentennummer todo eindeutig? -> id
+    private String[] reasons; // Gründe
+    @Field(type = FieldType.Keyword, name = "documentnumber")
+    private String documentnumber; // Dokumentennummer
+    @Field(type = FieldType.Text, name = "courtlocation")
     private String courtlocation; // Gerichts-Ort todo
+    @Field(type = FieldType.Text, name = "spruchkoerper")
     private String spruchkoerper; // Spruchkörper
+    @Field(type = FieldType.Text, name = "previouscourt")
     private String[] previouscourt; // Vorinstanzen
+    @Field(type = FieldType.Text, name = "region")
     private String region;
+    @Field(type = FieldType.Text, name = "mitwirkung")
     private String mitwirkung;
+    @Field(type = FieldType.Text, name = "title")
     private String title; // Titelzeile
-    private String keysentence; // Leitsatz
+    @Field(type = FieldType.Text, name = "keysentence")
+    private String[] keysentence; // Leitsatz
+    @Field(type = FieldType.Text, name = "miscsentence")
     private String miscsentence; // Sonstosatz
-    private String tenor;
-    private String offense; // Tatbestand
-    private String reasonfordecision; // Entscheidungsgründe
+    @Field(type = FieldType.Text, name = "tenor")
+    private String[] tenor;
+    @Field(type = FieldType.Text, name = "offense")
+    private String[] offense; // Tatbestand
+    @Field(type = FieldType.Text, name = "reasonfordecision")
+    private String[] reasonfordecision; // Entscheidungsgründe
+    @Field(type = FieldType.Text, name = "abwmeinung")
     private String abwmeinung; // abwmeinung todo was ist das?
+    @Field(type = FieldType.Text, name = "other")
     private String other; // sonstlt
+    @Field(type = FieldType.Keyword, name = "identifier")
     private String identifier; //Juris Link
     //private String plaintext; // Text ohne Formatierungen
 
