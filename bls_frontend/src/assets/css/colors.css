@@ -1,0 +1,115 @@
+.ablehnung-color {
+    border-color: rgba(255, 0, 0, 0.59);
+}
+
+.ablehnung-color div div div div button {
+    background-color: rgba(255, 0, 0, 0.59);
+}
+
+.ablehnung-color div div div div button:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.ablehnung-color div div div div button:focus {
+    background-color: rgba(255, 0, 0, 0.59);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.25) !important;
+}
+
+.ablehnung-color div div div div button:active {
+    background-color: rgba(255, 0, 0, 0.85) !important;
+}
+
+.ablehnung-color .card-footer {
+    border-top: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.ablehnung-color div div div div div span {
+    background-color: rgba(255, 0, 0, 0.59);
+}
+
+.urteil-color {
+    border-color: rgba(0, 136, 255, 0.59);
+}
+
+.urteil-color div div div div button {
+    background-color: rgba(0, 136, 255, 0.59);
+}
+
+.urteil-color div div div div button:hover {
+    background-color: rgba(0, 136, 255, 0.7);
+}
+
+.urteil-color div div div div button:focus {
+    background-color: rgba(0, 136, 255, 0.59);
+    box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.25) !important;
+}
+
+.urteil-color div div div div button:active {
+    background-color: rgba(0, 136, 255, 0.85) !important;
+}
+
+.urteil-color .card-footer {
+    border-top: 1px solid rgba(0, 136, 255, 0.2);
+}
+
+.urteil-color div div div div div span {
+    background-color: rgba(0, 136, 255, 0.59);
+}
+
+.beschluss-color {
+    border-color: rgba(8, 178, 0, 0.59);
+}
+
+.beschluss-color div div div div button {
+    background-color: rgba(8, 178, 0, 0.59);
+}
+
+.beschluss-color div div div div button:hover {
+    background-color: rgba(8, 178, 0, 0.7);
+}
+
+.beschluss-color div div div div button:focus {
+    background-color: rgba(8, 178, 0, 0.59);
+    box-shadow: 0 0 0 3px rgba(8, 178, 0, 0.25) !important;
+}
+
+.beschluss-color div div div div button:active {
+    background-color: rgba(8, 178, 0, 0.85) !important;
+}
+
+.beschluss-color .card-footer {
+    border-top: 1px solid rgba(8, 178, 0, 0.2);
+}
+
+.beschluss-color div div div div div span {
+    background-color: rgba(8, 178, 0, 0.59);
+}
+
+.default-color {
+    border-color: rgba(42, 46, 49, 0.59);
+}
+
+.default-color div div div div button {
+    background-color: rgba(42, 46, 49, 0.59);
+}
+
+.default-color div div div div button:hover {
+    background-color: rgba(42, 46, 49, 0.7);
+}
+
+.default-color div div div div button:focus {
+    background-color: rgba(42, 46, 49, 0.59);
+    box-shadow: 0 0 0 3px rgba(42, 46, 49, 0.25) !important;
+}
+
+.default-color div div div div button:active {
+    background-color: rgba(42, 46, 49, 0.85) !important;
+}
+
+.default-color .card-footer {
+    border-top: 1px solid rgba(42, 46, 49, 0.2);
+}
+
+.default-color div div div div div span {
+    background-color: rgba(42, 46, 49, 0.59);
+}
