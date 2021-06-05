@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import pycurl
+#import pycurl #todo import this
 from io import BytesIO
 from zipfile import ZipFile
 from urllib.request import urlopen
@@ -13,27 +13,28 @@ from shutil import copyfile
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
 # TODO: Call once per day
-def update_xml_table_of_contents():
-    """
-    Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
-    :return:
-    """
-    # Create curl object:
-    curl = pycurl.Curl()
-    # Set certificate:
-    curl.setopt(pycurl.CAINFO, certifi.where())
-    # Set URL:
-    curl.setopt(pycurl.URL, 'https://www.rechtsprechung-im-internet.de/rii-toc.xml')
-    with open('./rii-toc.xml', 'wb') as toc_file:
-        curl.setopt(curl.WRITEFUNCTION, toc_file.write)
-        curl.perform()
-    curl.close()
+def update_xml_table_of_contents(): # todo uncomment this
+    return None
+#     """
+#     Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
+#     :return:
+#     """
+#     # Create curl object:
+#     curl = pycurl.Curl()
+#     # Set certificate:
+#     curl.setopt(pycurl.CAINFO, certifi.where())
+#     # Set URL:
+#     curl.setopt(pycurl.URL, 'https://www.rechtsprechung-im-internet.de/rii-toc.xml')
+#     with open('./rii-toc.xml', 'wb') as toc_file:
+#         curl.setopt(curl.WRITEFUNCTION, toc_file.write)
+#         curl.perform()
+#     curl.close()
 
 #update_xml_table_of_contents()
 
 def get_xml_from_file(xml_link):
     """
-    Unzips the file and converts its to string
+    Unzips the file and converts its content to xml string
     :param xml_link: link for zip file
     """
     first_xml = urlopen(xml_link)
@@ -140,9 +141,11 @@ def update_database(linklist):
     #         es.index(index='verdicts', doc_type='verdict', id=count, body=json_object)
     #         count = count + 1
     json_list = []
+    json_reference_list = []
     for link in linklist:
         json_object = get_xml_from_file(link)  # todo Bilder betrachten
         json_list.append(json_object)
+        json_reference_list.append(json_reference_object) # todo In ES oder in Extradatei?
     if len(linklist) == len(json_list):
          for json_object in json_list:
             es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datanbank zu speichern
