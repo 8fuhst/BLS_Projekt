@@ -9,6 +9,7 @@ import certifi
 import json
 from elasticsearch import Elasticsearch
 from shutil import copyfile
+import references as ref
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
@@ -111,7 +112,7 @@ def eval_xml(xml_string):
 
     json_reference_dict = json.dumps(references_dict)
     json_result_dict = json.dumps(result_dict)  # convert dictionary to json
-    return json_result_dict
+    return json_result_dict, json_reference_dict
     # print(json_result_dict)
 
 # get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
@@ -143,7 +144,7 @@ def update_database(linklist):
     json_list = []
     json_reference_list = []
     for link in linklist:
-        json_object = get_xml_from_file(link)  # todo Bilder betrachten
+        json_object, json_reference_object = get_xml_from_file(link)
         json_list.append(json_object)
         json_reference_list.append(json_reference_object) # todo In ES oder in Extradatei?
     if len(linklist) == len(json_list):
@@ -168,7 +169,9 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
 
-extract_new_links()
+#extract_new_links()
+
+print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
 
 #print(es.get(index='verdicts', doc_type='verdict', id=0))
 
