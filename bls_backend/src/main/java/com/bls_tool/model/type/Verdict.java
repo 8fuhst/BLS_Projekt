@@ -25,28 +25,43 @@ public class Verdict {
     @Field(type = FieldType.Keyword, name = "norms")
     private String[] norms; // Normen
     @Field(type = FieldType.Text, name = "reasons")
-    private String reasons; // Gründe
-    private String documentnumber; // Dokumentennummer todo eindeutig? -> id
+    private String[] reasons; // Gründe
+    @Field(type = FieldType.Keyword, name = "documentnumber")
+    private String documentnumber; // Dokumentennummer
+    @Field(type = FieldType.Text, name = "courtlocation")
     private String courtlocation; // Gerichts-Ort todo
+    @Field(type = FieldType.Text, name = "spruchkoerper")
     private String spruchkoerper; // Spruchkörper
+    @Field(type = FieldType.Text, name = "previouscourt")
     private String[] previouscourt; // Vorinstanzen
+    @Field(type = FieldType.Text, name = "region")
     private String region;
+    @Field(type = FieldType.Text, name = "mitwirkung")
     private String mitwirkung;
+    @Field(type = FieldType.Text, name = "title")
     private String title; // Titelzeile
-    private String keysentence; // Leitsatz
+    @Field(type = FieldType.Text, name = "keysentence")
+    private String[] keysentence; // Leitsatz
+    @Field(type = FieldType.Text, name = "miscsentence")
     private String miscsentence; // Sonstosatz
-    private String tenor;
-    private String offense; // Tatbestand
-    private String reasonfordecision; // Entscheidungsgründe
+    @Field(type = FieldType.Text, name = "tenor")
+    private String[] tenor;
+    @Field(type = FieldType.Text, name = "offense")
+    private String[] offense; // Tatbestand
+    @Field(type = FieldType.Text, name = "reasonfordecision")
+    private String[] reasonfordecision; // Entscheidungsgründe
+    @Field(type = FieldType.Text, name = "abwmeinung")
     private String abwmeinung; // abwmeinung todo was ist das?
+    @Field(type = FieldType.Text, name = "other")
     private String other; // sonstlt
+    @Field(type = FieldType.Keyword, name = "identifier")
     private String identifier; //Juris Link
     //private String plaintext; // Text ohne Formatierungen
 
     /**
      * Erstmal noch mit Dummy-Daten
      */
-    public Verdict(/*Gericht court, String date, String[] filenumber, String ecli, String documenttype, String[] norms*/) {
+    /*public Verdict(/*Gericht court, String date, String[] filenumber, String ecli, String documenttype, String[] norms) {
         this.courtlocation = "Karlsruhe";
         this.spruchkoerper = "1. Senat";
         this.previouscourt = new String[]{"vorgehend OLG Köln, 30. April 2020, Az: I-25 U 53/18", "vorgehend LG Aachen, 26. Oktober 2018, Az: 7 O 115/18"};
@@ -292,7 +307,7 @@ public class Verdict {
     this.other = "Nichts";
     this.identifier = "http://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&amp;docid=KVRE443182101&amp;psml=bsjrsprod.psml&amp;max=true";
     // this.plaintext = ""; todo
-    }
+    }*/
 
 
     public String getDocumentnumber() {
@@ -319,17 +334,17 @@ public class Verdict {
         return documenttype;
     }
 
-    public String getLongtext(){
+    /*public String getLongtext(){
         return reasons;
-    }
+    }*/
 
     public String[] getNorms(){
         return norms;
     }
 
-    private String getReasonfordecision() { return reasonfordecision; }
+    private String[] getReasonfordecision() { return reasonfordecision; }
 
-    public String getReason() { return reasons; }
+    /*public String getReason() { return reasons; }*/
 
     public String getAbwmeinung() {return abwmeinung; }
 
@@ -357,11 +372,15 @@ public class Verdict {
         return title;
     }
 
-    public String getReasons() {
+    public String[] getReasons() {
         return reasons;
     }
 
-    public String getKeysentence() {
+    public String[] getReasonsForDecision() {
+        return reasonfordecision;
+    }
+
+    public String[] getKeysentence() {
         return keysentence;
     }
 
@@ -369,11 +388,11 @@ public class Verdict {
         return miscsentence;
     }
 
-    public String getTenor() {
+    public String[] getTenor() {
         return tenor;
     }
 
-    public String getOffense() {
+    public String[] getOffense() {
         return offense;
     }
 
@@ -421,6 +440,7 @@ public class Verdict {
         result.put("tenor",tenor);
         result.put("keysentence", keysentence);
         result.put("documentnumber", documentnumber);
+        result.put("title", title);
         return result;
     }
 }
