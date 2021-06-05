@@ -52,6 +52,7 @@ def eval_xml(xml_string):
     TODO: Get the description texts (long version) too
     """
     result_dict = {}
+    references_dict = {}
     # Parse XML string
     doc = ET.fromstring(xml_string)
     # List containing the relevant tags
@@ -80,6 +81,8 @@ def eval_xml(xml_string):
                         'region': 'region'}
 
     # Load each tag into dictionary:
+
+    reference_list =[]
     for tag in tags:
         tag_array = []  # Contains child-tags
         # Iterate through child tags of a tag:
@@ -91,11 +94,21 @@ def eval_xml(xml_string):
                     tag_array.append(child.text)  # Append child tag to array        # If the array only contains one element, or the tag doesn't have child-tags,
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
+            if tag == 'vorinstanz':
+                references = ref.find_reference(tag, tag_array)
+                reference_list.append(references)
             result_dict[tags_translation[tag]] = tag_array[0]
         else:
+            reference_tags = ['gruende', 'tenor', 'entscheidungsgruende', 'tatbestand', 'leitsatz', 'vorinstanz']
+            if tag in reference_tags:
+                references = ref.find_reference(tag, tag_array)
+                reference_list.append(references)
             result_dict[tags_translation[tag]] = tag_array
+    references_dict[result_dict['filenumber']] = reference_list
+    # print(references_dict)
+    # print(result_dict)
 
-    #print(result_dict)
+    json_reference_dict = json.dumps(references_dict)
     json_result_dict = json.dumps(result_dict)  # convert dictionary to json
     return json_result_dict
     # print(json_result_dict)
