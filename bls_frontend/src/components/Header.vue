@@ -1,68 +1,60 @@
 <template>
-  <div class="header">
-    <a href="#default" class="logo">BLS Tool</a>
-    <router-link to="/">Home</router-link>
-    <router-link to="/suche">Suche</router-link>
+    <div>
+      <b-navbar toggleable="lg" type="dark" class="color">
+        <!-- TODO: Logo größe anpassen !-->
+        <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item v-for="(route,index) in routes" :key="index" :active="currentRoute.name === route.name" :to="route.path">{{ route.name }}</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+
+        <!-- TODO: Responsive ist die Searchbar weird !-->
+        <b-nav-form @submit.prevent="onSubmit" v-if="currentRoute.name !== 'Search'">
+          <b-form-input size="sm" v-model="newQuery" class="mr-sm-2" placeholder="Search..."></b-form-input>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form>
+
+      </b-navbar>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      currentRoute: this.$route,
+      newQuery: '',
+    }
+  },
+  computed: {
+    routes() {
+      return this.$router.getRoutes().filter( (route) => !route.meta.hidden)
+    }
+  },
+  watch: {
+    $route(to) {this.currentRoute = to}
+  },
+  methods: {
+    onSubmit() {
+      this.$store.commit('setQuery', this.newQuery)
+      this.$router.push('suche')
+    },
+  },
 }
 </script>
 
 <style scoped>
-.header {
-  overflow: hidden;
-  background-color: #f1f1f1;
-  padding: 20px 10px;
-}
-
-/* Style the header links */
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-/* Change the background color on mouse-over */
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Style the active/current link*/
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-/* Float the link section to the right */
-.header-right {
-  float: right;
-}
-
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
+  .color {
+    background-color: rgb(162, 30, 41);
   }
-  .header-right {
-    float: none;
+
+  .logo {
+    height: 40px;
+    width: 140px;
   }
-}
 </style>

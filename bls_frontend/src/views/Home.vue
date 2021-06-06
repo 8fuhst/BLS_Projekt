@@ -1,47 +1,35 @@
 <template>
-  <div class="home">
-    <VerdictTileList :verdicts="verdicts" />
+  <div class="margin">
+    <b-container class="center">
+      <h3>Neue Urteile:</h3>
+      <b-row>
+        <VerdictTileList />
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import VerdictTileList from "@/components/VerdictTileList";
+import VerdictTileList from "@/components/VerdictTileComponents/VerdictTileList";
 
 export default {
   name: 'Home',
   components: {
-    VerdictTileList
+    VerdictTileList,
   },
-  data() {
-    return {
-      verdicts: [],
-    }
-  },
-  methods: {
-    async fetchVerdicts() {
-      const res = await fetch(`api/urteil`)
-
-      return await res.json()
-    }
-  },
-  async created() {
-    const data = await this.fetchVerdicts()
-    this.verdicts = [
-      {
-        metaData: {
-          gericht: data.gericht,
-          datum: data.entscheidungsdatum,
-          aktenzeichen: data.aktenzeichen,
-          ecli: data.ecli,
-          normen: data.normen,
-        },
-        docType: data.dokumenttyp,
-        keySentence: data.Kurztext,
-        tenor: data.tenor,
-        langtext: data.Langtext
-      }
-    ]
+  mounted() {
+    this.$store.dispatch('getNewest')
   }
 }
 </script>
+
+<style scoped>
+  .center {
+    max-width: 480px;
+  }
+
+  .margin {
+    margin-top: 27px;
+  }
+</style>
