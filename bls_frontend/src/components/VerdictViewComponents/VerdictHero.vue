@@ -2,14 +2,14 @@
   <div class="hero">
     <div class="bottom-margin">
       <b-icon-chevron-left @click="goBack" class="inline back"></b-icon-chevron-left>
-      <b-card-text class="inline headline">{{ verdict.documenttype + ' | ' + verdict.date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+      <b-card-text class="inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
     </div>
     <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
 
-    <div v-if="verdict.keysentence" class="bottom-margin">
+    <div v-if="keysentence" class="bottom-margin">
       <h5 class="inline">Leitsatz</h5>
       <CopyButton class="inline-block" :textId="verdict.documentnumber + 'keysentence'" />
-      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
+      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
     </div>
 
   </div>
@@ -30,6 +30,20 @@ export default {
     goBack() {
       this.$router.back()
     }
+  },
+  data() {
+    return {
+      keysentence: null,
+      date: '',
+    }
+  },
+  created() {
+    if (this.verdict.keysentence) {
+      this.keysentence = this.verdict.keysentence.join(', ')
+    }
+
+    const date = this.verdict.date + ''
+    this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   }
 }
 </script>

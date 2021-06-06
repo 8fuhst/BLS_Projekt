@@ -14,6 +14,10 @@
           </b-col>
         </b-row>
 
+        <b-row v-if="verdict.title" class="bottom-margin title">
+          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
+        </b-row>
+
         <b-row class="bottom-margin text-padding">
           <b-card-text>{{ date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>
@@ -31,15 +35,15 @@
       </div>
 
       <!-- Texte !-->
-      <div v-if="verdict.keysentence" class="bottom-margin">
-        <h5 class="linktest" @click="setCurrentVerdict">Leitsatz</h5>
+      <div v-if="keysentence" class="bottom-margin">
+        <h5 class="link" @click="setCurrentVerdict">Leitsatz</h5>
         <CopyButton :textId="verdict.documentnumber + 'keysentence'"/>
-        <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
       </div>
-      <div v-if="verdict.tenor" class="bottom-margin">
-        <h5 class="linktest" @click="setCurrentVerdict">Tenor</h5>
+      <div v-if="tenor" class="bottom-margin">
+        <h5 class="link" @click="setCurrentVerdict">Tenor</h5>
         <CopyButton :textId="verdict.documentnumber + 'tenor'"/>
-        <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ verdict.tenor }}</b-card-text>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ tenor }}</b-card-text>
       </div>
 
 
@@ -99,6 +103,8 @@ export default {
       date: '',
       showNormsExpandable: false,
       filenumbers: '',
+      keysentence: null,
+      tenor: null,
     }
   },
   created() {
@@ -113,6 +119,14 @@ export default {
     if (this.verdict.filenumber) {
       const filenumbers = this.verdict.filenumber.slice(0)
       this.filenumbers = filenumbers.join(', ');
+    }
+
+    if (this.verdict.keysentence) {
+      this.keysentence = this.verdict.keysentence.join(', ')
+    }
+
+    if (this.verdict.tenor) {
+      this.tenor = this.verdict.tenor.join(', ')
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
@@ -178,5 +192,17 @@ export default {
 
   .footer-color {
     color: rgba(69,69,69,0.5);
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .link {
+    cursor: pointer;
+  }
+
+  .link:hover {
+    text-decoration: underline;
   }
 </style>

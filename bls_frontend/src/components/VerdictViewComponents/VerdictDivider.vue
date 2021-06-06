@@ -1,6 +1,6 @@
 <template>
   <div class="divider">
-    <h5 class="text">{{ text }}</h5>
+    <h5>{{ text }}</h5>
   </div>
 </template>
 
@@ -19,9 +19,5 @@ export default {
     width: 100%;
     background-color: rgba(206, 206, 206, 0.5);
     padding: 14px 40px;
-  }
-
-  .text {
-
   }
 </style>
