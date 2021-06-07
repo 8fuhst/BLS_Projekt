@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-#import pycurl #todo import this
+import pycurl
 from io import BytesIO
 from zipfile import ZipFile
 from urllib.request import urlopen
@@ -127,7 +127,25 @@ def extract_links_from_toc_xml():
 
     with open("links.txt", "w") as file:
         for item in root:
-            file.write(str(item.find('link').text) + "\n")
+            if counter > 100: # todo remove
+                break # todo remove
+            file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
+            counter += 1 # todo remove
+
+def create_reference_dict(filenumber, outgoing_reference_list = None, outgoing_reference_set = None , incoming_reference_set = None):
+    provisional_references_dict = {
+        'filenumber': filenumber,
+        'outgoing_reference_list': outgoing_reference_list,
+        'outgoing_reference_set': outgoing_reference_set,
+        'incoming_reference_set': incoming_reference_set
+    }
+
+    if incoming_reference_set is None:  # If no incoming references known set to 0
+        provisional_references_dict['incoming_count'] = 0
+    else:                               # Else just set it to the amount of incoming references known
+        provisional_references_dict['incoming_count'] = len(incoming_reference_set)
+
+    return provisional_references_dict
 
 def update_database(linklist):
     """
@@ -148,8 +166,55 @@ def update_database(linklist):
         json_list.append(json_object)
         json_reference_list.append(json_reference_object) # todo In ES oder in Extradatei?
     if len(linklist) == len(json_list):
-         for json_object in json_list:
-            es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datanbank zu speichern
+        # Save Verdict in Elasticsearch
+        for json_object in json_list:
+            es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datenbank zu speichern
+        # Save or create Verdict Node that contains references
+        for json_reference_object in json_reference_list:
+            filenr = json_reference_object['filenumber']
+            for reference in json_reference_object['outgoing_reference_set']:
+                # Update Verdict Node with new incoming Reference
+                if not es.exists(index="verdicts", doc_type="verdict_node", id=reference):
+                    # Fetch old data from ES
+                    to_be_updated = es.get(index="verdicts", doc_type="verdict_node", id=reference)
+                    # Append newest incoming Reference
+                    to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'] \
+                        .append(filenr)
+                    to_be_updated['incoming_count'] = to_be_updated['incoming_count'] + 1
+                    # Modify dict to fit ES Convention
+                    updated = {
+                        'doc': to_be_updated
+                    }
+                    # Update ES Document with new References
+                    es.update(index="verdicts", doc_type="verdict_node", id=reference, body=updated)
+                else:
+                    # Add new verdict node into ES if a non-existant Verdict is referenced
+                    incoming_reference_set = set()
+                    # create incoming reference from the verdict this json_reference_object belongs to
+                    incoming_reference_set.add(filenr)
+                    # create new verdict node with only the incoming reference
+                    provisional_references_dict = create_reference_dict(reference, None, None, incoming_reference_set)
+                    json_reference_dict = json.dumps(provisional_references_dict)
+                    # add the new verdict node to ES
+                    es.index(index='verdicts', doc_type='verdict_nodes', id=filenr,
+                             body=json_reference_dict)
+
+            # Update Verdict Node for the current verdict
+            if not es.exists(index="verdicts", doc_type="verdict_node", id=filenr):
+                # Add the verdict node
+                es.index(index='verdicts', doc_type='verdict_nodes',  id=filenr, body=json_reference_object)
+            else:
+                # Fetch old data from ES
+                to_be_updated = es.get(index="verdicts", doc_type="verdict_node", id=filenr)
+                # Add the outgoing references
+                to_be_updated['outgoing_reference_list'] = json_reference_object['outgoing_reference_list']
+                to_be_updated['outgoing_reference_set'] = json_reference_object['outgoing_reference_set']
+                # Modify dict to fit ES Convention
+                updated = {
+                    'doc': to_be_updated
+                }
+                # Update ES Document with new References
+                es.update(index="verdicts", doc_type="verdict_node", id=filenr, body=updated)
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
