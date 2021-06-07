@@ -35,7 +35,6 @@ export default {
       this.hover = hover
     },
     setProperties() {
-      console.log(this.text, this.prefix)
       if (!this.text) {
         this.isDivider = true
       } else {

@@ -12,9 +12,8 @@
           </b-navbar-nav>
         </b-collapse>
 
-        <!-- TODO: Responsive ist die Searchbar weird !-->
-        <b-nav-form @submit.prevent="onSubmit" v-if="currentRoute.name !== 'Search'">
-          <b-form-input size="sm" v-model="newQuery" class="mr-sm-2" placeholder="Search..."></b-form-input>
+        <b-nav-form class="d-none d-lg-block w-50 ml-auto" @submit.prevent="onSubmit" v-if="currentRoute.name !== 'Search'">
+          <b-form-input size="sm" v-model="newQuery" class="mr-sm-2 w-75 ml-auto" placeholder="Search..."></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 

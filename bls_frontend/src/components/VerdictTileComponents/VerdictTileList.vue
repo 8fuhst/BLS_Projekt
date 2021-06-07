@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div v-for="(verdict, index) in verdicts" :key="index">
+  <b-row align-v="stretch" class="justify-content-center">
+    <b-col class="mb-4" lg="4" md="10" sm="10" v-for="(verdict, index) in verdicts" :key="index">
       <VerdictTile :verdict="verdict" />
-    </div>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>

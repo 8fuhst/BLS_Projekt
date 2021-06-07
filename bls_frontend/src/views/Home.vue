@@ -1,12 +1,8 @@
 <template>
-  <div class="margin">
-    <b-container class="center">
+    <b-container fluid class="pt-4">
       <h3>Neue Urteile:</h3>
-      <b-row>
-        <VerdictTileList />
-      </b-row>
+      <VerdictTileList />
     </b-container>
-  </div>
 </template>
 
 <script>
@@ -25,11 +21,4 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    max-width: 480px;
-  }
-
-  .margin {
-    margin-top: 27px;
-  }
 </style>

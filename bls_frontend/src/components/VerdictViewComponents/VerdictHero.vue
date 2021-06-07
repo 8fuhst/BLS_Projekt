@@ -15,8 +15,7 @@
 
     <div class="button-group">
       <b-button-group>
-        <b-button>Zum Leitsatz</b-button>
-        <b-button href="#tenor">Zum Tenor</b-button>
+        <b-button href="#tenor" scr>Zum Tenor</b-button>
         <b-button href="#sachverhalt">Zur Sachverhaltsdarstellung</b-button>
         <b-button href="#bewertung">Zur rechtlichen Bewertung</b-button>
       </b-button-group>
@@ -72,7 +71,7 @@ export default {
     width: 80%;
     margin: 0 10%;
     position: relative;
-    padding: 20px 40px;
+    padding: 20px 24px 62px 24px;
   }
 
   .inline {
