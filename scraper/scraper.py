@@ -183,8 +183,12 @@ def update_database(linklist):
                     # Fetch old data from ES
                     to_be_updated = es.get(index="verdict_nodes2", id=reference)['_source']
                     # Append newest incoming Reference
-                    to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'] \
-                        .append(filenr)
+                    try:
+                        to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'].append(filenr)
+                    except AttributeError:
+                        print("TBU: ", to_be_updated)
+                        traceback.print_exc()
+
                     to_be_updated['incoming_count'] = to_be_updated['incoming_count'] + 1
                     # Modify dict to fit ES Convention
                     updated = {
