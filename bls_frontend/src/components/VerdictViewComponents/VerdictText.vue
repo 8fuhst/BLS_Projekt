@@ -1,12 +1,9 @@
 <template>
   <div>
-    <div v-if="!isDivider" class="verdict-text" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-      <HoverMenu class="hover-menu" :copy="true" :copyTextId="id" v-if="hover"/>
+    <div :class="[isDivider ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+      <HoverMenu v-if="!isDivider && hover" class="hover-menu" :copy="true" :copyTextId="id" />
       <h5 v-if="hasPrefix">{{ prefix }}</h5>
-      <b-card-text :id="id" class="text-padding">{{ text }}</b-card-text>
-    </div>
-    <div v-if="isDivider" class="divider">
-      <h5>{{ prefix }}</h5>
+      <b-card-text v-if="!isDivider" :id="id" class="text-padding">{{ text }}</b-card-text>
     </div>
   </div>
 </template>
@@ -18,36 +15,50 @@ export default {
   name: "VerdictText",
   components: {HoverMenu},
   props: {
-    prefix: String,
-    text: String,
+    prefix: {
+      type: String,
+    },
+    text: {
+      type: String,
+    },
   },
   data() {
     return {
       hover: false,
       isDivider: false,
       id: '',
+      hasPrefix: true,
     }
   },
   methods: {
     setHover(hover) {
       this.hover = hover
     },
-    hasPrefix() {
-      if (this.prefix === 'noPrefix') {
-        console.log('askdhjf')
-        return false
+    setProperties() {
+      console.log(this.text, this.prefix)
+      if (!this.text) {
+        this.isDivider = true
+      } else {
+        this.isDivider = false
       }
-      return this.prefix && this.prefix.length > 0
+
+      if (this.text && this.prefix) {
+        const id = 'a' + this.prefix + this.text.substr(0, 10)
+        this.id = id.replace(/\s/g, '')
+      }
+
+      this.hasPrefix = this.prefix && this.prefix.length > 0 && this.prefix !== 'noPrefix'
     }
   },
   created() {
-    if (!this.text) {
-      this.isDivider = true
-    }
-
-    if (this.text && this.prefix) {
-      const id = 'a' + this.prefix + this.text.substr(0, 10)
-      this.id = id.replace(/\s/g, '')
+    this.setProperties()
+  },
+  watch: {
+    text: function () {
+      this.setProperties()
+    },
+    prefix: function () {
+      this.setProperties()
     }
   }
 }

@@ -16,7 +16,7 @@ export default class ApiService {
         try {
             const res = await fetch(`api/verdict?documentnumber=` + documentnumber)
             let data = await res.json()
-            data = new VerdictModel(data)
+            data = new VerdictModel(data).withModelledOffenseAndReasons()
             return data
         } catch (e) {
             console.log('Error requesting verdict by documentnumber: ' + e)

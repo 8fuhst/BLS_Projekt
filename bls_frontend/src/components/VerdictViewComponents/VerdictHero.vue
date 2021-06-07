@@ -12,23 +12,41 @@
       <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
     </div>
 
+
+    <div class="button-group">
+      <b-button-group>
+        <b-button>Zum Leitsatz</b-button>
+        <b-button href="#tenor">Zum Tenor</b-button>
+        <b-button href="#sachverhalt">Zur Sachverhaltsdarstellung</b-button>
+        <b-button href="#bewertung">Zur rechtlichen Bewertung</b-button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 
 <script>
 import KeyWordTags from "@/components/KeyWordTags";
-import {VerdictModel} from "@/models/verdict-model";
 import CopyButton from "@/components/UtilityComponents/CopyButton";
 
 export default {
   name: "VerdictHero",
   components: { KeyWordTags, CopyButton },
-  props: {
-    verdict: VerdictModel
+  computed: {
+    verdict() {
+      return this.$store.getters.getCurrentVerdict
+    }
   },
   methods: {
     goBack() {
       this.$router.back()
+    },
+    setProperties() {
+      if (this.verdict.keysentence) {
+        this.keysentence = this.verdict.keysentence.join(', ')
+      }
+
+      const date = this.verdict.date + ''
+      this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     }
   },
   data() {
@@ -38,12 +56,12 @@ export default {
     }
   },
   created() {
-    if (this.verdict.keysentence) {
-      this.keysentence = this.verdict.keysentence.join(', ')
+    this.setProperties()
+  },
+  watch: {
+    verdict: function () {
+      this.setProperties()
     }
-
-    const date = this.verdict.date + ''
-    this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   }
 }
 </script>
@@ -85,5 +103,11 @@ export default {
 
   h5 {
     margin-right: 8px;
+  }
+
+  .button-group {
+    position: absolute;
+
+    bottom: 12px;
   }
 </style>
