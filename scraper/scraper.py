@@ -205,7 +205,8 @@ def update_database(linklist):
             # Update Verdict Node for the current verdict
             if not es.exists(index="verdict_nodes2", doc_type="verdict_node", id=filenr):
                 # Add the verdict node
-                es.index(index='verdict_nodes2', doc_type='verdict_node',  id=filenr, body=json_reference_object)
+                es_json_reference_object = json.dumps(json_reference_object)
+                es.index(index='verdict_nodes2', doc_type='verdict_node', id=filenr, body=es_json_reference_object)
             else:
                 # Fetch old data from ES
                 to_be_updated = es.get(index="verdict_nodes2", doc_type="verdict_node", id=filenr)
