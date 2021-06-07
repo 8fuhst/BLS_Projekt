@@ -169,6 +169,7 @@ def update_database(linklist):
     if len(linklist) == len(json_list):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
+            #es_json_object = json.dumps(json_object) # TODO Rename all things json
             es.index(index='verdicts2', doc_type='verdict', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
