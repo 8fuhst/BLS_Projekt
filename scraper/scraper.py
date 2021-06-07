@@ -92,9 +92,10 @@ def eval_xml(xml_string):
         for child in doc.find(tag).iter():
             if child.text and not child.text.startswith("\n"):
                 if tag == 'entsch-datum':
-                    tag_array.append(int(child.text)) # Append child date to array as int
+                    tag_array.append(int(child.text))  # Append child date to array as int
                 else:
-                    tag_array.append(child.text)  # Append child tag to array        # If the array only contains one element, or the tag doesn't have child-tags,
+                    tag_array.append(child.text)  # Append child tag to array
+        # If the array only contains one element, or the tag doesn't have child-tags,
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
             if tag == 'vorinstanz':
@@ -103,6 +104,8 @@ def eval_xml(xml_string):
             # Enter Data into the correct translated dict entry
             result_dict[tags_translation[tag]] = tag_array[0]
         else:
+            # Specific tags require search for references
+            # This path also enters any tags that are contained in arrays
             reference_tags = ['gruende', 'tenor', 'entscheidungsgruende', 'tatbestand', 'leitsatz', 'vorinstanz']
             if tag in reference_tags:
                 outgoing_references, outgoing_references_set = ref.find_reference(tag, tag_array, outgoing_references_set)
@@ -123,11 +126,11 @@ def eval_xml(xml_string):
 
 def extract_links_from_toc_xml():
     """
-    Writes the links of zip files in oldlinks.txt
+    Writes the links of zip files in links.txt
     """
-    doc = ET.parse("./rii-toc.xml")
-    root = doc.getroot()
-
+    doc = ET.parse("./rii-toc.xml")  # Create ElementTree from rii-toc
+    root = doc.getroot()             # Create root of ET
+    counter = 0  # todo remove this
     with open("links.txt", "w") as file:
         for item in root:
             if counter > 100: # todo remove
