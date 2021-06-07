@@ -199,7 +199,7 @@ def update_database(linklist):
                     # create incoming reference from the verdict this json_reference_object belongs to
                     incoming_reference_set.add(filenr)
                     # create new verdict node with only the incoming reference
-                    provisional_references_dict = create_reference_dict(reference, None, None, incoming_reference_set)
+                    provisional_references_dict = create_reference_dict(reference, incoming_reference_set= incoming_reference_set)
                     json_reference_dict = json.dumps(provisional_references_dict)
                     # add the new verdict node to ES
                     es.index(index='verdicts2', doc_type='verdict_nodes', id=filenr,
