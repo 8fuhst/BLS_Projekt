@@ -15,21 +15,20 @@ es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
-    return None
-#     """
-#     Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
-#     :return:
-#     """
-#     # Create curl object:
-#     curl = pycurl.Curl()
-#     # Set certificate:
-#     curl.setopt(pycurl.CAINFO, certifi.where())
-#     # Set URL:
-#     curl.setopt(pycurl.URL, 'https://www.rechtsprechung-im-internet.de/rii-toc.xml')
-#     with open('./rii-toc.xml', 'wb') as toc_file:
-#         curl.setopt(curl.WRITEFUNCTION, toc_file.write)
-#         curl.perform()
-#     curl.close()
+    """
+    Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
+    :return:
+    """
+    # Create curl object:
+    curl = pycurl.Curl()
+    # Set certificate:
+    curl.setopt(pycurl.CAINFO, certifi.where())
+    # Set URL:
+    curl.setopt(pycurl.URL, 'https://www.rechtsprechung-im-internet.de/rii-toc.xml')
+    with open('./rii-toc.xml', 'wb') as toc_file:
+        curl.setopt(curl.WRITEFUNCTION, toc_file.write)
+        curl.perform()
+    curl.close()
 
 #update_xml_table_of_contents()
 
@@ -48,13 +47,14 @@ def get_xml_from_file(xml_link):
 
 def eval_xml(xml_string):
     """
-    Extracts Dokumentennummer, ECLI, Gerichtstyp, Gerichtsort, Spruchkoerper, Entscheidungs-Datum, Aktenzeichen, Dokumententyp, Norm and
-    Vorinstanz from an XML File.
+    Extracts Dokumentennummer, ECLI, Gerichtstyp, Gerichtsort, Spruchkoerper, Entscheidungs-Datum, Aktenzeichen,
+    Dokumententyp, Norm and Vorinstanz from an XML File. Also creates a provisional reference dictionary of the
+    references found inside the verdict
     TODO: Writes the extracted information into the database.
     TODO: Get the description texts (long version) too
     """
     result_dict = {}
-    references_dict = {}
+    provisional_references_dict = {}
     # Parse XML string
     doc = ET.fromstring(xml_string)
     # List containing the relevant tags
@@ -84,7 +84,8 @@ def eval_xml(xml_string):
 
     # Load each tag into dictionary:
 
-    reference_list =[]
+    outgoing_references_list = []  # Contains additional information about where the references are
+    outgoing_references_set = set()  # Contains only the referenced filenumbers
     for tag in tags:
         tag_array = []  # Contains child-tags
         # Iterate through child tags of a tag:
@@ -97,23 +98,25 @@ def eval_xml(xml_string):
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
             if tag == 'vorinstanz':
-                references = ref.find_reference(tag, tag_array)
-                reference_list.append(references)
+                outgoing_references, outgoing_references_set = ref.find_reference(tag, tag_array, outgoing_references_set)
+                outgoing_references_list.append(outgoing_references)
+            # Enter Data into the correct translated dict entry
             result_dict[tags_translation[tag]] = tag_array[0]
         else:
             reference_tags = ['gruende', 'tenor', 'entscheidungsgruende', 'tatbestand', 'leitsatz', 'vorinstanz']
             if tag in reference_tags:
-                references = ref.find_reference(tag, tag_array)
-                reference_list.append(references)
+                outgoing_references, outgoing_references_set = ref.find_reference(tag, tag_array, outgoing_references_set)
+                outgoing_references_list.append(outgoing_references)
             result_dict[tags_translation[tag]] = tag_array
-    references_dict[result_dict['filenumber']] = reference_list
-    # print(references_dict)
-    # print(result_dict)
 
-    json_reference_dict = json.dumps(references_dict)
+    # build provisional reference-dict for ES that does not contain incoming references yet:
+    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, None)
+    # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
+    # [sum of incoming references]
+
+    json_reference_dict = json.dumps(provisional_references_dict)
     json_result_dict = json.dumps(result_dict)  # convert dictionary to json
     return json_result_dict, json_reference_dict
-    # print(json_result_dict)
 
 # get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
 
@@ -218,6 +221,8 @@ def update_database(linklist):
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
+
+
 
 def extract_new_links():
     update_xml_table_of_contents()
