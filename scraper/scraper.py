@@ -138,7 +138,7 @@ def extract_links_from_toc_xml():
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
             counter += 1 # todo remove
 
-def create_reference_dict(filenumber, outgoing_reference_list = None, outgoing_reference_set = None , incoming_reference_set = None):
+def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_reference_set = set(), incoming_reference_set = set()):
     provisional_references_dict = {
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
@@ -170,11 +170,11 @@ def update_database(linklist):
     for link in linklist:
         json_object, json_reference_object = get_xml_from_file(link)
         json_list.append(json_object)
-        json_reference_list.append(json_reference_object) # todo In ES oder in Extradatei?
+        json_reference_list.append(json_reference_object)
     if len(linklist) == len(json_list):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
-            es.index(index='verdicts2', doc_type='verdict', body=json_object)  #todo wegnehmen um in datenbank zu speichern
+            es.index(index='verdicts2', doc_type='verdict', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
             filenr = json_reference_object['filenumber']
