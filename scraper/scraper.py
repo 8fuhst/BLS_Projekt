@@ -142,8 +142,8 @@ def create_reference_dict(filenumber, outgoing_reference_list = None, outgoing_r
     provisional_references_dict = {
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
-        'outgoing_reference_set': outgoing_reference_set,
-        'incoming_reference_set': incoming_reference_set
+        'outgoing_reference_set': list(outgoing_reference_set),
+        'incoming_reference_set': list(incoming_reference_set)
     }
 
     if incoming_reference_set is None:  # If no incoming references known set to 0
