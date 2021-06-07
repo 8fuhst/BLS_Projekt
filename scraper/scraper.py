@@ -141,7 +141,7 @@ def extract_links_from_toc_xml():
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
             counter += 1 # todo remove
 
-def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_reference_set = set(), incoming_reference_set = set()):
+def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_reference_set = set(), incoming_reference_set = []):
     provisional_references_dict = {
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
