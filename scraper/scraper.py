@@ -177,7 +177,7 @@ def update_database(linklist):
             filenr = json_reference_object['filenumber']
             for reference in json_reference_object['outgoing_reference_set']:
                 # Update Verdict Node with new incoming Reference
-                if not es.exists(index="verdicts2", doc_type="verdict_node", id=reference):
+                if es.exists(index="verdicts2", doc_type="verdict_node", id=reference):
                     # Fetch old data from ES
                     to_be_updated = es.get(index="verdicts2", doc_type="verdict_node", id=reference)
                     # Append newest incoming Reference
