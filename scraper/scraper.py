@@ -115,7 +115,7 @@ def eval_xml(xml_string):
             result_dict[tags_translation[tag]] = tag_array
 
     # build provisional reference-dict for ES that does not contain incoming references yet:
-    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, set())
+    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, [])
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
@@ -146,7 +146,7 @@ def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_ref
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
         'outgoing_reference_set': list(outgoing_reference_set),
-        'incoming_reference_set': list(incoming_reference_set),
+        'incoming_reference_set': incoming_reference_set,
         'incoming_count': len(incoming_reference_set)
     }
     return provisional_references_dict
@@ -198,9 +198,9 @@ def update_database(linklist):
                     es.update(index="verdict_nodes2", id=reference, body=updated)
                 else:
                     # Add new verdict node into ES if a non-existant Verdict is referenced
-                    incoming_reference_set = set()
+                    incoming_reference_set = [filenr]
                     # create incoming reference from the verdict this json_reference_object belongs to
-                    incoming_reference_set.add(filenr)
+                    # incoming_reference_set.append()
                     # create new verdict node with only the incoming reference
                     provisional_references_dict = create_reference_dict(reference, [], set(), incoming_reference_set)
                     json_reference_dict = json.dumps(provisional_references_dict)
