@@ -174,15 +174,15 @@ def update_database(linklist):
     if len(linklist) == len(json_list):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
-            es.index(index='verdicts', doc_type='verdict', body=json_object)  #todo wegnehmen um in datenbank zu speichern
+            es.index(index='verdicts2', doc_type='verdict', body=json_object)  #todo wegnehmen um in datenbank zu speichern
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
             filenr = json_reference_object['filenumber']
             for reference in json_reference_object['outgoing_reference_set']:
                 # Update Verdict Node with new incoming Reference
-                if not es.exists(index="verdicts", doc_type="verdict_node", id=reference):
+                if not es.exists(index="verdicts2", doc_type="verdict_node", id=reference):
                     # Fetch old data from ES
-                    to_be_updated = es.get(index="verdicts", doc_type="verdict_node", id=reference)
+                    to_be_updated = es.get(index="verdicts2", doc_type="verdict_node", id=reference)
                     # Append newest incoming Reference
                     to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'] \
                         .append(filenr)
@@ -192,7 +192,7 @@ def update_database(linklist):
                         'doc': to_be_updated
                     }
                     # Update ES Document with new References
-                    es.update(index="verdicts", doc_type="verdict_node", id=reference, body=updated)
+                    es.update(index="verdicts2", doc_type="verdict_node", id=reference, body=updated)
                 else:
                     # Add new verdict node into ES if a non-existant Verdict is referenced
                     incoming_reference_set = set()
@@ -202,16 +202,16 @@ def update_database(linklist):
                     provisional_references_dict = create_reference_dict(reference, None, None, incoming_reference_set)
                     json_reference_dict = json.dumps(provisional_references_dict)
                     # add the new verdict node to ES
-                    es.index(index='verdicts', doc_type='verdict_nodes', id=filenr,
+                    es.index(index='verdicts2', doc_type='verdict_nodes', id=filenr,
                              body=json_reference_dict)
 
             # Update Verdict Node for the current verdict
-            if not es.exists(index="verdicts", doc_type="verdict_node", id=filenr):
+            if not es.exists(index="verdicts2", doc_type="verdict_node", id=filenr):
                 # Add the verdict node
-                es.index(index='verdicts', doc_type='verdict_nodes',  id=filenr, body=json_reference_object)
+                es.index(index='verdicts2', doc_type='verdict_nodes',  id=filenr, body=json_reference_object)
             else:
                 # Fetch old data from ES
-                to_be_updated = es.get(index="verdicts", doc_type="verdict_node", id=filenr)
+                to_be_updated = es.get(index="verdicts2", doc_type="verdict_node", id=filenr)
                 # Add the outgoing references
                 to_be_updated['outgoing_reference_list'] = json_reference_object['outgoing_reference_list']
                 to_be_updated['outgoing_reference_set'] = json_reference_object['outgoing_reference_set']
@@ -220,7 +220,7 @@ def update_database(linklist):
                     'doc': to_be_updated
                 }
                 # Update ES Document with new References
-                es.update(index="verdicts", doc_type="verdict_node", id=filenr, body=updated)
+                es.update(index="verdicts2", doc_type="verdict_node", id=filenr, body=updated)
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
@@ -242,9 +242,9 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
 
-#extract_new_links()
+extract_new_links()
 
-print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
+#print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
 
 #print(es.get(index='verdicts', doc_type='verdict', id=0))
 
