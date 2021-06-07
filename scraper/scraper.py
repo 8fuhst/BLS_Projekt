@@ -113,7 +113,7 @@ def eval_xml(xml_string):
             result_dict[tags_translation[tag]] = tag_array
 
     # build provisional reference-dict for ES that does not contain incoming references yet:
-    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, None)
+    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set)
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
@@ -143,14 +143,9 @@ def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_ref
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
         'outgoing_reference_set': list(outgoing_reference_set),
-        'incoming_reference_set': list(incoming_reference_set)
+        'incoming_reference_set': list(incoming_reference_set),
+        'incoming_count': len(incoming_reference_set)
     }
-
-    if incoming_reference_set is None:  # If no incoming references known set to 0
-        provisional_references_dict['incoming_count'] = 0
-    else:                               # Else just set it to the amount of incoming references known
-        provisional_references_dict['incoming_count'] = len(incoming_reference_set)
-
     return provisional_references_dict
 
 def update_database(linklist):
