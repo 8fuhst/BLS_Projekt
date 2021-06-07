@@ -171,15 +171,15 @@ def update_database(linklist):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
-            es.index(index='verdicts2', doc_type='verdict', body=json_object)
+            es.index(index='verdicts2', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
             filenr = json_reference_object['filenumber']
             for reference in json_reference_object['outgoing_reference_set']:
                 # Update Verdict Node with new incoming Reference
-                if es.exists(index="verdict_nodes2", doc_type="verdict_node", id=reference):
+                if es.exists(index="verdict_nodes2", id=reference):
                     # Fetch old data from ES
-                    to_be_updated = es.get(index="verdict_nodes2", doc_type="verdict_node", id=reference)
+                    to_be_updated = es.get(index="verdict_nodes2", id=reference)
                     # Append newest incoming Reference
                     to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'] \
                         .append(filenr)
@@ -189,7 +189,7 @@ def update_database(linklist):
                         'doc': to_be_updated
                     }
                     # Update ES Document with new References
-                    es.update(index="verdict_nodes2", doc_type="verdict_node", id=reference, body=updated)
+                    es.update(index="verdict_nodes2", id=reference, body=updated)
                 else:
                     # Add new verdict node into ES if a non-existant Verdict is referenced
                     incoming_reference_set = set()
@@ -199,19 +199,18 @@ def update_database(linklist):
                     provisional_references_dict = create_reference_dict(reference, incoming_reference_set= incoming_reference_set)
                     json_reference_dict = json.dumps(provisional_references_dict)
                     # add the new verdict node to ES
-                    es.index(index='verdict_nodes2', doc_type='verdict_node', id=reference,
-                             body=json_reference_dict)
+                    es.index(index='verdict_nodes2', id=reference, body=json_reference_dict)
 
             # Update Verdict Node for the current verdict
-            if not es.exists(index="verdict_nodes2", doc_type="verdict_node", id=filenr):
+            if not es.exists(index="verdict_nodes2", id=filenr):
                 # Add the verdict node
                 es_json_reference_object = json.dumps(json_reference_object)
                 #print("JSON Reference Object: ", json_reference_object)
                 #print("ES Object", es_json_reference_object)
-                es.index(index='verdict_nodes2', doc_type='verdict_node', id=filenr, body=es_json_reference_object)
+                es.index(index='verdict_nodes2', id=filenr, body=es_json_reference_object)
             else:
                 # Fetch old data from ES
-                to_be_updated = es.get(index="verdict_nodes2", doc_type="verdict_node", id=filenr)
+                to_be_updated = es.get(index="verdict_nodes2", id=filenr)
                 # Add the outgoing references
                 to_be_updated['outgoing_reference_list'] = json_reference_object['outgoing_reference_list']
                 to_be_updated['outgoing_reference_set'] = json_reference_object['outgoing_reference_set']
@@ -220,7 +219,7 @@ def update_database(linklist):
                     'doc': to_be_updated
                 }
                 # Update ES Document with new References
-                es.update(index="verdict_nodes2", doc_type="verdict_node", id=filenr, body=updated)
+                es.update(index="verdict_nodes2", id=filenr, body=updated)
     else:
         print("Aktualisierung fehlgeschlagen")
         copyfile("oldlinks.txt", "links.txt")
