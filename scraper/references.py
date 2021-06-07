@@ -24,7 +24,7 @@ def find_reference(tag, text_array, outgoing_references_set):
                     index_matches_list.append(entry)
                     outgoing_references_set.add(entry)
         if len(index_matches_list) != 0: # todo frontend fragen ob die das wollen
-            all_matches.append([index] + list(set(index_matches_list)))
+            all_matches.append([str(index)] + list(set(index_matches_list)))
     matches_dict[tag] = all_matches
     return matches_dict, outgoing_references_set
 
