@@ -115,7 +115,7 @@ def eval_xml(xml_string):
             result_dict[tags_translation[tag]] = tag_array
 
     # build provisional reference-dict for ES that does not contain incoming references yet:
-    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set)
+    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, set())
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
