@@ -181,7 +181,7 @@ def update_database(linklist):
                 # Update Verdict Node with new incoming Reference
                 if es.exists(index="verdict_nodes2", id=reference):
                     # Fetch old data from ES
-                    to_be_updated = es.get(index="verdict_nodes2", id=reference)
+                    to_be_updated = es.get(index="verdict_nodes2", id=reference)['_source']
                     # Append newest incoming Reference
                     to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'] \
                         .append(filenr)
@@ -212,7 +212,7 @@ def update_database(linklist):
                 es.index(index='verdict_nodes2', id=filenr, body=es_json_reference_object)
             else:
                 # Fetch old data from ES
-                to_be_updated = es.get(index="verdict_nodes2", id=filenr)
+                to_be_updated = es.get(index="verdict_nodes2", id=filenr)['_source']
                 # Add the outgoing references
                 try:
                     to_be_updated['outgoing_reference_list'] = to_be_updated['outgoing_reference_list'].append(
