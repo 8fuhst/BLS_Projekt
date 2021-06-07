@@ -117,9 +117,10 @@ def eval_xml(xml_string):
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
-    json_reference_dict = json.dumps(provisional_references_dict)
-    json_result_dict = json.dumps(result_dict)  # convert dictionary to json
-    return json_result_dict, json_reference_dict
+    #json_reference_dict = json.dumps(provisional_references_dict)
+    #json_result_dict = json.dumps(result_dict)  # convert dictionary to json
+    #return json_result_dict, json_reference_dict
+    return result_dict, provisional_references_dict
 
 # get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
 
