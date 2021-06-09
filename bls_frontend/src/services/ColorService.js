@@ -9,6 +9,7 @@ export const colorDictionary = {
     ['stattgebender kammerbeschluss']: '',
     ['beschluss']: 'beschluss-color',
     ['vorlagebeschluss']: 'vorlage-color',
+    ['versäumnisurteil']: '',
 };
 
 export class ColorService {

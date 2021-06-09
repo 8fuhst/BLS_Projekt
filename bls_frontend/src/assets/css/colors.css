@@ -27,6 +27,11 @@
     background-color: rgba(255, 0, 0, 0.59);
 }
 
+/* TODO: Farben auf anzeige Seite */
+.urteil-color-anzeige div div div span {
+    background-color: rgba(0, 136, 255, 0.59);
+}
+
 .urteil-color {
     border-color: rgba(0, 136, 255, 0.59);
 }

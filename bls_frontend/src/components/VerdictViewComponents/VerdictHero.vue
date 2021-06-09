@@ -1,23 +1,26 @@
 <template>
   <div class="hero">
     <div class="bottom-margin">
-      <b-icon-chevron-left @click="goBack" class="inline back"></b-icon-chevron-left>
-      <b-card-text class="inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+      <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
+      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
     </div>
+
+    <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
+
     <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
 
-    <div v-if="keysentence" class="bottom-margin">
-      <h5 class="inline">Leitsatz</h5>
-      <CopyButton class="inline-block" :textId="verdict.documentnumber + 'keysentence'" />
+    <div v-if="keysentence">
+      <h5 class="d-inline">Leitsatz</h5>
+      <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
       <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
     </div>
 
 
-    <div class="button-group">
+    <div class="button-group" >
       <b-button-group>
-        <b-button href="#tenor" scr>Zum Tenor</b-button>
-        <b-button href="#sachverhalt">Zur Sachverhaltsdarstellung</b-button>
-        <b-button href="#bewertung">Zur rechtlichen Bewertung</b-button>
+        <b-button @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
+        <b-button @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
+        <b-button @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
       </b-button-group>
     </div>
   </div>
@@ -41,11 +44,22 @@ export default {
     },
     setProperties() {
       if (this.verdict.keysentence) {
-        this.keysentence = this.verdict.keysentence.join(', ')
+        this.keysentence = this.verdict.keysentence.join(' ')
       }
 
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
+    },
+    scrollTo(id) {
+
+      window.scrollBy({
+        top: 100, // could be negative value
+        left: 0,
+        behavior: 'smooth'
+      });
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   },
   data() {
@@ -74,14 +88,6 @@ export default {
     padding: 20px 24px 62px 24px;
   }
 
-  .inline {
-    display: inline;
-  }
-
-  .inline-block {
-    display: inline-block;
-  }
-
   .headline {
     font-size: 26px;
   }
@@ -108,5 +114,9 @@ export default {
     position: absolute;
 
     bottom: 12px;
+  }
+
+  .scroll {
+    scroll-behavior: smooth;
   }
 </style>

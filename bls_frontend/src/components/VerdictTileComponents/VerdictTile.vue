@@ -122,11 +122,11 @@ export default {
     }
 
     if (this.verdict.keysentence) {
-      this.keysentence = this.verdict.keysentence.join(', ')
+      this.keysentence = this.verdict.keysentence.join(' ')
     }
 
     if (this.verdict.tenor) {
-      this.tenor = this.verdict.tenor.join(', ')
+      this.tenor = this.verdict.tenor.join(' ')
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)

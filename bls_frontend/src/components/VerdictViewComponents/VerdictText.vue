@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scroll-margin">
     <div :class="[isDivider ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
       <HoverMenu v-if="!isDivider && hover" class="hover-menu" :copy="true" :copyTextId="id" />
       <h5 v-if="hasPrefix">{{ prefix }}</h5>
@@ -88,5 +88,9 @@ export default {
     width: 100%;
     background-color: rgba(206, 206, 206, 0.5);
     padding: 14px 40px;
+  }
+
+  .scroll-margin {
+    scroll-margin-top: 66px;
   }
 </style>

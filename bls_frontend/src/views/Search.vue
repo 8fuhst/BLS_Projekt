@@ -2,7 +2,6 @@
   <div class="pt-4">
     <Searchbar />
     <b-container fluid>
-      <h3>Ergebnisse:</h3>
       <VerdictTileList />
     </b-container>
   </div>
