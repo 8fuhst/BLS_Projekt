@@ -1,6 +1,6 @@
 <template>
   <div class="expandable-text">
-    <b-collapse :id="id">
+    <b-collapse :id="id" class="pr-5">
       <b-card-text class="text" :id="textId">
         {{ content }}
       </b-card-text>

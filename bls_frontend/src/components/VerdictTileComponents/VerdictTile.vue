@@ -1,6 +1,6 @@
 <template>
-  <div class="card-div">
-    <b-card :class="colorClass">
+  <div class="h-100">
+    <b-card :class="colorClass" class="h-100">
       <b-container>
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
@@ -47,7 +47,7 @@
       </div>
 
 
-      <b-container v-if="verdict.norms">
+      <b-container v-if="verdict.norms.length > 0">
         <h5 class="no-indent">Normen</h5>
         <CopyButton :textId="verdict.documentnumber + 'norms'"/>
         <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
@@ -122,11 +122,11 @@ export default {
     }
 
     if (this.verdict.keysentence) {
-      this.keysentence = this.verdict.keysentence.join(', ')
+      this.keysentence = this.verdict.keysentence.join(' ')
     }
 
     if (this.verdict.tenor) {
-      this.tenor = this.verdict.tenor.join(', ')
+      this.tenor = this.verdict.tenor.join(' ')
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
@@ -144,11 +144,6 @@ export default {
 </script>
 
 <style scoped>
-  .card-div {
-    margin-bottom: 20px;
-    min-width: 480px;
-  }
-
   .text-padding {
     padding: 0px 12px;
   }

@@ -11,6 +11,7 @@ export default new Vuex.Store({
     query: '',
     verdicts: [],
     currentVerdict: new VerdictModel(null),
+    fetching: false,
   },
   mutations: {
     setVerdicts(state, payload) {
@@ -21,16 +22,23 @@ export default new Vuex.Store({
     },
     setVerdict(state, payload) {
       state.currentVerdict = payload
+    },
+    setFetching(state, payload) {
+      state.fetching = payload
     }
   },
   actions: {
     async setQuery(state, newQuery) {
       state.commit('setQuery', newQuery)
+      state.commit('setFetching', true)
       const verdicts = await apiService.fetchVerdicts(newQuery)
+      state.commit('setFetching', false)
       state.commit('setVerdicts', verdicts)
     },
     async getNewest(state) {
+      state.commit('setFetching', true)
       const verdicts = await apiService.fetchNewest()
+      state.commit('setFetching', false)
       state.commit('setVerdicts', verdicts)
     },
     async setCurrent(state, documentnumber) {
@@ -44,5 +52,6 @@ export default new Vuex.Store({
     getVerdicts: state => state.verdicts,
     getQuery: state => state.query,
     getCurrentVerdict: state => state.currentVerdict,
+    getFetching: state => state.fetching,
   }
 })

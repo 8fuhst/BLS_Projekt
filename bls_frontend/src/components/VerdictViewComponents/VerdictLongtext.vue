@@ -22,7 +22,7 @@ export default {
       return this.getCurrentVerdict
     },
     tenor() {
-      return this.verdict.tenor.join(', ')
+      return this.verdict.tenor.join(' ')
     }
   },
 }
