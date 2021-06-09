@@ -26,6 +26,8 @@
         <main.basedir>${project.basedir}</main.basedir>
         <java.version>11</java.version>
         <vaadin.version>14.5.4</vaadin.version>
+        <node.version>v10.15.0</node.version>
+        <npm.version>6.14.3</npm.version>
     </properties>
 
     <build>
