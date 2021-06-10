@@ -13,7 +13,7 @@ from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
 
-es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
+es = Elasticsearch([{'host': 'basecamp-bigdata:9200', 'port': 9200}])
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
@@ -146,7 +146,7 @@ def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_ref
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_list,
         'outgoing_reference_set': list(outgoing_reference_set),
-        'incoming_reference_set': incoming_reference_set,
+        'incoming_reference_set': list(incoming_reference_set),
         'incoming_count': len(incoming_reference_set)
     }
     return provisional_references_dict
@@ -163,6 +163,8 @@ def update_database(linklist):
     #         json_object = get_xml_from_file(line)
     #         es.index(index='verdicts', doc_type='verdict', id=count, body=json_object)
     #         count = count + 1
+
+    cuprit_list = ['IX ZB 249/07', 'IX ZB 50/05', 'III ZR 108/08', 'III ZR 109/08', '4 StR 251/08', '4 StR 212/07', '23 KLs 35/08', 'IX ZB 430/02'] # todo remove
     json_list = []
     json_reference_list = []
     for link in linklist:
@@ -183,13 +185,9 @@ def update_database(linklist):
                     # Fetch old data from ES
                     to_be_updated = es.get(index="verdict_nodes2", id=reference)['_source']
                     # Append newest incoming Reference
-                    try:
-                        to_be_updated['incoming_reference_set'] = to_be_updated['incoming_reference_set'].append(filenr)
-                    except AttributeError:
-                        print("TBU: ", to_be_updated)
-                        traceback.print_exc()
-
+                    to_be_updated['incoming_reference_set'].append(filenr)
                     to_be_updated['incoming_count'] = to_be_updated['incoming_count'] + 1
+
                     # Modify dict to fit ES Convention
                     updated = {
                         'doc': to_be_updated
@@ -218,15 +216,9 @@ def update_database(linklist):
                 # Fetch old data from ES
                 to_be_updated = es.get(index="verdict_nodes2", id=filenr)['_source']
                 # Add the outgoing references
-                try:
-                    to_be_updated['outgoing_reference_list'] = to_be_updated['outgoing_reference_list'].append(
-                        json_reference_object['outgoing_reference_list'])
-                except KeyError:
-                    print("JRO: ", json_reference_object)
-                    print("TBU: ", to_be_updated)
-                    traceback.print_exc()
-                    raise KeyError
-                to_be_updated['outgoing_reference_set'] = to_be_updated['outgoing_reference_set'].append(json_reference_object['outgoing_reference_set'])
+                to_be_updated['outgoing_reference_list'].append(
+                json_reference_object['outgoing_reference_list'])
+                to_be_updated['outgoing_reference_set'].append(json_reference_object['outgoing_reference_set'])
                 # Modify dict to fit ES Convention
                 updated = {
                     'doc': to_be_updated
