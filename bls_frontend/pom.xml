@@ -59,6 +59,7 @@
                         </configuration>
                     </execution>
 
+                    <!--https://stackoverflow.com/questions/59342944/is-it-possible-to-use-the-frontend-maven-plugin-for-starting-web-application-in-->
                     <execution>
                         <id>npm build</id>
                         <goals>
