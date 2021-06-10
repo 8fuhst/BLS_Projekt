@@ -2,7 +2,6 @@ package com.bls_tool.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,5 +15,14 @@ public class IndexController {
         model.addAttribute("message", message);
 
         return "index";
+    }
+
+    @RequestMapping(value = { "/index-old" }, method = RequestMethod.GET)
+    public String indexOld(Model model) {
+        String message = "Hallo, für die Dummydaten bitte auf /verdict zugreifen!";
+
+        model.addAttribute("message", message);
+
+        return "index-old";
     }
 }
