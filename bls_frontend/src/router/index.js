@@ -8,17 +8,17 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/BLS_Tool/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/suche',
+    path: '/BLS_Tool/suche',
     name: 'Search',
     component: Search
   },
   {
-    path: '/urteil',
+    path: '/BLS_Tool/urteil',
     name: 'Verdict',
     meta: {
       hidden: true

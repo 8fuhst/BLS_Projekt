@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8000",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build && node war.js",
+    "lint": "vue-cli-service lint",
+    "war": "node war.js"
   },
   "dependencies": {
     "bootstrap-vue": "^2.17.3",
@@ -14,7 +15,8 @@
     "vue-click-outside": "^1.1.0",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.20.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "zip-a-folder": "^1.0.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",

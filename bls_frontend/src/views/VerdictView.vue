@@ -36,14 +36,22 @@ export default {
       return this.$store.getters.getCurrentVerdict
     }
   },
-  mounted() {
-    this.colorClass = colorService.colorClass(this.verdict.documenttype)
+  methods: {
+    setProperties() {
+      this.colorClass = colorService.colorClass(this.verdict.documenttype)
+    },
   },
   created() {
+    this.setProperties(),
     window.scroll({
       top: 0,
       left: 0,
     });
+  },
+  watch: {
+    verdict: function () {
+      this.setProperties()
+    }
   }
 }
 </script>

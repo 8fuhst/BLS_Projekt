@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-top">
     <b-navbar toggleable="lg" type="dark" class="color">
-      <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
+      <b-navbar-brand to="/BLS_Tool/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
