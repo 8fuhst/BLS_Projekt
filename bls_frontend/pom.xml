@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>basecamp.bls</groupId>
+    <artifactId>bls_frontend</artifactId>
+
+    <parent>
+        <groupId>basecamp.bls</groupId>
+        <artifactId>BLS_Tool</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <!--frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version-->
+        <java.version>11</java.version>
+        <node.version>v10.15.0</node.version>
+        <npm.version>6.14.3</npm.version>
+    </properties>
+
+    <packaging>war</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>web.xml</webXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.7.6</version>
+
+                <executions>
+                    <execution>
+                        <id>Install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <!--https://stackoverflow.com/questions/59342944/is-it-possible-to-use-the-frontend-maven-plugin-for-starting-web-application-in-->
+                    <execution>
+                        <id>npm build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <!--workingDirectory>bls_frontend</workingDirectory-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
