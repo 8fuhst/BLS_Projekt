@@ -13,7 +13,7 @@ from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
 
-es = Elasticsearch([{'host': 'basecamp-bigdata:9200', 'port': 9200}])
+es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
