@@ -1,11 +1,17 @@
 <template>
   <div class="longtext">
-    <verdictText id="tenor" :prefix="'Tenor'"/>
-    <verdictText :prefix="'noPrefix'" :text="tenor"/>
-    <verdictText id="sachverhalt" :prefix="'Sachverhaltsdarstellung'"/>
-    <VerdictText v-for="reason in verdict.modelledOffense" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
-    <verdictText id="bewertung" :prefix="'Rechtliche Bewertung'"/>
-    <VerdictText v-for="reason in verdict.modelledReasonsForDecision" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
+    <div v-if="tenor">
+      <verdictText id="tenor" :prefix="'Tenor'"/>
+      <verdictText :prefix="'noPrefix'" :text="tenor"/>
+    </div>
+    <div v-if="verdict.modelledOffense.length > 0">
+      <verdictText id="sachverhalt" :prefix="'Sachverhaltsdarstellung'"/>
+      <VerdictText v-for="reason in verdict.modelledOffense" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
+    </div>
+    <div v-if="verdict.modelledReasonsForDecision.length > 0">
+      <verdictText id="bewertung" :prefix="'Rechtliche Bewertung'"/>
+      <VerdictText v-for="reason in verdict.modelledReasonsForDecision" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
+    </div>
   </div>
 </template>
 

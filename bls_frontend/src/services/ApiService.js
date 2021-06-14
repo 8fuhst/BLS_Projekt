@@ -1,11 +1,15 @@
 import {VerdictModel} from "@/models/verdict-model";
 
 export default class ApiService {
-    async fetchVerdicts(query) {
+    constructor() {
+        this.urlBase = 'http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT'
+    }
+
+    async fetchVerdicts(query, page) {
         try {
-            const res = await fetch('http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT/search?query=' + query)
+            const res = await fetch(`api/search?query=` + query + `&page=` + page)
             let data = await res.json()
-            data = data.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict))
             return data
         } catch (e) {
             console.log('Error requesting verdicts by query: ' + e)
@@ -14,7 +18,7 @@ export default class ApiService {
 
     async fetchVerdict(documentnumber) {
         try {
-            const res = await fetch('http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT/verdict?documentnumber=' + documentnumber)
+            const res = await fetch(`api/verdict?documentnumber=` + documentnumber)
             let data = await res.json()
             data = new VerdictModel(data).withModelledOffenseAndReasons()
             return data
@@ -23,9 +27,9 @@ export default class ApiService {
         }
     }
 
-    async fetchNewest() {
+    async fetchNewest(page) {
         try {
-            const res = await fetch('http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT/newest')
+            const res = await fetch(`api/newest?page=` + page)
             let data = await res.json()
             data = data.content.map((verdict) => new VerdictModel(verdict))
             return data

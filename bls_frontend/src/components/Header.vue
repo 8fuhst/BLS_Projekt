@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-top">
     <b-navbar toggleable="lg" type="dark" class="color">
-      <b-navbar-brand to="/BLS_Tool/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
+      <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -85,12 +85,16 @@ export default {
     bottom: 20px;
     right: 30px;
     z-index: 99;
-    background-color: #F0F0F0;
+    background-color: #FFFFFF;
     cursor: pointer;
     padding: 15px 16.5px;
     border-radius: 100000px;
     font-size: 18px;
     box-shadow: 2px 2px 3px #6c6c6c;
+  }
+
+  #back-to-top svg {
+    color: rgb(162, 30, 41);;
   }
 
   .back-to-top-icon {

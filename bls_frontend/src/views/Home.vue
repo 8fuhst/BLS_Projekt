@@ -1,7 +1,7 @@
 <template>
     <b-container fluid class="pt-4">
       <h3>Neue Urteile:</h3>
-      <VerdictTileList />
+      <VerdictTileList @newPageEvent="fetchNextPage" />
     </b-container>
 </template>
 
@@ -16,6 +16,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getNewest')
+  },
+  methods: {
+    fetchNextPage() {
+      this.$store.dispatch('getNewest')
+    }
   }
 }
 </script>

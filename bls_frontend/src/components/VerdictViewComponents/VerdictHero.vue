@@ -2,7 +2,7 @@
   <div class="hero">
     <div class="bottom-margin">
       <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
-      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
     </div>
 
     <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
@@ -46,6 +46,9 @@ export default {
       if (this.verdict.keysentence) {
         this.keysentence = this.verdict.keysentence.join(' ')
       }
+      if (this.verdict.filenumber) {
+        this.filenumber = this.verdict.filenumber.join(', ')
+      }
 
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
@@ -53,7 +56,7 @@ export default {
     scrollTo(id) {
 
       window.scrollBy({
-        top: 100, // could be negative value
+        top: 100,
         left: 0,
         behavior: 'smooth'
       });
@@ -66,9 +69,11 @@ export default {
     return {
       keysentence: null,
       date: '',
+      filenumber: null,
+      stickyNavButtons: false,
     }
   },
-  created() {
+  mounted() {
     this.setProperties()
   },
   watch: {

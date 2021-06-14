@@ -2,7 +2,7 @@
   <div class="pt-4">
     <Searchbar />
     <b-container fluid>
-      <VerdictTileList />
+      <VerdictTileList @newPageEvent="fetchNextPage" />
     </b-container>
   </div>
 </template>
@@ -24,6 +24,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch('setQuery', this.query)
+  },
+  methods: {
+    fetchNextPage() {
+      this.$store.dispatch('getNewest')
+    }
   }
 }
 </script>
