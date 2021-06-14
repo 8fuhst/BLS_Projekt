@@ -1,28 +1,63 @@
 <template>
-  <div class="verdict-text" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-    <HoverMenu class="hover-menu" :copy="true" :copyTextId="'hi'" v-if="hover"/>
-    <h5>{{ prefix }}</h5>
-    <b-card-text id="hi" class="text-padding">{{ text }}</b-card-text>
+  <div class="scroll-margin">
+    <div :class="[isDivider ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+      <HoverMenu v-if="!isDivider && hover" class="hover-menu" :copy="true" :copyTextId="id" />
+      <h5 v-if="hasPrefix">{{ prefix }}</h5>
+      <b-card-text v-if="!isDivider" :id="id" class="text-padding">{{ text }}</b-card-text>
+    </div>
   </div>
 </template>
 
 <script>
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
+
 export default {
   name: "VerdictText",
   components: {HoverMenu},
   props: {
-    prefix: String,
-    text: String,
+    prefix: {
+      type: String,
+    },
+    text: {
+      type: String,
+    },
   },
   data() {
     return {
       hover: false,
+      isDivider: false,
+      id: '',
+      hasPrefix: true,
     }
   },
   methods: {
     setHover(hover) {
       this.hover = hover
+    },
+    setProperties() {
+      if (!this.text) {
+        this.isDivider = true
+      } else {
+        this.isDivider = false
+      }
+
+      if (this.text && this.prefix) {
+        const id = 'a' + this.prefix + this.text.substr(0, 10)
+        this.id = id.replace(/\s/g, '')
+      }
+
+      this.hasPrefix = this.prefix && this.prefix.length > 0 && this.prefix !== 'noPrefix'
+    }
+  },
+  created() {
+    this.setProperties()
+  },
+  watch: {
+    text: function () {
+      this.setProperties()
+    },
+    prefix: function () {
+      this.setProperties()
     }
   }
 }
@@ -46,5 +81,16 @@ export default {
     position: absolute;
     top: -8px;
     right: 15px;
+  }
+
+  .divider {
+    height: 52px;
+    width: 100%;
+    background-color: rgba(206, 206, 206, 0.5);
+    padding: 14px 40px;
+  }
+
+  .scroll-margin {
+    scroll-margin-top: 66px;
   }
 </style>

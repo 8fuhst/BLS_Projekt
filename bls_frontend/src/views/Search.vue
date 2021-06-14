@@ -1,11 +1,8 @@
 <template>
-  <div class="margin">
+  <div class="pt-4">
     <Searchbar />
-    <b-container class="center">
-      <h3>Ergebnisse:</h3>
-      <b-row>
-        <VerdictTileList />
-      </b-row>
+    <b-container fluid>
+      <VerdictTileList />
     </b-container>
   </div>
 </template>
@@ -32,11 +29,4 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    max-width: 480px;
-  }
-
-  .margin {
-    margin-top: 27px;
-  }
 </style>
