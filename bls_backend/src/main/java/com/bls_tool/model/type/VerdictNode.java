@@ -1,5 +1,6 @@
 package com.bls_tool.model.type;
 
+import net.minidev.json.JSONArray;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -24,7 +25,7 @@ public class VerdictNode {
         return filenumber;
     }
 
-    public String[] getOutgoingReferenceList() {
+    public JSONArray getOutgoingReferenceList() {
         return outgoingReferenceList;
     }
 
