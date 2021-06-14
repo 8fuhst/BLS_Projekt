@@ -10,10 +10,10 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class VerdictNode {
     @Id
     private String _id;
-    @Field(type = FieldType.Text, name = "filenumber")
+    @Field(type = FieldType.Keyword, name = "filenumber")
     private String filenumber;
-    @Field(type = FieldType.Text, name = "outgoing_reference_list")
-    private String[] outgoingReferenceList;
+    @Field(type = FieldType.Nested, name = "outgoing_reference_list")
+    private JSONArray outgoingReferenceList;
     @Field(type = FieldType.Text, name = "outgoing_reference_set")
     private String[] outgoingReferenceSet;
     @Field(type = FieldType.Text, name = "incoming_reference_set")

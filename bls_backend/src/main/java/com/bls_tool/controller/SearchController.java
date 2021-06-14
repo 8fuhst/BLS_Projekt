@@ -9,6 +9,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+
 import java.util.List;
 
 @Controller
@@ -79,4 +86,18 @@ public class SearchController {
 
         return verdictByQuery;
     }
+//
+//
+//
+//    public class date {
+//        public static boolean isValidDate(String inDate) {
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:ms");
+//            dateFormat.setLenient(false);
+//            try {
+//                dateFormat.parse(inDate.trim());
+//            } catch (ParseException pe) {
+//                return false;
+//            }
+//            return true;
+//        }
 }
