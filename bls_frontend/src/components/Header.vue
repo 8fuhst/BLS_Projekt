@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-top">
     <b-navbar toggleable="lg" type="dark" class="color">
-      <b-navbar-brand to="/"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
+      <b-navbar-brand :to="homeRoute"><img class="logo" src="@/assets/buc-white.svg" /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -37,6 +37,9 @@ export default {
   computed: {
     routes() {
       return this.$router.getRoutes().filter( (route) => !route.meta.hidden)
+    },
+    homeRoute() {
+      return process.env.VUE_APP_PATH_BASE + '/'
     }
   },
   watch: {

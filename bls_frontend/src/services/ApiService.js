@@ -1,13 +1,10 @@
 import {VerdictModel} from "@/models/verdict-model";
 
 export default class ApiService {
-    constructor() {
-        this.urlBase = 'http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT'
-    }
 
     async fetchVerdicts(query, page) {
         try {
-            const res = await fetch(`api/search?query=` + query + `&page=` + page)
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/search?query=` + query + `&page=` + page)
             let data = await res.json()
             data = data.content.map((verdict) => new VerdictModel(verdict))
             return data
@@ -18,7 +15,7 @@ export default class ApiService {
 
     async fetchVerdict(documentnumber) {
         try {
-            const res = await fetch(`api/verdict?documentnumber=` + documentnumber)
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdict?documentnumber=` + documentnumber)
             let data = await res.json()
             data = new VerdictModel(data).withModelledOffenseAndReasons()
             return data
@@ -29,7 +26,7 @@ export default class ApiService {
 
     async fetchNewest(page) {
         try {
-            const res = await fetch(`api/newest?page=` + page)
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/newest?page=` + page)
             let data = await res.json()
             data = data.content.map((verdict) => new VerdictModel(verdict))
             return data
