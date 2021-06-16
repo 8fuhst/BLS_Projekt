@@ -32,11 +32,12 @@ export default {
       return this.$store.getters.getCurrentVerdict
     }
   },
-  created() {
+  mounted() {
     window.scroll({
       top: 0,
       left: 0,
     });
+    this.$store.dispatch('getVerdictNode', this.verdict.filenumber[0])
   },
 }
 </script>

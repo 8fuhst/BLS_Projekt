@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div class="hero" id="verdictHero">
     <div class="bottom-margin">
       <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
       <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>

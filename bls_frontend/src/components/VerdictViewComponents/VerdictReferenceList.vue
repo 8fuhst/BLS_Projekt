@@ -1,6 +1,7 @@
 <template>
   <div class="references">
-    <VerdictReference />
+    <VerdictReference v-for="(reference, index) in verdictNode.outgoingReferenceList[0][1].gruende" v-bind:key="index"
+      :section="'bewertung'" :indexInput="reference[0]" :text="reference[1]"/>
   </div>
 </template>
 
@@ -8,8 +9,14 @@
 import VerdictReference from "@/components/VerdictViewComponents/VerdictReference";
 export default {
   name: "VerdictReferenceList",
-  components: {VerdictReference}
-
+  components: {VerdictReference},
+  computed: {
+    verdictNode() {
+      return this.$store.getters.getVerdictNode
+    }
+  },
+  mounted() {
+  }
 }
 </script>
 

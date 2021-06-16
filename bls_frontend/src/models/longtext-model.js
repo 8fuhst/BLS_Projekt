@@ -1,5 +1,5 @@
 export class LongtextModel {
-    constructor(prefix, text) {
+    constructor(prefix, text, indices) {
         if (prefix) {
             this.prefix = prefix
         } else {
@@ -10,6 +10,12 @@ export class LongtextModel {
             this.text = text
         } else {
             this.text = null
+        }
+
+        if (indices) {
+            this.indices = indices
+        } else {
+            this.indices = []
         }
     }
 }

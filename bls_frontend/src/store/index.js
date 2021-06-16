@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ApiService from "../services/ApiService.js";
 import {VerdictModel} from "@/models/verdict-model";
+import {VerdictNodeModel} from "@/models/verdict-node-model";
 
 const apiService = new ApiService()
 Vue.use(Vuex)
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     currentVerdict: new VerdictModel(null),
     fetching: false,
     page: 0,
+    verdictNode: new VerdictNodeModel(null),
   },
   mutations: {
     setVerdicts(state, payload) {
@@ -32,6 +34,9 @@ export default new Vuex.Store({
     },
     setPage(state, payload) {
       state.page = payload
+    },
+    setVerdictNode(state, payload) {
+      state.verdictNode = payload
     }
   },
   actions: {
@@ -59,6 +64,10 @@ export default new Vuex.Store({
     async setCurrent(state, documentnumber) {
       const verdict = await apiService.fetchVerdict(documentnumber)
       state.commit('setVerdict', verdict)
+    },
+    async getVerdictNode(state, filenumber) {
+      const verdictNode = await apiService.fetchVerdictNode(filenumber)
+      state.commit('setVerdictNode', verdictNode)
     }
   },
   modules: {
@@ -69,5 +78,6 @@ export default new Vuex.Store({
     getCurrentVerdict: state => state.currentVerdict,
     getFetching: state => state.fetching,
     getPage: state => state.page,
+    getVerdictNode: state => state.verdictNode,
   }
 })

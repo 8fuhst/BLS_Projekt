@@ -64,9 +64,9 @@ export class VerdictModel {
                     continue
                 }
                 if (isNaN(this.reasonsForDecision[i])) {
-                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i]))
+                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i], null, [i]))
                 } else {
-                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i], this.reasonsForDecision[i + 1]))
+                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i], this.reasonsForDecision[i + 1], [i, i+1]))
                     i++
                 }
             }
@@ -78,9 +78,9 @@ export class VerdictModel {
                     continue
                 }
                 if (isNaN(this.offense[i])) {
-                    this.modelledOffense.push(new LongtextModel(this.offense[i]))
+                    this.modelledOffense.push(new LongtextModel(this.offense[i], null, [i]))
                 } else {
-                    this.modelledOffense.push(new LongtextModel(this.offense[i], this.offense[i + 1]))
+                    this.modelledOffense.push(new LongtextModel(this.offense[i], this.offense[i + 1], [i, i+1]))
                     i++
                 }
             }

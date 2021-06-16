@@ -2,15 +2,15 @@
   <div class="longtext">
     <div v-if="tenor">
       <verdictText id="tenor" :prefix="'Tenor'" :divider="true" />
-      <verdictText :prefix="tenor"/>
+      <verdictText :prefix="tenor" :section="'tenor'" :indices="[0]"/>
     </div>
     <div v-if="verdict.modelledOffense.length > 0">
       <verdictText id="sachverhalt" :prefix="'Sachverhaltsdarstellung'" :divider="true" />
-      <VerdictText v-for="reason in verdict.modelledOffense" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
+      <VerdictText v-for="reason in verdict.modelledOffense" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" :indices="reason.indices" :section="'sachverhalt'" />
     </div>
     <div v-if="verdict.modelledReasonsForDecision.length > 0">
       <verdictText id="bewertung" :prefix="'Rechtliche Bewertung'" :divider="true" />
-      <VerdictText v-for="reason in verdict.modelledReasonsForDecision" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" />
+      <VerdictText v-for="reason in verdict.modelledReasonsForDecision" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" :indices="reason.indices" :section="'bewertung'" />
     </div>
   </div>
 </template>

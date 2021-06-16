@@ -21,6 +21,12 @@ export default {
     text: {
       type: String,
     },
+    indices: {
+      type: Array,
+    },
+    section: {
+      type: String,
+    },
     divider: {
       type: Boolean,
     }
@@ -44,8 +50,8 @@ export default {
         this.hasPrefix = this.isDivider(this.prefix)
       }
 
-      if (this.text && this.prefix) {
-        const id = 'a' + this.prefix + this.text.substr(0, 10)
+      if (this.indices) {
+        const id = this.section + this.indices.join('x')
         this.id = id.replace(/\s/g, '')
       }
     },
