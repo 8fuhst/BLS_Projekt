@@ -1,9 +1,9 @@
 <template>
   <div class="scroll-margin">
-    <div :class="[isDivider ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-      <HoverMenu v-if="!isDivider && hover" class="hover-menu" :copy="true" :copyTextId="id" />
+    <div :class="[isDivider(prefix) ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+      <HoverMenu v-if="!isDivider(prefix, text) && hover" class="hover-menu" :copy="true" :copyTextId="id" />
       <h5 v-if="hasPrefix">{{ prefix }}</h5>
-      <b-card-text v-if="!isDivider" :id="id" class="text-padding">{{ text }}</b-card-text>
+      <b-card-text v-if="!isDivider(prefix, text)" :id="id" class="text-padding">{{ displayedText }}</b-card-text>
     </div>
   </div>
 </template>
@@ -21,13 +21,16 @@ export default {
     text: {
       type: String,
     },
+    divider: {
+      type: Boolean,
+    }
   },
   data() {
     return {
       hover: false,
-      isDivider: false,
       id: '',
       hasPrefix: true,
+      displayedText: '',
     }
   },
   methods: {
@@ -35,18 +38,19 @@ export default {
       this.hover = hover
     },
     setProperties() {
-      if (!this.text) {
-        this.isDivider = true
-      } else {
-        this.isDivider = false
+      this.displayedText = this.text
+      if (!/^[0-9.]+$/.test(this.prefix)) {
+        this.displayedText = this.prefix
+        this.hasPrefix = this.isDivider(this.prefix)
       }
 
       if (this.text && this.prefix) {
         const id = 'a' + this.prefix + this.text.substr(0, 10)
         this.id = id.replace(/\s/g, '')
       }
-
-      this.hasPrefix = this.prefix && this.prefix.length > 0 && this.prefix !== 'noPrefix'
+    },
+    isDivider(prefix)  {
+      return /^[XIV.]+$/.test(prefix) || this.divider
     }
   },
   created() {

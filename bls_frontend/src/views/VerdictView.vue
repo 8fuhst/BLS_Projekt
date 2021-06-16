@@ -1,5 +1,5 @@
 <template>
-  <div :class="colorClass + '-anzeige'" class="scroll">
+  <div class="scroll">
     <VerdictHero :verdict="verdict" />
     <div class="text-container">
       <VerdictLongtext />
@@ -12,9 +12,6 @@
 import VerdictHero from "@/components/VerdictViewComponents/VerdictHero";
 import VerdictLongtext from "@/components/VerdictViewComponents/VerdictLongtext";
 import VerdictReferenceList from "@/components/VerdictViewComponents/VerdictReferenceList";
-import {ColorService} from "@/services/ColorService";
-
-const colorService = new ColorService()
 
 export default {
   name: "VerdictView",
@@ -28,7 +25,6 @@ export default {
       tenor: '',
       offense: [],
       reasonsForDecision: [],
-      colorClass: '',
     }
   },
   computed: {
@@ -36,23 +32,12 @@ export default {
       return this.$store.getters.getCurrentVerdict
     }
   },
-  methods: {
-    setProperties() {
-      this.colorClass = colorService.colorClass(this.verdict.documenttype)
-    },
-  },
   created() {
-    this.setProperties(),
     window.scroll({
       top: 0,
       left: 0,
     });
   },
-  watch: {
-    verdict: function () {
-      this.setProperties()
-    }
-  }
 }
 </script>
 

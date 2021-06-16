@@ -18,9 +18,9 @@
 
     <div class="button-group" >
       <b-button-group>
-        <b-button @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
-        <b-button @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
-        <b-button @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
+        <b-button v-if="verdict.tenor" @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
+        <b-button v-if="verdict.modelledOffense.length > 0" @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
+        <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
       </b-button-group>
     </div>
   </div>

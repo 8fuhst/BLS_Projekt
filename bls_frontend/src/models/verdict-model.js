@@ -7,7 +7,11 @@ export class VerdictModel {
             this.mitwirkung = verdict.mitwirkung;
             this.identifier = verdict.identifier;
             this.other = verdict.other;
-            this.reasonsForDecision = verdict.reasonsForDecision;
+            if (verdict.reasons.length > 0) {
+                this.reasonsForDecision = verdict.reasons;
+            } else {
+                this.reasonsForDecision = verdict.reasonsForDecision;
+            }
             this.filenumber = verdict.filenumber;
             this.offense = verdict.offense;
             this.documenttype = verdict.documenttype;
