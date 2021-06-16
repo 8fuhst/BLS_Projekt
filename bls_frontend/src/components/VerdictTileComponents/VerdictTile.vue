@@ -80,7 +80,7 @@
 
 import ExpandableText from "@/components/UtilityComponents/ExpandableText";
 import {ColorService} from "@/services/ColorService";
-import CopyButton from "@/components/UtilityComponents/CopyButton";
+import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import {VerdictModel} from "@/models/verdict-model";
 import KeyWordTags from "@/components/KeyWordTags";
 

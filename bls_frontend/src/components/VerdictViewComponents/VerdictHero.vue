@@ -28,7 +28,7 @@
 
 <script>
 import KeyWordTags from "@/components/KeyWordTags";
-import CopyButton from "@/components/UtilityComponents/CopyButton";
+import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 
 export default {
   name: "VerdictHero",
@@ -54,12 +54,6 @@ export default {
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     },
     scrollTo(id) {
-
-      window.scrollBy({
-        top: 100,
-        left: 0,
-        behavior: 'smooth'
-      });
       document.querySelector(id).scrollIntoView({
         behavior: 'smooth'
       });

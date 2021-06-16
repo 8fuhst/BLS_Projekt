@@ -37,7 +37,7 @@ export default new Vuex.Store({
     },
     setVerdictNode(state, payload) {
       state.verdictNode = payload
-    }
+    },
   },
   actions: {
     async setQuery(state, newQuery) {
@@ -65,7 +65,7 @@ export default new Vuex.Store({
       const verdict = await apiService.fetchVerdict(documentnumber)
       state.commit('setVerdict', verdict)
     },
-    async getVerdictNode(state, filenumber) {
+    async setVerdictNode(state, filenumber) {
       const verdictNode = await apiService.fetchVerdictNode(filenumber)
       state.commit('setVerdictNode', verdictNode)
     }

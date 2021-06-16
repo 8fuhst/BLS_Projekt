@@ -38,9 +38,9 @@ export default class ApiService {
 
     async fetchVerdictNode(filenumber) {
         try {
-            console.log(filenumber)
-            //const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + 'IV%20ZR%2036/09')
-            //let data = await res.json()
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
+            let data = await res.json()
+            /*
             const hardcode = JSON.parse('{\n' +
                 '  "filenumber": "IV ZR 36/09",\n' +
                 '  "outgoingReferenceList": [\n' +
@@ -91,9 +91,12 @@ export default class ApiService {
                 '  ],\n' +
                 '  "incomingCount": 1\n' +
                 '}')
-            return new VerdictNodeModel(hardcode)
+
+             */
+            return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)
+            return new VerdictNodeModel(null)
         }
     }
 }

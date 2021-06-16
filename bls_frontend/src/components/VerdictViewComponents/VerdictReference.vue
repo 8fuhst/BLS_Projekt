@@ -1,7 +1,7 @@
 <template>
   <div class="reference bottom-margin" @mouseover="setHover(true)" @mouseleave="setHover(false)" :style="'top: ' + height + 'px'">
-    <HoverMenu class="hover-menu" :copy="true" :copyTextId="'hi'" v-if="hover"/>
-    <b-card-text>{{ text }}</b-card-text>
+    <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + index + 'ref'" :link="true" :linkFilenumber="text" v-if="hover"/>
+    <b-card-text :id="section + index + 'ref'" >{{ text }}</b-card-text>
   </div>
 </template>
 
@@ -20,7 +20,12 @@ export default {
     },
     text: {
       type: String,
-    },
+    }
+  },
+  computed: {
+    change() {
+      return this.$store.getters.getChange
+    }
   },
   data() {
     return {
@@ -46,25 +51,17 @@ export default {
         element = document.getElementById(this.section + this.index + 'x' + next)
       }
 
-
       const heroHeight = document.getElementById('verdictHero').offsetHeight
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
       const rect = element.getBoundingClientRect()
       if (!this.stopUpdating) {
-        this.height = rect.top - heroHeight
+        this.height = rect.top - heroHeight + scrollTop
       }
-
-
-      if (element !== null) {
-        this.stopUpdating = true
-      }
-
-
     }
   },
   mounted() {
     this.index = parseInt(this.indexInput)
-    this.setHeight()
   },
   updated() {
     this.setHeight()

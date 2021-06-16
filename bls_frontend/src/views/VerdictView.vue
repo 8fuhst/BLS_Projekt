@@ -37,8 +37,18 @@ export default {
       top: 0,
       left: 0,
     });
-    this.$store.dispatch('getVerdictNode', this.verdict.filenumber[0])
+    if (this.verdict.filenumber[0] !== undefined) {
+      this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+    }
+
   },
+  watch: {
+    verdict: function () {
+      if (this.verdict.filenumber[0] !== undefined) {
+        this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+      }
+    }
+  }
 }
 </script>
 

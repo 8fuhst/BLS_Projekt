@@ -1,17 +1,21 @@
 <template>
   <div class="hover-menu">
+    <LinkButton v-if="link" :filenumber="linkFilenumber"></LinkButton>
     <CopyButton v-if="copy" :textId="copyTextId"></CopyButton>
   </div>
 </template>
 
 <script>
-import CopyButton from "@/components/UtilityComponents/CopyButton";
+import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
+import LinkButton from "@/components/UtilityComponents/ActionButtons/LinkButton";
 export default {
   name: "HoverMenu",
-  components: {CopyButton},
+  components: {LinkButton, CopyButton},
   props: {
     copy: Boolean,
     copyTextId: String,
+    link: Boolean,
+    linkFilenumber: String,
   }
 }
 </script>
