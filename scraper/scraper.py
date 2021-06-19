@@ -114,6 +114,16 @@ def eval_xml(xml_string):
                 outgoing_references_list.append(outgoing_references)
             result_dict[tags_translation[tag]] = tag_array
 
+            if tag == 'tenor':
+                if len(result_dict['tenor']) > 0:
+                    tenor_text = result_dict['tenor']
+                    preprocessed_tenor_text = formatter.replace_abbreviations(tenor_text)
+                    # TODO Model anfunken und tenor reinkloppen, Result mit in ES speichern
+                else:
+                    # result is always neutral if there is no tenor
+                    json_text = json.loads(result_dict)
+                    json_text.update({"result": "neutral"})
+
     # build provisional reference-dict for ES that does not contain incoming references yet:
     provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, [])
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
