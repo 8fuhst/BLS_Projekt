@@ -12,6 +12,7 @@ import json
 from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
+import formatter
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
 
