@@ -245,7 +245,11 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
 
-extract_new_links()
+# extract_new_links()
+
+incoming_reference_set = ["filenr"]
+provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
+print(provisional_references_dict)
 
 #print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
 
