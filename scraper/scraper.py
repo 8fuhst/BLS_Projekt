@@ -115,7 +115,7 @@ def eval_xml(xml_string):
                 outgoing_references_list.append(outgoing_references)
             result_dict[tags_translation[tag]] = tag_array
 
-            if tag == 'tenor':
+            '''if tag == 'tenor':
                 if len(result_dict['tenor']) > 0:
                     tenor_text = result_dict['tenor']
                     preprocessed_tenor_text = formatter.replace_abbreviations(tenor_text)
@@ -123,7 +123,7 @@ def eval_xml(xml_string):
                 else:
                     # result is always neutral if there is no tenor
                     json_text = json.loads(result_dict)
-                    json_text.update({"result": "neutral"})
+                    json_text.update({"result": "neutral"})''' #TODO Weiterbauen
 
     # build provisional reference-dict for ES that does not contain incoming references yet:
     provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, [])
@@ -175,7 +175,6 @@ def update_database(linklist):
     #         es.index(index='verdicts', doc_type='verdict', id=count, body=json_object)
     #         count = count + 1
 
-    cuprit_list = ['IX ZB 249/07', 'IX ZB 50/05', 'III ZR 108/08', 'III ZR 109/08', '4 StR 251/08', '4 StR 212/07', '23 KLs 35/08', 'IX ZB 430/02'] # todo remove
     json_list = []
     json_reference_list = []
     for link in linklist:
@@ -256,11 +255,11 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
 
-# extract_new_links()
+extract_new_links()
 
-incoming_reference_set = ["filenr"]
-provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
-print(provisional_references_dict)
+#incoming_reference_set = ["filenr"]
+#provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
+#print(provisional_references_dict)
 
 #print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
 
