@@ -226,9 +226,9 @@ def update_database(linklist):
                 # Fetch old data from ES
                 to_be_updated = es.get(index="verdict_nodes2", id=filenr)['_source']
                 # Add the outgoing references
-                to_be_updated['outgoing_reference_list'].append(
-                json_reference_object['outgoing_reference_list'])
-                to_be_updated['outgoing_reference_set'].append(json_reference_object['outgoing_reference_set'])
+                to_be_updated['outgoing_reference_list'].extend(
+                json_reference_object['outgoing_reference_list']) # TODO extend() statt append()
+                to_be_updated['outgoing_reference_set'].extend(json_reference_object['outgoing_reference_set'])
                 # Modify dict to fit ES Convention
                 updated = {
                     'doc': to_be_updated
