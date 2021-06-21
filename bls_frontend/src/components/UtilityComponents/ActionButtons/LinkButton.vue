@@ -15,7 +15,7 @@ export default {
       this.$store.commit('setPage', 0)
       await this.$store.dispatch('setQuery', this.filenumber)
       const newVerdict = this.$store.getters.getVerdicts[0]
-      await this.$store.dispatch('setCurrent', newVerdict.documentnumber)
+      await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
 
       window.scroll({
         top: 0,

@@ -136,8 +136,7 @@ export default {
   },
   methods: {
     setCurrentVerdict() {
-      this.$store.dispatch('setCurrent', this.verdict.documentnumber)
-      this.$router.push('urteil')
+      this.$router.push({ name: 'Verdict', query: { docnr: this.verdict.documentnumber } })
     }
   }
 }

@@ -9,7 +9,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    query: '',
     verdicts: [],
     currentVerdict: new VerdictModel(null),
     fetching: false,
@@ -22,9 +21,6 @@ export default new Vuex.Store({
     },
     appendVerdicts(state, payload) {
       state.verdicts = state.verdicts.concat(payload)
-    },
-    setQuery(state, payload) {
-      state.query = payload
     },
     setVerdict(state, payload) {
       state.currentVerdict = payload
@@ -41,7 +37,6 @@ export default new Vuex.Store({
   },
   actions: {
     async setQuery(state, newQuery) {
-      state.commit('setQuery', newQuery)
       state.commit('setFetching', true)
       const verdicts = await apiService.fetchVerdicts(newQuery, this.state.page)
       state.commit('setFetching', false)
@@ -74,7 +69,6 @@ export default new Vuex.Store({
   },
   getters: {
     getVerdicts: state => state.verdicts,
-    getQuery: state => state.query,
     getCurrentVerdict: state => state.currentVerdict,
     getFetching: state => state.fetching,
     getPage: state => state.page,

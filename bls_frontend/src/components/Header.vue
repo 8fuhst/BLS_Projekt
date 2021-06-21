@@ -47,8 +47,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.commit('setQuery', this.newQuery)
-      this.$router.push('suche')
+      this.$router.push({ name: 'Search', query: { query: this.newQuery } })
     },
     scrollFunction() {
       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {

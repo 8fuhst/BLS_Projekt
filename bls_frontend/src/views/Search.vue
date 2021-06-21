@@ -17,17 +17,18 @@ export default {
     Searchbar,
     VerdictTileList
   },
-  computed: {
-    query() {
-      return this.$store.getters.getQuery
-    }
-  },
   mounted() {
-    this.$store.dispatch('setQuery', this.query)
+    this.$store.dispatch('setQuery', this.$route.query.query)
   },
   methods: {
     fetchNextPage() {
-      this.$store.dispatch('getNewest')
+      this.$store.dispatch('setQuery', this.$route.query.query)
+    }
+  },
+  watch: {
+    $route() {
+      this.$store.commit('setPage', 0)
+      this.$store.dispatch('setQuery', this.$route.query.query)
     }
   }
 }

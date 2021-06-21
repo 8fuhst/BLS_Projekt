@@ -32,6 +32,9 @@ export default {
       return this.$store.getters.getCurrentVerdict
     }
   },
+  created() {
+    this.$store.dispatch('setCurrent', this.$route.query.docnr)
+  },
   mounted() {
     window.scroll({
       top: 0,
@@ -47,6 +50,9 @@ export default {
       if (this.verdict.filenumber[0] !== undefined) {
         this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
       }
+    },
+    $route() {
+      this.$store.dispatch('setCurrent', this.$route.query.docnr)
     }
   }
 }

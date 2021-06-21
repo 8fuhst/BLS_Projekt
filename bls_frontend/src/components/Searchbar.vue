@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
 export default {
   name: "Searchbar",
@@ -30,17 +29,12 @@ export default {
       newQuery: '',
     }
   },
-  computed: {
-    ... mapGetters({
-      query: 'getQuery',
-    }),
-  },
   created() {
-    this.newQuery = this.query
+    this.newQuery = this.$route.query.query
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('setQuery', this.newQuery)
+      this.$router.push({ name: 'Search', query: { query: this.newQuery } })
     }
   }
 }

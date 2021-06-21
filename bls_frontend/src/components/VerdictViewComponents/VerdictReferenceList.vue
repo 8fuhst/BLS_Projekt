@@ -17,12 +17,8 @@ export default {
       return this.$store.getters.getVerdictNode
     },
     reasons() {
-      if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0][1] && this.verdictNode.outgoingReferenceList[0][1].gruende && this.verdictNode.outgoingReferenceList[0][1].gruende.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0][1].gruende
-      } else if (this.verdictNode.outgoingReferenceList[1] && this.verdictNode.outgoingReferenceList[1].gruende && this.verdictNode.outgoingReferenceList[1].gruende.length > 0) {
+      if (this.verdictNode.outgoingReferenceList[1] && this.verdictNode.outgoingReferenceList[1].gruende && this.verdictNode.outgoingReferenceList[1].gruende.length > 0) {
         return this.verdictNode.outgoingReferenceList[1].gruende
-      } else if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0][2] && this.verdictNode.outgoingReferenceList[0][2].entscheidungsgruende && this.verdictNode.outgoingReferenceList[0][2].entscheidungsgruende.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0][2].entscheidungsgruende
       } else if (this.verdictNode.outgoingReferenceList[2] && this.verdictNode.outgoingReferenceList[2].entscheidungsgruende && this.verdictNode.outgoingReferenceList[2].entscheidungsgruende.length > 0) {
         return this.verdictNode.outgoingReferenceList[2].entscheidungsgruende
       } else {
@@ -30,9 +26,7 @@ export default {
       }
     },
     offense() {
-      if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0][3] && this.verdictNode.outgoingReferenceList[0][3].tatbestand && this.verdictNode.outgoingReferenceList[0][3].tatbestand.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0][3].tatbestand
-      } else if (this.verdictNode.outgoingReferenceList[3] && this.verdictNode.outgoingReferenceList[3].tatbestand && this.verdictNode.outgoingReferenceList[3].tatbestand.length > 0) {
+      if (this.verdictNode.outgoingReferenceList[3] && this.verdictNode.outgoingReferenceList[3].tatbestand && this.verdictNode.outgoingReferenceList[3].tatbestand.length > 0) {
         return this.verdictNode.outgoingReferenceList[3].tatbestand
       } else {
         return []
