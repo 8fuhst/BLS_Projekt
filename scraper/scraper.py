@@ -12,6 +12,7 @@ import json
 from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
+import time
 import formatter
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}])
@@ -177,10 +178,12 @@ def update_database(linklist):
 
     json_list = []
     json_reference_list = []
+    print("Building JSON-Objects...")
     for link in linklist:
         json_object, json_reference_object = get_xml_from_file(link)
         json_list.append(json_object)
         json_reference_list.append(json_reference_object)
+    print("Starting to write to Database...")
     if len(linklist) == len(json_list):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
@@ -235,14 +238,17 @@ def update_database(linklist):
                 # Update ES Document with new References
                 es.update(index="verdict_nodes3", id=filenr, body=updated)
     else:
-        print("Aktualisierung fehlgeschlagen")
+        print("Refresh failed!")
         copyfile("oldlinks.txt", "links.txt")
 
 
 
 def extract_new_links():
+    tic = time.time()
+    print("Updating rii-toc.xml...")
     update_xml_table_of_contents()
     copyfile("links.txt", "oldlinks.txt")
+    print("Extracting links...")
     extract_links_from_toc_xml()
     link_set = set()
     new_links = []
@@ -254,6 +260,8 @@ def extract_new_links():
             if not line in link_set:
                 new_links.append(line)
     update_database(new_links)
+    toc = time.time()
+    print("Done! Time needed: {}".format(str(tic - toc)))
 
 extract_new_links()
 
