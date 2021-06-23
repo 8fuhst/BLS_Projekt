@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="svg4038"
+   viewBox="0 0 150 30"
+   width="2419px"
+   height="115"
+   version="1.1"
+   sodipodi:docname="buc-fav.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs45" />
+  <sodipodi:namedview
+     id="namedview43"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="2"
+     inkscape:cx="1209.25"
+     inkscape:cy="24.75"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4050" />
+  <style
+     id="style28">.st0{clip-path:url(#SVGID_2_)}.st1{fill:#1e1f1d}.st2{fill:#a21d29}</style>
+  <g
+     id="g4046"
+     transform="matrix(1.25 0 0 -1.25 0 30)">
+    <g
+       id="g4048">
+      <defs
+         id="defs31">
+        <path
+           id="SVGID_1_"
+           d="M-65.2-3h652.5v30H-65.2z" />
+      </defs>
+      <clipPath
+         id="SVGID_2_">
+        <path
+           d="M-65.2-3h652.5v30H-65.2z"
+           transform="matrix(1, 0, 0, 1, 0, 0)"
+           overflow="visible"
+           id="path33" />
+      </clipPath>
+      <g
+         id="g4050"
+         class="st0"
+         clip-path="url(#SVGID_2_)">
+        <path
+           id="path4122"
+           class="st2"
+           d="M 36.588727,16 H 50 V 2 H 36.588727 Z"
+           style="stroke-width:0.517905" />
+        <path
+           id="path4124"
+           class="st2"
+           d="M 70,16 H 83.411461 V 2 H 70 Z"
+           style="stroke-width:0.517909" />
+        <path
+           id="path4126"
+           class="st2"
+           d="M53 24h14V0H53v24z" />
+      </g>
+    </g>
+  </g>
+</svg>

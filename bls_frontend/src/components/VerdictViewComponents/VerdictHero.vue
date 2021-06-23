@@ -1,34 +1,78 @@
 <template>
-  <div class="hero">
+  <div class="hero" id="verdictHero">
     <div class="bottom-margin">
-      <b-icon-chevron-left @click="goBack" class="inline back"></b-icon-chevron-left>
-      <b-card-text class="inline headline">{{ verdict.documenttype + ' | ' + verdict.date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
+      <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
+      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
     </div>
+
+    <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
+
     <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
 
-    <div v-if="verdict.keysentence" class="bottom-margin">
-      <h5 class="inline">Leitsatz</h5>
-      <CopyButton class="inline-block" :textId="verdict.documentnumber + 'keysentence'" />
-      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
+    <div v-if="keysentence">
+      <h5 class="d-inline">Leitsatz</h5>
+      <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
+      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
     </div>
 
+
+    <div class="button-group" >
+      <b-button-group>
+        <b-button v-if="verdict.tenor" @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
+        <b-button v-if="verdict.modelledOffense.length > 0" @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
+        <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 
 <script>
 import KeyWordTags from "@/components/KeyWordTags";
-import {VerdictModel} from "@/models/verdict-model";
-import CopyButton from "@/components/UtilityComponents/CopyButton";
+import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 
 export default {
   name: "VerdictHero",
   components: { KeyWordTags, CopyButton },
-  props: {
-    verdict: VerdictModel
+  computed: {
+    verdict() {
+      return this.$store.getters.getCurrentVerdict
+    }
   },
   methods: {
     goBack() {
       this.$router.back()
+    },
+    setProperties() {
+      if (this.verdict.keysentence) {
+        this.keysentence = this.verdict.keysentence.join(' ')
+      }
+      if (this.verdict.filenumber) {
+        this.filenumber = this.verdict.filenumber.join(', ')
+      }
+
+      const date = this.verdict.date + ''
+      this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
+    },
+    scrollTo(id) {
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  },
+  data() {
+    return {
+      keysentence: null,
+      date: '',
+      filenumber: null,
+      stickyNavButtons: false,
+    }
+  },
+  mounted() {
+    this.setProperties()
+  },
+  watch: {
+    verdict: function () {
+      this.setProperties()
     }
   }
 }
@@ -40,15 +84,7 @@ export default {
     width: 80%;
     margin: 0 10%;
     position: relative;
-    padding: 20px 40px;
-  }
-
-  .inline {
-    display: inline;
-  }
-
-  .inline-block {
-    display: inline-block;
+    padding: 20px 24px 62px 24px;
   }
 
   .headline {
@@ -71,5 +107,15 @@ export default {
 
   h5 {
     margin-right: 8px;
+  }
+
+  .button-group {
+    position: absolute;
+
+    bottom: 12px;
+  }
+
+  .scroll {
+    scroll-behavior: smooth;
   }
 </style>

@@ -1,28 +1,73 @@
 <template>
-  <div class="verdict-text" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-    <HoverMenu class="hover-menu" :copy="true" :copyTextId="'hi'" v-if="hover"/>
-    <h5>{{ prefix }}</h5>
-    <b-card-text id="hi" class="text-padding">{{ text }}</b-card-text>
+  <div class="scroll-margin">
+    <div :class="[isDivider(prefix) ? 'divider' : 'verdict-text']" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+      <HoverMenu v-if="!isDivider(prefix, text) && hover" class="hover-menu" :copy="true" :copyTextId="id" />
+      <h5 v-if="hasPrefix">{{ prefix }}</h5>
+      <b-card-text v-if="!isDivider(prefix, text)" :id="id" class="text-padding">{{ displayedText }}</b-card-text>
+    </div>
   </div>
 </template>
 
 <script>
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
+
 export default {
   name: "VerdictText",
   components: {HoverMenu},
   props: {
-    prefix: String,
-    text: String,
+    prefix: {
+      type: String,
+    },
+    text: {
+      type: String,
+    },
+    indices: {
+      type: Array,
+    },
+    section: {
+      type: String,
+    },
+    divider: {
+      type: Boolean,
+    }
   },
   data() {
     return {
       hover: false,
+      id: '',
+      hasPrefix: true,
+      displayedText: '',
     }
   },
   methods: {
     setHover(hover) {
       this.hover = hover
+    },
+    setProperties() {
+      this.displayedText = this.text
+      if (!/^[0-9.]+$/.test(this.prefix)) {
+        this.displayedText = this.prefix
+        this.hasPrefix = this.isDivider(this.prefix)
+      }
+
+      if (this.indices) {
+        const id = this.section + this.indices.join('x')
+        this.id = id.replace(/\s/g, '')
+      }
+    },
+    isDivider(prefix)  {
+      return /^[XIV.]+$/.test(prefix) || this.divider
+    }
+  },
+  created() {
+    this.setProperties()
+  },
+  watch: {
+    text: function () {
+      this.setProperties()
+    },
+    prefix: function () {
+      this.setProperties()
     }
   }
 }
@@ -46,5 +91,16 @@ export default {
     position: absolute;
     top: -8px;
     right: 15px;
+  }
+
+  .divider {
+    height: 52px;
+    width: 100%;
+    background-color: rgba(206, 206, 206, 0.5);
+    padding: 14px 40px;
+  }
+
+  .scroll-margin {
+    scroll-margin-top: 66px;
   }
 </style>

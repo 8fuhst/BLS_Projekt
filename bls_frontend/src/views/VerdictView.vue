@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scroll">
     <VerdictHero :verdict="verdict" />
     <div class="text-container">
       <VerdictLongtext />
@@ -20,11 +20,41 @@ export default {
     VerdictLongtext,
     VerdictReferenceList,
   },
+  data() {
+    return {
+      tenor: '',
+      offense: [],
+      reasonsForDecision: [],
+    }
+  },
   computed: {
     verdict() {
       return this.$store.getters.getCurrentVerdict
     }
   },
+  created() {
+    this.$store.dispatch('setCurrent', this.$route.query.docnr)
+  },
+  mounted() {
+    window.scroll({
+      top: 0,
+      left: 0,
+    });
+    if (this.verdict.filenumber[0] !== undefined) {
+      this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+    }
+
+  },
+  watch: {
+    verdict: function () {
+      if (this.verdict.filenumber[0] !== undefined) {
+        this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+      }
+    },
+    $route() {
+      this.$store.dispatch('setCurrent', this.$route.query.docnr)
+    }
+  }
 }
 </script>
 
@@ -34,5 +64,9 @@ export default {
     height: auto;
     width: 80%;
     margin: 0 10%;
+  }
+
+  .scroll {
+    scroll-behavior: smooth;
   }
 </style>

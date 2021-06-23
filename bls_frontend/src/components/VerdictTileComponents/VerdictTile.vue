@@ -1,6 +1,6 @@
 <template>
-  <div class="card-div">
-    <b-card :class="colorClass">
+  <div class="h-100">
+    <b-card :class="colorClass" class="h-100">
       <b-container>
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
@@ -12,6 +12,10 @@
               <img src="@/assets/forward.png">
             </b-button>
           </b-col>
+        </b-row>
+
+        <b-row v-if="verdict.title" class="bottom-margin title">
+          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
         </b-row>
 
         <b-row class="bottom-margin text-padding">
@@ -31,19 +35,19 @@
       </div>
 
       <!-- Texte !-->
-      <div v-if="verdict.keysentence" class="bottom-margin">
-        <h5 class="linktest" @click="setCurrentVerdict">Leitsatz</h5>
+      <div v-if="keysentence" class="bottom-margin">
+        <h5 class="link" @click="setCurrentVerdict">Leitsatz</h5>
         <CopyButton :textId="verdict.documentnumber + 'keysentence'"/>
-        <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ verdict.keysentence }}</b-card-text>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
       </div>
-      <div v-if="verdict.tenor" class="bottom-margin">
-        <h5 class="linktest" @click="setCurrentVerdict">Tenor</h5>
+      <div v-if="tenor" class="bottom-margin">
+        <h5 class="link" @click="setCurrentVerdict">Tenor</h5>
         <CopyButton :textId="verdict.documentnumber + 'tenor'"/>
-        <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ verdict.tenor }}</b-card-text>
+        <b-card-text class="text-padding" :id="verdict.documentnumber + 'tenor'">{{ tenor }}</b-card-text>
       </div>
 
 
-      <b-container v-if="verdict.norms">
+      <b-container v-if="verdict.norms.length > 0">
         <h5 class="no-indent">Normen</h5>
         <CopyButton :textId="verdict.documentnumber + 'norms'"/>
         <!-- Normen row !--> <!-- TODO: Dafür sorgen, dass die collapsables unabhängig offen bleiben !-->
@@ -76,7 +80,7 @@
 
 import ExpandableText from "@/components/UtilityComponents/ExpandableText";
 import {ColorService} from "@/services/ColorService";
-import CopyButton from "@/components/UtilityComponents/CopyButton";
+import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import {VerdictModel} from "@/models/verdict-model";
 import KeyWordTags from "@/components/KeyWordTags";
 
@@ -99,6 +103,8 @@ export default {
       date: '',
       showNormsExpandable: false,
       filenumbers: '',
+      keysentence: null,
+      tenor: null,
     }
   },
   created() {
@@ -115,6 +121,14 @@ export default {
       this.filenumbers = filenumbers.join(', ');
     }
 
+    if (this.verdict.keysentence) {
+      this.keysentence = this.verdict.keysentence.join(' ')
+    }
+
+    if (this.verdict.tenor) {
+      this.tenor = this.verdict.tenor.join(' ')
+    }
+
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
 
     const date = this.verdict.date + ''
@@ -122,19 +136,13 @@ export default {
   },
   methods: {
     setCurrentVerdict() {
-      this.$store.dispatch('setCurrent', this.verdict.documentnumber)
-      this.$router.push('urteil')
+      this.$router.push({ name: 'Verdict', query: { docnr: this.verdict.documentnumber } })
     }
   }
 }
 </script>
 
 <style scoped>
-  .card-div {
-    margin-bottom: 20px;
-    min-width: 480px;
-  }
-
   .text-padding {
     padding: 0px 12px;
   }
@@ -178,5 +186,17 @@ export default {
 
   .footer-color {
     color: rgba(69,69,69,0.5);
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .link {
+    cursor: pointer;
+  }
+
+  .link:hover {
+    text-decoration: underline;
   }
 </style>

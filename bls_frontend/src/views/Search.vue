@@ -1,11 +1,8 @@
 <template>
-  <div class="margin">
+  <div class="pt-4">
     <Searchbar />
-    <b-container class="center">
-      <h3>Ergebnisse:</h3>
-      <b-row>
-        <VerdictTileList />
-      </b-row>
+    <b-container fluid>
+      <VerdictTileList @newPageEvent="fetchNextPage" />
     </b-container>
   </div>
 </template>
@@ -20,23 +17,22 @@ export default {
     Searchbar,
     VerdictTileList
   },
-  computed: {
-    query() {
-      return this.$store.getters.getQuery
+  mounted() {
+    this.$store.dispatch('setQuery', this.$route.query.query)
+  },
+  methods: {
+    fetchNextPage() {
+      this.$store.dispatch('setQuery', this.$route.query.query)
     }
   },
-  mounted() {
-    this.$store.dispatch('setQuery', this.query)
+  watch: {
+    $route() {
+      this.$store.commit('setPage', 0)
+      this.$store.dispatch('setQuery', this.$route.query.query)
+    }
   }
 }
 </script>
 
 <style scoped>
-  .center {
-    max-width: 480px;
-  }
-
-  .margin {
-    margin-top: 27px;
-  }
 </style>

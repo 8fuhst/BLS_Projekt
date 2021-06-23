@@ -1,25 +1,36 @@
 <template>
   <div class="longtext">
-    <div class="button-group">
-      <b-button-group>
-        <b-button>Zum Leitsatz</b-button>
-        <b-button>Zum Tenor</b-button>
-        <b-button>Zur Sachverhaltsdarstellung</b-button>
-        <b-button>Zur rechtlichen Bewertung</b-button>
-      </b-button-group>
+    <div v-if="tenor">
+      <verdictText id="tenor" :prefix="'Tenor'" :divider="true" />
+      <verdictText :prefix="tenor" :section="'tenor'" :indices="[0]"/>
     </div>
-
-    <VerdictDivider :text="'Tenor'"></VerdictDivider>
-    <VerdictText :prefix="'1.'" :text="'asdfghasdgf asfiug asdiufgiasgdfiusgadfgisudfg sdfuigsdfguisgdfui suid g usgfugasudgfuigsdf'"></VerdictText>
+    <div v-if="verdict.modelledOffense.length > 0">
+      <verdictText id="sachverhalt" :prefix="'Sachverhaltsdarstellung'" :divider="true" />
+      <VerdictText v-for="reason in verdict.modelledOffense" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" :indices="reason.indices" :section="'sachverhalt'" />
+    </div>
+    <div v-if="verdict.modelledReasonsForDecision.length > 0">
+      <verdictText id="bewertung" :prefix="'Rechtliche Bewertung'" :divider="true" />
+      <VerdictText v-for="reason in verdict.modelledReasonsForDecision" v-bind:key="reason.id" :prefix="reason.prefix" :text="reason.text" :indices="reason.indices" :section="'bewertung'" />
+    </div>
   </div>
 </template>
 
 <script>
-import VerdictDivider from "@/components/VerdictViewComponents/VerdictDivider";
 import VerdictText from "@/components/VerdictViewComponents/VerdictText";
+import {mapGetters} from 'vuex'
+
 export default {
   name: "VerdictLongtext",
-  components: {VerdictText, VerdictDivider}
+  components: {VerdictText},
+  computed: {
+    ...mapGetters(['getCurrentVerdict']),
+    verdict() {
+      return this.getCurrentVerdict
+    },
+    tenor() {
+      return this.verdict.tenor.join(' ')
+    }
+  },
 }
 </script>
 
@@ -27,13 +38,6 @@ export default {
   .longtext {
     display: inline-block;
     width: 62%;
-    height: 500px;
     position: relative;
-  }
-
-  .button-group {
-    position: absolute;
-    top: -54px;
-    left: 12px;
   }
 </style>
