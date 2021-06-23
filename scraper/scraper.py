@@ -94,7 +94,7 @@ def eval_xml(xml_string):
         tag_array = []  # Contains child-tags
         # Iterate through child tags of a tag:
         for child in doc.find(tag).iter():
-            if child.text and not child.text.startswith("\n"):
+            if child.text and not child.text == "\n":
                 if tag == 'entsch-datum':
                     tag_array.append(int(child.text))  # Append child date to array as int
                 else:
