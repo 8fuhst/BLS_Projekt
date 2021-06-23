@@ -23,9 +23,13 @@ public interface VerdictRepository extends ElasticsearchRepository<Verdict, Stri
     // @Query
     // Page<Verdict> findVerdictByCustomQuery(String query);
 
-    List<Verdict> findAllByTitleLike(String query);
+    Page<Verdict> findAllByFilenumberLike(String query, Pageable pageable);
 
-    List<Verdict> findAllByTenorOrOffenseOrReasonsOrReasonfordecision(String tenor, String offense, String reasons, String reasonfordecision);
+    Page<Verdict> findAllByDate(String query, Pageable pageable);
+
+    Page<Verdict> findAllByTitleLike(String query, Pageable pageable);
+
+    Page<Verdict> findAllByTenorOrOffenseOrReasonsOrReasonfordecision(String tenor, String offense, String reasons, String reasonfordecision, Pageable pageable);
 
     Page<Verdict> findBy(String query, Pageable pageable);
 }

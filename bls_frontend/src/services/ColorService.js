@@ -5,15 +5,16 @@ export const colorDictionary = {
     ['teilurteil']: '',
     // TODO: Farben aussuchen, generieren
     ['nichtannahmebeschluss']: '',
-    ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: '',
+    ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: 'gegenstand-color',
     ['stattgebender kammerbeschluss']: '',
     ['beschluss']: 'beschluss-color',
-    ['vorlagebeschluss']: '',
+    ['vorlagebeschluss']: 'vorlage-color',
+    ['versäumnisurteil']: '',
 };
 
 export class ColorService {
     constructor() {
-        //this.generateColor('beschluss', '8, 178, 0')
+        //this.generateColor('vorlage', '220, 86, 58')
     }
 
     colorClass(docType) {

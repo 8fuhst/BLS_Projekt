@@ -1,12 +1,17 @@
+import {LongtextModel} from "@/models/longtext-model";
+
 export class VerdictModel {
     constructor(verdict) {
         if (verdict) {
             this.date = verdict.date;
             this.mitwirkung = verdict.mitwirkung;
             this.identifier = verdict.identifier;
-            this.reasonfordecision = verdict.reasonfordecision;
             this.other = verdict.other;
-            this.reasons = verdict.reasons;
+            if (verdict.reasons.length > 0) {
+                this.reasonsForDecision = verdict.reasons;
+            } else {
+                this.reasonsForDecision = verdict.reasonsForDecision;
+            }
             this.filenumber = verdict.filenumber;
             this.offense = verdict.offense;
             this.documenttype = verdict.documenttype;
@@ -21,20 +26,22 @@ export class VerdictModel {
             this.documentnumber = verdict.documentnumber;
             this.region = verdict.region;
             this.courtlocation = verdict.courtlocation;
+            this.title = verdict.title;
+            this.modelledReasonsForDecision = [];
+            this.modelledOffense = [];
         } else {
             this.date = '';
             this.mitwirkung = '';
             this.identifier = '';
-            this.reasonfordecision = '';
             this.other = '';
-            this.reasons = '';
+            this.reasonsForDecision = [];
             this.filenumber = [];
-            this.offense = '';
+            this.offense = [];
             this.documenttype = '';
             this.court = '';
             this.keysentence = '';
             this.spruchkoerper = '';
-            this.tenor = ''
+            this.tenor = [];
             this.ecli = '';
             this.norms = [];
             this.abwmeinung = '';
@@ -42,7 +49,42 @@ export class VerdictModel {
             this.documentnumber = '';
             this.region = '';
             this.courtlocation = '';
+            this.title = '';
+            this.modelledReasonsForDecision = [];
+            this.modelledOffense = [];
         }
 
+    }
+
+    withModelledOffenseAndReasons() {
+        let i
+        if (this.reasonsForDecision) {
+            for (i = 0; i < this.reasonsForDecision.length; i++) {
+                if (!this.reasonsForDecision[i].replace(/\s/g, '').length) {
+                    continue
+                }
+                if (isNaN(this.reasonsForDecision[i])) {
+                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i], null, [i]))
+                } else {
+                    this.modelledReasonsForDecision.push(new LongtextModel(this.reasonsForDecision[i], this.reasonsForDecision[i + 1], [i, i+1]))
+                    i++
+                }
+            }
+        }
+
+        if (this.offense) {
+            for (i = 0; i < this.offense.length; i++) {
+                if (!this.offense[i].replace(/\s/g, '').length) {
+                    continue
+                }
+                if (isNaN(this.offense[i])) {
+                    this.modelledOffense.push(new LongtextModel(this.offense[i], null, [i]))
+                } else {
+                    this.modelledOffense.push(new LongtextModel(this.offense[i], this.offense[i + 1], [i, i+1]))
+                    i++
+                }
+            }
+        }
+        return this
     }
 }
