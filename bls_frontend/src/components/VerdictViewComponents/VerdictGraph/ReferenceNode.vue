@@ -1,5 +1,5 @@
 <template>
-  <svg @click="getNewVerdict" class="node" :x="xOffset" :y="index * height * 1.2 + yOffset" :width="width" :height="height">
+  <svg @click="getNewVerdict" class="node" :x="xOffset" :y="index * height + index * padding + yOffset" :width="width" :height="height">
     <rect x="0" y="0" width="100%" height="100%" stroke="black" stroke-width="1px" />
     <text x="50%" y="50%" text-anchor="middle" font-size="16" fill="black">{{ text }}</text>
   </svg>
@@ -16,11 +16,17 @@ export default {
       type: Number,
       default: 0
     },
-  },
-  data() {
-    return {
-      height: 50,
-      width: 100
+    width: {
+      type: Number,
+      default: 100,
+    },
+    height: {
+      type: Number,
+      default: 50,
+    },
+    padding: {
+      type: Number,
+      default: 10,
     }
   },
   methods: {

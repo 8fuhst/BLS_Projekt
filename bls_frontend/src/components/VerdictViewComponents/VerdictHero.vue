@@ -19,7 +19,7 @@
           </div>
         </b-col>
         <b-col xl="4" sm="0">
-          <VerdictGraph :data="references"/>
+          <VerdictGraph />
         </b-col>
       </b-row>
     </b-container>
@@ -75,11 +75,6 @@ export default {
       date: '',
       filenumber: null,
       stickyNavButtons: false,
-      references: {
-        incoming: ['2 BvE 4/21', '458jhfgsd', '191msnd', 'dasda', 'asdja', 'sda', 'asd'],
-        outgoing: ['ndvy.ask', 'aljsdjow9', '-9kakpkapfghfghdf00'],
-        self: '79123hj'
-      }
     }
   },
   mounted() {
