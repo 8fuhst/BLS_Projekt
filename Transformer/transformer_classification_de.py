@@ -15,7 +15,7 @@ tokenizer = ElectraTokenizer.from_pretrained(electra, do_lower_case=False, strip
 
 #distil_bert = 'distilbert-base-german-cased'
 
-config = ElectraConfig.from_json_file('electra-config.json')#(dropout=0.2, attention_dropout=0.2, vocab_size=32767, embedding_size= 768)
+config = ElectraConfig.from_json_file('../Transformer/electra-config.json')#(dropout=0.2, attention_dropout=0.2, vocab_size=32767, embedding_size= 768)
 config.output_hidden_states = False
 transformer_model = ElectraModel.from_pretrained(electra, config = config)
 

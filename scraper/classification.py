@@ -5,7 +5,6 @@ from Transformer.transformer_classification_de import get_encoding
 
 model_path = "../Transformer/classifier-model"
 
-
 def get_label(index):
     """
     Matches the classify-index to the associated string-label.

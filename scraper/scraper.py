@@ -16,7 +16,8 @@ import time
 import formatter
 import classification as classi
 
-es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
@@ -149,10 +150,10 @@ def extract_links_from_toc_xml():
     counter = 0  # todo remove this
     with open("links.txt", "w") as file:
         for item in root:
-            #if counter > 100: # todo remove
-             #   break # todo remove
+            if counter > 100: # todo remove
+                break # todo remove
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
-            #counter += 1 # todo remove
+            counter += 1 # todo remove
 
 def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_reference_set = set(), incoming_reference_set = []):
     provisional_references_dict = {
