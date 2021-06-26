@@ -1,20 +1,28 @@
 <template>
   <div class="hero" id="verdictHero">
-    <div class="bottom-margin">
-      <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
-      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
-    </div>
+    <b-container fluid>
+      <b-row>
+        <b-col xl="8" sm="12">
+          <div class="bottom-margin">
+            <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
+            <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
+          </div>
 
-    <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
+          <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-    <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
+          <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
 
-    <div v-if="keysentence">
-      <h5 class="d-inline">Leitsatz</h5>
-      <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
-      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
-    </div>
-
+          <div v-if="keysentence">
+            <h5 class="d-inline">Leitsatz</h5>
+            <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
+            <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
+          </div>
+        </b-col>
+        <b-col xl="4" sm="0">
+          <VerdictGraph :data="references"/>
+        </b-col>
+      </b-row>
+    </b-container>
 
     <div class="button-group" >
       <b-button-group>
@@ -23,16 +31,18 @@
         <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
       </b-button-group>
     </div>
+
   </div>
 </template>
 
 <script>
 import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
+import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
 
 export default {
   name: "VerdictHero",
-  components: { KeyWordTags, CopyButton },
+  components: {VerdictGraph, KeyWordTags, CopyButton },
   computed: {
     verdict() {
       return this.$store.getters.getCurrentVerdict
@@ -65,6 +75,11 @@ export default {
       date: '',
       filenumber: null,
       stickyNavButtons: false,
+      references: {
+        incoming: ['2 BvE 4/21', '458jhfgsd', '191msnd', 'dasda', 'asdja', 'sda', 'asd'],
+        outgoing: ['ndvy.ask', 'aljsdjow9', '-9kakpkapfghfghdf00'],
+        self: '79123hj'
+      }
     }
   },
   mounted() {
@@ -81,8 +96,8 @@ export default {
 <style scoped>
   .hero {
     min-height: 345px;
-    width: 80%;
-    margin: 0 10%;
+    width: 90%;
+    margin: 0 5%;
     position: relative;
     padding: 20px 24px 62px 24px;
   }

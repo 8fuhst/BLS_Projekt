@@ -62,8 +62,8 @@ export default {
   .text-container {
     display: flex;
     height: auto;
-    width: 80%;
-    margin: 0 10%;
+    width: 90%;
+    margin: 0 5%;
   }
 
   .scroll {
