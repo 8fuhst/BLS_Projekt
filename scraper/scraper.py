@@ -14,6 +14,7 @@ from shutil import copyfile
 import references as ref
 import time
 import formatter
+import classification as classi
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 
