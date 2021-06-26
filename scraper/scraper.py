@@ -14,6 +14,7 @@ from shutil import copyfile
 import references as ref
 import time
 import formatter
+import classification as classi
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 
@@ -188,6 +189,8 @@ def update_database(linklist):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
+            # TODO Classifier aufrufen:
+            json_object['successful'] = classi.classify(json_object['tenor'])  # todo richtig so?
             es.index(index='verdicts3', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
