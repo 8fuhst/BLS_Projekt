@@ -1,5 +1,5 @@
 import os
-#os.environ['CUDA_VISIBLE_DEVICES']='1,2,3'
+os.environ['CUDA_VISIBLE_DEVICES']='1'
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 from transformers import ElectraConfig, ElectraForPreTraining, ElectraTokenizer, ElectraModel
 from tensorflow.keras import backend as K
+from sklearn.metrics import classification_report
 
 electra = 'german-nlp-group/electra-base-german-uncased'
 
@@ -211,8 +212,6 @@ y_pred = pickle_model.predict(test_x, batch_size=64, verbose=1)
 y_pred_bool = np.argmax(y_pred, axis=1)
 print(y_pred_bool)
 # loss, accuracy, f1_score, precision, recall = model.evaluate(test_x, test_y)
-
-from sklearn.metrics import classification_report
 
 y_pred = model.predict(test_x, batch_size=64, verbose=1)
 y_pred_bool = np.argmax(y_pred, axis=1)
