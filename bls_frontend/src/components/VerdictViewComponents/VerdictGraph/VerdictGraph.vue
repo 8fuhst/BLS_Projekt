@@ -3,12 +3,13 @@
     <ReferenceNode v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
+    <path v-for="(_, index) in references.incoming" :key="`in_p_${index}`" :d="lineGen(index, true)" stroke="black" />
+    <path v-for="(_, index) in references.outgoing" :key="`out_p_${index}`" :d="lineGen(index, false)" stroke="black" />
   </svg>
 </template>
 
 <script>
 import ReferenceNode from "@/components/VerdictViewComponents/VerdictGraph/ReferenceNode";
-import * as d3 from 'd3';
 
 export default {
   name: "VerdictGraph",
@@ -24,7 +25,7 @@ export default {
       centerOffsetX: 50,
       centerOffsetY: 175,
       nodeHeight: 50,
-      nodeWidth: 100,
+      nodeWidth: 110,
       padding: 10,
     }
   },
@@ -43,8 +44,26 @@ export default {
 
       this.outGoingOffsetX = this.width - this.nodeWidth
       this.outGoingOffsetY = this.height * 0.5 - (this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
-      this.centerOffsetX = this.width * 0.5 - this.nodeHeight
+      this.centerOffsetX = this.width * 0.5 - this.nodeWidth * 0.5
       this.centerOffsetY = this.height * 0.5 - this.nodeHeight * 0.5
+    },
+    lineGen(index, isIncoming) {
+      let startX = 0
+      let startY = 0
+      let endX = 0
+      let endY = 0
+      if (isIncoming) {
+        startX = this.nodeWidth
+        startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.inComingOffsetY
+        endX = this.width * 0.5 - this.nodeWidth * 0.5
+        endY = this.height * 0.5
+      } else {
+        startX = this.width - this.nodeWidth
+        startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.outGoingOffsetY
+        endX = this.width * 0.5 + this.nodeWidth * 0.5
+        endY = this.height * 0.5
+      }
+      return 'M ' + startX + ' ' + startY + ' L ' + endX + ' ' + endY
     }
   },
   mounted() {
@@ -53,11 +72,12 @@ export default {
   },
   computed: {
     references() {
-      /*return {
+      return {
         incoming: ['2 BvE 4/21', '458jhfgsd', '191msnd', 'dasda', 'asdja', 'sda', 'asd'],
         outgoing: ['ndvy.ask', 'aljsdjow9', '-9kakpkapfghfghdf00'],
         self: '79123hj'
-      }*/
+      }
+      /*
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -67,12 +87,9 @@ export default {
         incoming: incoming,
         self: self,
       }
+
+       */
     },
-    lineGen() {
-      return d3.line()
-          .x(node => node.x)
-          .y(node => node.y)
-    }
   }
 }
 </script>
