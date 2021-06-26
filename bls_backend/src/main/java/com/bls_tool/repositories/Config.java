@@ -16,7 +16,7 @@ public class Config {
     @Bean
     public RestHighLevelClient client() {
         // Todo: update localhost
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("basecamp-bigdata:9200").build();
         return RestClients.create(clientConfiguration).rest();
     }
 

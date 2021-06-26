@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/verdict")
 public class VerdictController {
+
     @Autowired
     VerdictRepository verdictRepository;
     /*@GetMapping("/verdict")
