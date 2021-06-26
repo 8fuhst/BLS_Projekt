@@ -188,6 +188,8 @@ def update_database(linklist):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
+            # TODO Classifier aufrufen:
+            json_object['successful'] = classi.classify(json_object['tenor'])  # todo richtig so?
             es.index(index='verdicts3', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
