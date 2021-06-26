@@ -16,8 +16,8 @@ import time
 import formatter
 import classification as classi
 
-#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
+es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+#es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
@@ -96,11 +96,11 @@ def eval_xml(xml_string):
         tag_array = []  # Contains child-tags
         # Iterate through child tags of a tag:
         for child in doc.find(tag).iter():
-            if child.text and not child.text == "\n":
+            if child.text and child.text.rstrip() != "":
                 if tag == 'entsch-datum':
                     tag_array.append(int(child.text))  # Append child date to array as int
                 else:
-                    tag_array.append(child.text)  # Append child tag to array
+                    tag_array.append(child.text.strip())  # Append child tag to array
         # If the array only contains one element, or the tag doesn't have child-tags,
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
@@ -191,7 +191,7 @@ def update_database(linklist):
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
             # TODO Classifier aufrufen:
-            json_object['successful'] = classi.classify(json_object['tenor'])  # todo richtig so?
+            # json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
             es.index(index='verdicts3', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
@@ -265,7 +265,7 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
     toc = time.time()
-    print("Done! Time needed: {}".format(str(tic - toc)))
+    print("Done! Time needed: {}".format(str(toc - tic)))
 
 extract_new_links()
 
@@ -273,7 +273,7 @@ extract_new_links()
 #provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
 #print(provisional_references_dict)
 
-#print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
+#print(get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE426901801.zip"))
 
 #print(es.get(index='verdicts', doc_type='verdict', id=0))
 
