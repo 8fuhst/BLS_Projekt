@@ -1,10 +1,16 @@
 <template>
   <svg :width="width" :height="height">
+    <text x="0" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.incoming.length > 0">Eingehend</text>
+    <text text-anchor="end" :x="width" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.outgoing.length > 0">Ausgehend</text>
+
     <ReferenceNode v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
-    <path v-for="(_, index) in references.incoming" :key="`in_p_${index}`" :d="lineGen(index, true)" stroke="black" />
-    <path v-for="(_, index) in references.outgoing" :key="`out_p_${index}`" :d="lineGen(index, false)" stroke="black" />
+
+    <svg fill="white" fill-opacity="0" stroke="#000" stroke-width="1">
+      <path v-for="(_, index) in references.incoming" :key="`in_p_${index}`" :d="lineGen(index, true)"/>
+      <path v-for="(_, index) in references.outgoing" :key="`out_p_${index}`" :d="lineGen(index, false)"/>
+    </svg>
   </svg>
 </template>
 
@@ -27,6 +33,7 @@ export default {
       nodeHeight: 50,
       nodeWidth: 110,
       padding: 10,
+      headingHeight: 32,
     }
   },
   methods: {
@@ -36,34 +43,43 @@ export default {
       } = this.$el.parentElement.getBoundingClientRect()
       this.width = width
 
-      this.height = Math.max(this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding,
-          this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding,
+      this.height = Math.max(this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding + this.headingHeight,
+          this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding + this.headingHeight,
           this.nodeHeight)
 
-      this.inComingOffsetY = this.height * 0.5 - (this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
+      this.inComingOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - (this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
 
       this.outGoingOffsetX = this.width - this.nodeWidth
-      this.outGoingOffsetY = this.height * 0.5 - (this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
+      this.outGoingOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - (this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
       this.centerOffsetX = this.width * 0.5 - this.nodeWidth * 0.5
-      this.centerOffsetY = this.height * 0.5 - this.nodeHeight * 0.5
+      this.centerOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - this.nodeHeight * 0.5
     },
     lineGen(index, isIncoming) {
       let startX = 0
       let startY = 0
+      let mid1X = 0
+      let mid1Y = 0
+      let mid2X = 0
+      let mid2Y = 0
       let endX = 0
       let endY = 0
       if (isIncoming) {
         startX = this.nodeWidth
         startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.inComingOffsetY
         endX = this.width * 0.5 - this.nodeWidth * 0.5
-        endY = this.height * 0.5
+        endY = this.height * 0.5 + this.headingHeight * 0.5
       } else {
         startX = this.width - this.nodeWidth
         startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.outGoingOffsetY
         endX = this.width * 0.5 + this.nodeWidth * 0.5
-        endY = this.height * 0.5
+        endY = this.height * 0.5 + this.headingHeight * 0.5
       }
-      return 'M ' + startX + ' ' + startY + ' L ' + endX + ' ' + endY
+      mid1X = startX + (endX - startX) / 2
+      mid1Y = startY
+      mid2X = startX + (endX - startX) / 2
+      mid2Y = endY
+
+      return 'M ' + startX + ' ' + startY + ' C ' + mid1X + ' ' + mid1Y + ', ' + mid2X + ' ' + mid2Y + ', ' + endX + ' ' + endY
     }
   },
   mounted() {

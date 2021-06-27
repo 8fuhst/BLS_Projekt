@@ -18,7 +18,7 @@
             <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
           </div>
         </b-col>
-        <b-col xl="4" sm="0">
+        <b-col class="py-3" xl="4" sm="0">
           <VerdictGraph />
         </b-col>
       </b-row>
