@@ -44,13 +44,37 @@ def find_reference(tag, text_array, outgoing_references_set):
                 if entry != '':
                     index_matches_list.append(entry)
                     outgoing_references_set.add(entry)
-        if len(index_matches_list) != 0: # todo frontend fragen ob die das wollen
-            # Rückgabeliste mit Index ohne Duplikate in richtiger Reihenfolge erzeugen
-            all_matches.append([str(index)] + list(dict.fromkeys(index_matches_list)))
-    matches_dict[tag] = all_matches
-    return matches_dict, outgoing_references_set
+                    if not index_dict in index_matches_list:
+                        index_matches_list.append(index_dict.copy())
+        #if len(index_matches_list) != 0: # todo frontend fragen ob die das wollen
+        #    # Rückgabeliste mit Index ohne Duplikate in richtiger Reihenfolge erzeugen
+        #    all_matches[str(index)] = list(dict.fromkeys(index_matches_list))
+
+#    matches_dict[tag] = all_matches
+    return index_matches_list, outgoing_references_set
 
 # print(find_reference("test", test, set()))
+
+print(find_reference(test2, set()))
+
+# {1: [ref1, ref2], }
+# [1, ref1, ref2], [2, ref3, ref4]
+# allmatches = [{index:4, referenz:...},{index:4, referenz...}, {index:5, referenz...}]
+"""
+outgoingreferencelist = {
+gruende: [
+{
+index: 4,
+referenz: '2ARs 569/09',
+}, ...
+],
+entscheidungsgruende: [...],
+...
+}
+"""
+#"[reasons: [[4, referenz1, referenz2], [6, referenz1, referenz2]...] entscheidungsgründe: ...]
+
+
 
 
 

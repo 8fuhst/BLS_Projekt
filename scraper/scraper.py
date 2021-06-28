@@ -16,8 +16,8 @@ import time
 import formatter
 import classification as classi
 
-es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
-#es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
+#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
@@ -150,7 +150,7 @@ def extract_links_from_toc_xml():
     counter = 0  # todo remove this
     with open("links.txt", "w") as file:
         for item in root:
-            if counter > 100: # todo remove
+            if counter > 10: # todo remove
                 break # todo remove
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
             counter += 1 # todo remove
@@ -191,7 +191,7 @@ def update_database(linklist):
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
             # TODO Classifier aufrufen:
-            # json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
+            #json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
             es.index(index='verdicts3', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:

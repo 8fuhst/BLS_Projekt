@@ -4,6 +4,7 @@ import tensorflow.keras as keras
 from Transformer.transformer_classification_de import get_encoding
 
 model_path = "../Transformer/classifier-model"
+model = keras.models.load_model(model_path, compile=True)
 
 def get_label(index):
     """
@@ -33,16 +34,20 @@ def classify(tenor_array):
     :return: 0 -> "positiv", 1 -> "neutral", 2 -> "negativ", 3 -> "irrelevant"
     :rtype: str
     """
+    print(tenor_array)
     token_list = []
     for s in tenor_array:
-        token_list.append(get_encoding(formatter.replace_abbreviations(s)))
+        print(s)
+        x = get_encoding(formatter.replace_abbreviations(s))
+        token_list.append(x)
 
     tokens_np = np.asarray(token_list).astype('float32')
 
     # Load model
-    model = keras.models.load_model(model_path)
+    #model = keras.models.load_model(model_path)
 
     prediction = model.predict(tokens_np)
+    print(prediction)
     # finds the index of the highest value in the prediction that isn't 3 because those are irrelevent:
     all_time_index = 3
     all_time_value = 0
