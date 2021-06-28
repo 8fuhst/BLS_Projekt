@@ -20,6 +20,8 @@ public interface VerdictRepository extends ElasticsearchRepository<Verdict, Stri
     //Verdict findVerdictByDocumentnumber(String docnr);
 
     Verdict findByDocumentnumber(String docnr);
+
+    Verdict findByFilenumber(String filenr);
     // @Query
     // Page<Verdict> findVerdictByCustomQuery(String query);
 
