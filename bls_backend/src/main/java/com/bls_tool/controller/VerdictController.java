@@ -28,4 +28,13 @@ public class VerdictController {
         Verdict verdict = verdictRepository.findByDocumentnumber(documentnumber);
         return verdict;
     }
+
+    @GetMapping
+    @ResponseBody
+    public Verdict getSpecificVerdictByFilenumber(@RequestParam String filenumber) {
+        // todo only gebe exact matches zurück und bedenke aktenzeichen arrays
+        // sowie mehrere urteile dverdict = verdictRepository.findByFilenumber(filenumber);ie dasselbe aktenzeichen haben
+        Verdict verdict = verdictRepository.findByFilenumber(filenumber);
+        return verdict;
+    }
 }
