@@ -56,6 +56,15 @@ public class Verdict {
     private String other; // sonstlt
     @Field(type = FieldType.Keyword, name = "identifier")
     private String identifier; //Juris Link
+    @Field(type = FieldType.Keyword, name = "successful")
+    private String successful; // Ob das Verfahren erfolgreich war
+
+    public String[] getKeywords() {
+        return keywords;
+    }
+
+    @Field(type = FieldType.Text, name = "keywords")
+    private String[] keywords;
     //private String plaintext; // Text ohne Formatierungen
 
     /**
