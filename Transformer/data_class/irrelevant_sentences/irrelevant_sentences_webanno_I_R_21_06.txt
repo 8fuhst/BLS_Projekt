@@ -1,0 +1,25 @@
+(Schlussurteil "Glaxo Wellcome": § 50c EStG a.F.
+verstößt nicht gegen das Gemeinschaftsrecht - mittelbarer Sperrbetrag bei Aufwärtsverschmelzung - Ermittlung des Übernahmegewinns/Übernahmeverlusts bei formwechselnder Umwandlung - Einräumung einer Nachweismöglichkeit über die sperrbetragsmindernde Differenzierung des Anteilskaufpreises - Passivierung zu erwartender Mehrsteuern)
+1. Kommt es im Rahmen einer konzerninternen Umstrukturierung zum Erwerb einer Beteiligung an einer inländischen GmbH I von der ausländischen Muttergesellschaft durch die inländische Tochterkapitalgesellschaft II (GmbH II), wird durch diesen Erwerb ein sog.
+Sperrbetrag nach § 50c Abs. 1 EStG 1990 ausgelöst; wird die GmbH I alsdann auf die GmbH II verschmolzen (sog.
+Aufwärtsverschmelzung), geht der Sperrbetrag nicht unter, er setzt sich vielmehr --als mittelbarer Sperrbetrag-- an den Anteilen der GmbH II gemäß § 50c Abs.
+7 EStG 1990 (i.d.F.
+des StandOG) fort (Bestätigung des Senatsurteils vom 7. November 2007 I R 41/05, BFHE 219, 549, BStBl II 2008, 604).
+Kommt es schließlich zu einer formwechselnden Umwandlung der GmbH II in eine GmbH & Co. KG, sind bei der Ermittlung des Übernahmegewinns/Übernahmeverlusts (§ 4 Abs.
+4 und 5 UmwStG 1995) sowohl der mittelbare Sperrbetrag an den Anteilen der GmbH II als auch ein etwaiger unmittelbarer Sperrbetrag an den Anteilen der GmbH II zu berücksichtigen, der aus einem Anteilserwerb an der GmbH II durch eine weitere inländische Tochtergesellschaft von der ausländischen Muttergesellschaft herrührte (Bestätigung des Senatsurteils vom 12. November 2008 I R 77/07, BFHE 224, 32, BStBl II 2009, 831) .
+2. Dass danach eine Wertminderung von Anteilen durch Gewinnausschüttungen bei der Gewinnermittlung nicht zu berücksichtigen ist (§ 50c EStG 1990), verstößt im Grundsatz nicht gegen Gemeinschaftsrecht.
+Dem Steuerpflichtigen ist jedoch im Wege einer sog.
+geltungserhaltenden Reduktion des Wortlauts des § 50c Abs.
+4 Satz 1 EStG 1990 die Möglichkeit einzuräumen, den Nachweis zu erbringen, dass die Anschaffungskosten der Anteile eine Abgeltung eines Körperschaftsteuerguthabens an den nicht anrechnungsberechtigten Veräußerer der Anteile nicht einschließen (Anschluss an das Urteil des EuGH vom 17. September 2009 C-182/08 "Glaxo Wellcome", IStR 2009, 691) .
+I. Es handelt sich um jenes Klageverfahren, das dem Vorabentscheidungsersuchen des Senats an den Gerichtshof der Europäischen Gemeinschaften (ab 1. Dezember 2009 Gerichtshof der Europäischen Union) --EuGH-- vom 23. Januar 2008 I R 21/06 (BFHE 220, 280) sowie dem anschließenden Urteil des EuGH vom 17. September 2009 C-182/08 "Glaxo Wellcome" (Internationales Steuerrecht --IStR-- 2009, 691) zugrunde lag:
+Die Klägerin, Revisionsklägerin und Revisionsbeklagte (Klägerin), eine GmbH & Co. KG, ist zum 1. Juli 1995 durch eine formwechselnde Umwandlung (§§ 190 ff.
+des Umwandlungsgesetzes 1995 --UmwG 1995--) einer GmbH, der GW GmbH, entstanden.
+Im Zeitpunkt der Umwandlung waren an der GW GmbH zu 99 % die GV GmbH und zu 1 % die S GmbH, eine 100 %ige Tochtergesellschaft der GV GmbH, beteiligt.
+Da zwischen der GV GmbH und der S GmbH ein Ergebnisabführungsvertrag bestand, gingen die Beteiligten für das vorliegende Verfahren davon aus, dass der GV GmbH (wirtschaftlich gesehen) im Umwandlungszeitpunkt alle Anteile an der GW GmbH zuzurechnen waren.
+Der Umwandlung waren folgende Vorgänge vorausgegangen: Am 26. Juni 1995 erwarb die GV GmbH, die bereits 95 % der Anteile an einer G GmbH besaß, von ihrer in Großbritannien ansässigen Muttergesellschaft, der GG Ltd., die restlichen 5 % der Anteile an der G GmbH und wurde damit deren alleinige Muttergesellschaft.
+Am 27. Juni 1995 und am 7. Juli 1995 erwarb die G GmbH --im Zuge eines Unternehmenserwerbs eines weiteren britischen Konzerns durch die GG Ltd.
+und einer länderübergreifenden Unternehmensumstrukturierung-- sämtliche Anteile an der W GmbH, und zwar von der GG Ltd.
+99,98 % (Kaufpreis: 327,5 Mio.
+DM) und von einer ebenfalls in Großbritannien ansässigen B Ltd.
+--die im EuGH-Urteil in IStR 2009, 691 als Muttergesellschaft der GG Ltd.
+bezeichnet wurde-- 0,02 % der Anteile (Kaufpreis: 65.500

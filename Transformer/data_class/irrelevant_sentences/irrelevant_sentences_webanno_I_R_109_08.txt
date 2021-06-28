@@ -1,0 +1,25 @@
+(Gewerbesteuerliche Hinzurechnung der über ein Wertpapier-Sondervermögen bezogenen steuerfreien Dividenden - Rechtsgrundverweisung und Rechtsfolgenverweisung in § 40 Abs. 2 KAGG - Transparenzprinzip)
+Erträge aus Anteilsscheinen einer Kapitalgesellschaft an einem Wertpapier-Sondervermögen sind nach § 8 Nr. 5 GewStG 2002 dem Gewinn aus Gewerbebetrieb hinzuzurechnen, soweit sie auf Gewinnanteile aus Beteiligungen des Wertpapier-Sondervermögens entfallen und damit nach § 8b Abs. 1 KStG 2002 i.V.m.
+§ 40 Abs. 2 KAGG bei der Ermittlung des Einkommens der Kapitalgesellschaft außer Ansatz bleiben .
+I. Die Klägerin und Revisionsklägerin (Klägerin), eine GmbH, hielt im Streitjahr 2003 Anteilsscheine an zwei Wertpapier-Sondervermögen.
+Die Beteiligung der Klägerin an den einzelnen Wertpapier-Sondervermögen lag unter 10 %.
+Die Klägerin erzielte im Streitjahr Erträge aus den Anteilsscheinen in Höhe von insgesamt 13.534 €, von denen 109 € auf inländische Dividenden und 1.089 € auf ausländische Dividenden der Wertpapier-Sondervermögen entfielen.
+In der Körperschaftsteuererklärung für das Streitjahr kürzte die Klägerin ihren Gewinn aus Gewerbebetrieb nach § 40 Abs. 2 des Gesetzes über Kapitalanlagegesellschaften i.d.F.
+des Gesetzes zur Senkung der Steuersätze und zur Reform der Unternehmensbesteuerung (Steuersenkungsgesetz) vom 23. Oktober 2000 (BGBl I 2000, 1433, BStBl I 2000, 1428) --KAGG-- i.V.m.
+§ 8b Abs. 1 des Körperschaftsteuergesetzes (KStG 2002) um insgesamt 1.143 €; den Kürzungsbetrag ermittelte sie aus der Summe der inländischen Dividenden (109 €) und der um pauschale nichtabzugsfähige Ausgaben i.S.
+des § 8b Abs. 5 KStG 2002 verminderten ausländischen Dividenden (1.034 €).
+Bei der Festsetzung des Gewerbesteuermessbetrags für das Streitjahr rechnete der Beklagte und Revisionsbeklagte (das Finanzamt --FA--) die bei der Ermittlung des Einkommens außer Ansatz gebliebenen Dividenden nach § 8 Nr. 5 des Gewerbesteuergesetzes (GewStG 2002) dem Gewinn aus Gewerbebetrieb hinzu.
+Die hiergegen erhobene Klage wies das Finanzgericht (FG) Düsseldorf mit Urteil vom 23. Oktober 2008 14 K 1079/05 G, veröffentlicht in Entscheidungen der Finanzgerichte (EFG) 2009, 211, ab.
+Mit ihrer Revision rügt die Klägerin die Verletzung materiellen Rechts.
+Während des Revisionsverfahrens hat das FA am 11. Dezember 2008 den angefochtenen Bescheid vom 17. November 2004 über den Gewerbesteuermessbetrag für das Streitjahr geändert und die Hinzurechnung nach § 8 Nr. 5 GewStG 2002 auf 1.198 € erhöht.
+Die Erhöhung des Hinzurechnungsbetrags beruht darauf, dass die pauschale Kürzung der ausländischen Dividenden gemäß § 8b Abs. 5 KStG 2002 entfallen ist.
+Die Klägerin beantragt sinngemäß, unter Aufhebung des angefochtenen Urteils den geänderten Bescheid vom 11. Dezember 2008 über den Gewerbesteuermessbetrag für das Streitjahr insoweit zu ändern, als Gewinnanteile (Dividenden) aus Wertpapier-Investmentfonds in Höhe von 1.198 € dem Gewinn aus Gewerbebetrieb nicht hinzugerechnet werden.
+Das FA beantragt, die Revision zurückzuweisen.
+II. Die Revision hat im Ergebnis keinen Erfolg.
+Sie führt zur Aufhebung des angefochtenen Urteils und zur Abweisung der Klage (§ 126 Abs.
+3 Satz 1 Nr. 1 der Finanzgerichtsordnung --FGO--).
+1. Das angefochtene Urteil ist aus verfahrensrechtlichen Gründen aufzuheben, weil sich während des Revisionsverfahrens der Verfahrensgegenstand, über dessen Rechtmäßigkeit das FG zu entscheiden hatte, geändert hat (§ 127 FGO).
+Das FG hat über den Bescheid über den ursprünglich angefochtenen Gewerbesteuermessbetrag für das Streitjahr vom 17. November 2004 entschieden.
+An die Stelle dieses Bescheids ist während des Revisionsverfahrens der Änderungsbescheid vom 11. Dezember 2008 getreten, der nach § 68 Satz 1 i.V.m.
+§ 121 Satz 1 FGO Gegenstand des Verfahrens geworden ist.
+Das angefochtene Urteil ist daher gegenstandslos.
