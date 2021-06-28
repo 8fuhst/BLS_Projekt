@@ -39,11 +39,12 @@ def find_reference(text_array, outgoing_references_set):
     index_matches_list = []
     for index, text in enumerate(text_array):
         matches = re.findall(aktenzeichenRegEx, text)
-        index_matches_list = []
         for match in matches:
             for entry in match:
                 if entry != '':
-                    index_matches_list.append(entry)
+                    index_dict["index"] = index
+                    index_dict["referenz"] = entry
+                    #index_matches_list.append(entry)
                     outgoing_references_set.add(entry)
                     if not index_dict in index_matches_list:
                         index_matches_list.append(index_dict.copy())
