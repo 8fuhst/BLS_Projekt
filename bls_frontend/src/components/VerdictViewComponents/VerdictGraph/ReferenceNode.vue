@@ -1,8 +1,14 @@
 <template>
-  <svg @click="getNewVerdict" class="node" :x="xOffset" :y="index * height + index * padding + yOffset" :width="width" :height="height">
-    <rect x="0" y="0" width="100%" height="100%" stroke="black" stroke-width="1px" />
-    <text x="50%" y="50%" text-anchor="middle" font-size="16" fill="black">{{ text }}</text>
+  <svg @mouseover="hover = true" @mouseout="hover = false">
+    <svg v-if="!hover" @click="getNewVerdict" class="node"  :x="xOffset" :y="index * height + index * padding + yOffset" :width="width" :height="height">
+      <rect x="0" y="0" width="100%" height="100%" stroke="black" stroke-width="1px" />
+      <text x="50%" y="50%" text-anchor="middle" font-size="16" fill="black">{{ text }}</text>
+    </svg>
+    <svg v-if="hover" :x="xOffset" :y="index * height + index * padding + yOffset" :width="width" :height="height">
+
+    </svg>
   </svg>
+
 </template>
 
 <script>
@@ -27,6 +33,14 @@ export default {
     padding: {
       type: Number,
       default: 10,
+    }
+  },
+  data() {
+    return {
+      hover: {
+        type: Boolean,
+        default: false
+      }
     }
   },
   methods: {

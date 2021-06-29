@@ -38,61 +38,8 @@ export default class ApiService {
 
     async fetchVerdictNode(filenumber) {
         try {
-            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
+            const res = await fetch( process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
             let data = await res.json()
-            /*
-            const hardcode = JSON.parse('{\n' +
-                '  "filenumber": "IV ZR 36/09",\n' +
-                '  "outgoingReferenceList": [\n' +
-                '    [\n' +
-                '      {\n' +
-                '        "vorinstanz": [\n' +
-                '          [\n' +
-                '            "0",\n' +
-                '            "IV ZR 36/09"\n' +
-                '          ]\n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "gruende": [\n' +
-                '          [\n' +
-                '            "5",\n' +
-                '            "X ARZ 362/02"\n' +
-                '          ]\n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "entscheidungsgruende": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "tatbestand": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "tenor": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "leitsatz": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      }\n' +
-                '    ]\n' +
-                '  ],\n' +
-                '  "outgoingReferenceSet": [\n' +
-                '    "IV ZR 36/09,X ARZ 362/02"\n' +
-                '  ],\n' +
-                '  "incomingReferenceSet": [\n' +
-                '    "IV ZR 36/09"\n' +
-                '  ],\n' +
-                '  "incomingCount": 1\n' +
-                '}')
-
-             */
             return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)
