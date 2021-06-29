@@ -14,8 +14,11 @@ from shutil import copyfile
 import references as ref
 import time
 import formatter
+import classification as classi
+import keywords
 
-es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
@@ -88,23 +91,24 @@ def eval_xml(xml_string):
 
     # Load each tag into dictionary:
 
-    outgoing_references_list = []  # Contains additional information about where the references are
+    outgoing_references_dict = {}  # Contains additional information about where the references are
     outgoing_references_set = set()  # Contains only the referenced filenumbers
     for tag in tags:
         tag_array = []  # Contains child-tags
         # Iterate through child tags of a tag:
         for child in doc.find(tag).iter():
-            if child.text and not child.text.startswith("\n"):
+            if child.text and child.text.rstrip() != "":
                 if tag == 'entsch-datum':
                     tag_array.append(int(child.text))  # Append child date to array as int
                 else:
-                    tag_array.append(child.text)  # Append child tag to array
+                    tag_array.append(child.text.strip())  # Append child tag to array
         # If the array only contains one element, or the tag doesn't have child-tags,
         # only load that tag into the directory. Array is empty if there is no value inside the tag:
         if len(tag_array) == 1:
             if tag == 'vorinstanz':
-                outgoing_references, outgoing_references_set = ref.find_reference(tag, tag_array, outgoing_references_set)
-                outgoing_references_list.append(outgoing_references)
+                outgoing_references, outgoing_references_set = ref.find_reference(tag_array, outgoing_references_set)
+                #outgoing_references_dict.append(outgoing_references)
+                outgoing_references_dict[tag] = outgoing_references
             # Enter Data into the correct translated dict entry
             result_dict[tags_translation[tag]] = tag_array[0]
         else:
@@ -112,8 +116,9 @@ def eval_xml(xml_string):
             # This path also enters any tags that are contained in arrays
             reference_tags = ['gruende', 'tenor', 'entscheidungsgruende', 'tatbestand', 'leitsatz', 'vorinstanz']
             if tag in reference_tags:
-                outgoing_references, outgoing_references_set = ref.find_reference(tag, tag_array, outgoing_references_set)
-                outgoing_references_list.append(outgoing_references)
+                outgoing_references, outgoing_references_set = ref.find_reference(tag_array, outgoing_references_set)
+                # outgoing_references_dict.append(outgoing_references)
+                outgoing_references_dict[tag] = outgoing_references
             result_dict[tags_translation[tag]] = tag_array
 
             '''if tag == 'tenor':
@@ -126,8 +131,16 @@ def eval_xml(xml_string):
                     json_text = json.loads(result_dict)
                     json_text.update({"result": "neutral"})''' #TODO Weiterbauen
 
+    # extract keywords from the text using watson api:
+    result_dict['keywords'] = keywords.prepare_and_generate_keywords(
+        result_dict['title'],
+        result_dict['tenor'],
+        result_dict['offense'],
+        result_dict['reasons'],
+        result_dict['reasonfordecision'])
+
     # build provisional reference-dict for ES that does not contain incoming references yet:
-    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_list, outgoing_references_set, [])
+    provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_dict, outgoing_references_set, [])
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
@@ -148,10 +161,10 @@ def extract_links_from_toc_xml():
     counter = 0  # todo remove this
     with open("links.txt", "w") as file:
         for item in root:
-            #if counter > 100: # todo remove
-             #   break # todo remove
+            if counter > 10: # todo remove
+                break # todo remove
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
-            #counter += 1 # todo remove
+            counter += 1 # todo remove
 
 def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_reference_set = set(), incoming_reference_set = []):
     provisional_references_dict = {
@@ -188,6 +201,8 @@ def update_database(linklist):
         # Save Verdict in Elasticsearch
         for json_object in json_list:
             #es_json_object = json.dumps(json_object) # TODO Rename all things json
+            # TODO Classifier aufrufen:
+            #json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
             es.index(index='verdicts3', body=json_object)
         # Save or create Verdict Node that contains references
         for json_reference_object in json_reference_list:
@@ -261,7 +276,7 @@ def extract_new_links():
                 new_links.append(line)
     update_database(new_links)
     toc = time.time()
-    print("Done! Time needed: {}".format(str(tic - toc)))
+    print("Done! Time needed: {}".format(str(toc - tic)))
 
 extract_new_links()
 
@@ -269,7 +284,7 @@ extract_new_links()
 #provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
 #print(provisional_references_dict)
 
-#print(get_xml_from_file("https://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE443342101.zip"))
+#print(get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE426901801.zip"))
 
 #print(es.get(index='verdicts', doc_type='verdict', id=0))
 

@@ -1,0 +1,25 @@
+Telekommunikation; Genehmigungsfähigkeit von Kündigungsentgelten bei Gewährung des Teilnehmeranschlussleitungszugangs
+1. Die Erhebung von Kündigungsentgelten führt nicht schon als solche, d.h.
+ohne Rücksicht auf die konkrete Höhe der Entgelte, zu einer Überschreitung der nach § 31 Abs. 1 Satz 1 TKG 2004 / § 31 Abs. 1 Satz 1 Nr. 1 TKG 2012 für die Genehmigungsfähigkeit maßgeblichen Grenze der Kosten der effizienten Leistungsbereitstellung.
+2. Die Überprüfung von Entgelten am Maßstab "anderer Rechtsvorschriften" gemäß § 35 Abs.
+3 Satz 2 TKG erstreckt sich nicht auf die Vorschriften der §§ 307 ff.
+BGB über die Inhaltskontrolle von Bestimmungen in Allgemeinen Geschäftsbedingungen.
+Die Klägerin betreibt ein lokales Teilnehmernetz, über das sie Endkunden mit Telekommunikationsdienstleistungen versorgt.
+Die Beigeladene ist Eigentümerin der von ihrer Rechtsvorgängerin, der Deutschen Bundespost bzw. der Deutschen Bundespost Telekom, errichteten Telekommunikationsnetze und der hierzu gehörenden technischen Einrichtungen.
+Sie ist aufgrund einer Regulierungsverfügung verpflichtet, ihren Wettbewerbern den Zugang zur Teilnehmeranschlussleitung (TAL) zu gewähren.
+Die Entgelte hierfür sind der Genehmigungspflicht unterworfen worden.
+Die Bereitstellung und die Kündigung des Zugangs zur Teilnehmeranschlussleitung sowie die hierfür zu entrichtenden Entgelte sind in Standardverträgen zwischen der Klägerin und der Beigeladenen geregelt.
+Auf Antrag der Beigeladenen genehmigte die Beklagte mit Beschluss vom 30. Juni 2010 für den Zeitraum vom 1. Juli 2010 bis zum 30. Juni 2012 unter anderem einmalige Bereitstellungs- und Kündigungsentgelte für den Zugang zur Teilnehmeranschlussleitung in verschiedenen Varianten.
+Für die Zugangsvarianten „CuDA 2 DR“ und „CuDA 2 DR hochbitratig“ wurden unter Ziffer 1.2 jeweils Kündigungsentgelte in Höhe von 16,05 Euro „ohne gleichzeitige Umschaltung des Endkunden“ sowie in Höhe von 4,48 Euro „mit gleichzeitiger Umschaltung des Endkunden“ genehmigt.
+Die Klägerin hat Klage gegen den Beschluss der Beklagten vom 30. Juni 2010 erhoben, soweit darin unter Ziffer 1.2 Kündigungsentgelte für die Produkte „CuDA 2 DR“ und „CuDA 2 DR hochbitratig“ genehmigt werden.
+Mit Urteil vom 28. August 2013 hat das Verwaltungsgericht die Klage abgewiesen und im Wesentlichen ausgeführt:
+Die Beigeladene könne einen Ausgleich für alle notwendigen Aufwendungen geltend machen, die ihr dadurch entstünden, dass sie den Wettbewerbern den Zugang zur Teilnehmeranschlussleitung zu ermöglichen habe.
+Hätte sie den Wettbewerbern die von diesen angemietete Teilnehmeranschlussleitung nicht zur Verfügung stellen müssen, so wäre ihr auch nicht der Aufwand entstanden, der mit der Beendigung dieses Verhältnisses naturgemäß verbunden sei.
+Im Einzelnen seien dies administrative Tätigkeiten und Schaltarbeiten nebst den dazu notwendigen Fahrten zu den jeweiligen Einrichtungen wie z.B.
+dem Hauptverteiler, da die Leitung physisch zurückgeschaltet werden müsse.
+Die Kündigungsentgelte, mit denen dieser Aufwand abgegolten werde, wiesen einen unmittelbaren Leistungszusammenhang mit der Bereitstellung der Teilnehmeranschlussleitung auf.
+Die zugrunde liegenden Abläufe und Schaltmaßnahmen seien notwendig, um die Teilnehmeranschlussleitung der Beigeladenen wieder in den Zustand zu versetzen, den sie vor der Schaltung zur Nutzung durch die jeweiligen Vertragspartner der Beigeladenen gehabt habe.
+Die Abrechnung des Kündigungsaufwandes sei nicht deshalb unzulässig, weil der Kündigungsprozess im Interesse der Beigeladenen erfolge und keine Leistung gegenüber den Wettbewerbern darstelle.
+Die in der zivilrechtlichen Rechtsprechung zur sog.
+„Deaktivierungsgebühr“ im Mobilfunk und den „Wechselgebühren“ im Energiebereich entwickelten Grundsätze seien auf den hier in Rede stehenden Vorleistungsbereich nicht übertragbar.
+Eine Überprüfung am Maßstab des Rechts der Allgemeinen Geschäftsbedingungen finde im Rahmen des Entgeltgenehmigungsverfahrens nach dem Telekommunikationsgesetz nicht statt, da die Beigeladene die Zugangsbedingungen hier nicht einseitig unter Inanspruchnahme eines autonomen Entscheidungsspielraums vorgebe, sondern insoweit der behördlichen Regulierung unterliege.

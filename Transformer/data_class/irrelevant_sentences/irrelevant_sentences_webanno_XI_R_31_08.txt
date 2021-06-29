@@ -1,0 +1,25 @@
+Kein Vorsteuerabzug aus Rechnungen für Dienstleistungen zur Erfüllung einkommensteuerrechtlicher Pflichten der Gesellschafter
+Eine Personengesellschaft kann die ihr in Rechnung gestellte Umsatzsteuer für von ihr bezogene Dienstleistungen, die der Erfüllung einkommensteuerrechtlicher Verpflichtungen ihrer Gesellschafter dienen, nicht als Vorsteuer abziehen .
+I. Streitig ist zwischen den Beteiligten, in welchem Umfang die Klägerin und Revisionsbeklagte (Klägerin) Vorsteuern aus bezogenen Geschäftsbesorgungsleistungen abziehen kann.
+Die Klägerin ist ein von der X initiierter geschlossener Immobilien-Leasing-Fonds in Form einer GmbH & Co. KG.
+Gesellschafter der Klägerin sind zwei GmbHs als persönlich haftende Gesellschafter ohne Beteiligung am Vermögen, eine GmbH als Gründungskommanditist sowie sieben natürliche Personen als weitere Kommanditisten.
+Die Klägerin hat von der ebenfalls seitens der X initiierten S-GmbH & Co. KG ein Erbbaurecht an einem bebauten Grundstück erworben.
+Dieses wurde mit Leasingvertrag, in den die Klägerin eingetreten ist, an die L-GmbH verleast.
+Zwischen den Beteiligten ist unstreitig, dass das Leasingverhältnis umsatzsteuerrechtlich als (umsatzsteuerpflichtige) Vermietung des Leasinggegenstandes durch den Leasinggeber (Klägerin) an den Leasingnehmer zu werten ist.
+Da die Klägerin über kein eigenes Personal verfügt, schloss sie mit der X einen Geschäftsbesorgungsvertrag.
+Nach § 2 des Geschäftsbesorgungsvertrags überträgt die Klägerin der X "zur Unterstützung der Komplementäre die Besorgung der mit ihrem gewöhnlichen Geschäftsbetrieb laufenden Geschäfte.
+Die Geschäftsbesorgung erstreckt sich auf alle Geschäfte und Maßnahmen, die dem Zweck der KG und ihrem Geschäftsbetrieb dienen".
+Anlässlich einer Betriebsprüfung vertrat der Prüfer die Auffassung, aus den Rechnungen der X über die von ihr erbrachten Geschäftsbesorgungsleistungen sei ein Vorsteuerabzug nicht möglich, soweit die X Leistungen nicht gegenüber der Klägerin, sondern gegenüber deren Gesellschaftern erbracht habe.
+In der Schlussbesprechung zu der Betriebsprüfung einigte sich die Klägerin mit dem Beklagten und Revisionskläger (Finanzamt --FA--) dahingehend, dass hiervon 15 % der auf Grundlage des Geschäftsbesorgungsvertrags erbrachten Leistungen betroffen sind.
+Zu diesen Leistungen, die als unmittelbar gegenüber den Gesellschaftern erbracht angesehen wurden, gehören u.a. die Erstellung der Erklärungen zur einheitlichen und gesonderten Feststellung der Einkünfte sowie Hilfestellung bei Vorauszahlungsanpassungsanträgen der einzelnen Gesellschafter durch Information auch über die Ergebnisse der Folgejahre.
+Das FA erließ entsprechend der Auffassung des Betriebsprüfers geänderte Umsatzsteuerbescheide für die Jahre 1998 bis 2000.
+Die dagegen gerichteten Einsprüche wies es als unbegründet zurück.
+Die Klage hatte Erfolg.
+Das Finanzgericht (FG) war der Meinung, der Klägerin stehe als Leistungsempfängerin der Vorsteuerabzug aus den hier in Frage stehenden Eingangsleistungen zu, weil die Kosten dieser Leistungen Teil ihrer allgemeinen Kosten seien, die direkt und unmittelbar mit ihrer unternehmerischen Betätigung zusammenhingen.
+Das Urteil ist veröffentlicht in Entscheidungen der Finanzgerichte 2009, 220.
+Das FA trägt zur Begründung der Revision im Wesentlichen vor, es gehe um Leistungen, die gerade nicht der Gesellschaft, sondern ihren Gesellschaftern zugute kämen.
+Weder der Bundesfinanzhof (BFH) noch der Gerichtshof der Europäischen Union (EuGH) habe bisher entschieden, dass die von einer Gesellschaft bezogene, aber letztlich eindeutig nur den persönlichen Belangen der Gesellschafter dienende Leistung ein Recht auf Vorsteuerabzug eröffne, wenn sie kalkulatorisch in die unternehmerischen Ausgangsumsätze der Gesellschaft "eingepreist" worden sei.
+Eine solche Sichtweise wäre auch systemwidrig.
+Das "Kostenüberwälzungsargument" des FG würde dazu führen, dass Gesellschaften gestalterisch unter Wahrung ihres Vorsteuerabzugs ihren Gesellschaftern originär deren Privatsphäre betreffende Leistungen zukommen lassen könnten.
+Es ergäbe sich dann ein unversteuerter Letztverbrauch.
+Das FA beantragt, das Urteil des FG aufzuheben und die Klage abzuweisen.
