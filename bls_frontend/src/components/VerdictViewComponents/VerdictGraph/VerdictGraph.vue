@@ -9,10 +9,10 @@
     </svg>
 
     <ReferenceNode @typeEvent="setType(1)" @hoverEvent="hoverEvent" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
-    <ReferenceNode @typeEvent="setType(2)" @hoverEvent="hoverEvent" :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
+    <ReferenceNode :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode @typeEvent="setType(3)" @hoverEvent="hoverEvent" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
 
-    <ExtendedNode :config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" />
+    <ExtendedNode @removeHover="removeHover" :config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" />
   </svg>
 </template>
 
@@ -37,6 +37,7 @@ export default {
       nodeWidth: 110,
       padding: 10,
       headingHeight: 32,
+      extendedNodeHeight: 87,
       hoverNodeConfig: {
         x: 0,
         y: 0,
@@ -55,9 +56,9 @@ export default {
     hoverEvent(x, y, text, index) {
       let isLast = false
       if (this.currentType === 1) {
-        isLast = index === this.references.incoming.length - 1
+        isLast = index === this.references.incoming.length - 1 && index !== 0
       } else if (this.currentType === 3) {
-        isLast = index === this.references.outgoing.length - 1
+        isLast = index === this.references.outgoing.length - 1 && index !== 0
       }
       this.hoverNodeConfig = {
         x,
@@ -80,16 +81,16 @@ export default {
       } = this.$el.parentElement.getBoundingClientRect()
       this.width = width
 
-      this.height = Math.max(this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding + this.headingHeight,
-          this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding + this.headingHeight,
+      this.height = Math.max(this.references.incoming.length * (this.nodeHeight + this.padding) + this.headingHeight + this.extendedNodeExtraHeight,
+          this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding + this.headingHeight + this.extendedNodeExtraHeight,
           this.nodeHeight)
 
-      this.inComingOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - (this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
+      this.inComingOffsetY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5 - (this.references.incoming.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
 
       this.outGoingOffsetX = this.width - this.nodeWidth
-      this.outGoingOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - (this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
+      this.outGoingOffsetY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5 - (this.references.outgoing.length * (this.nodeHeight + this.padding) - this.padding) * 0.5
       this.centerOffsetX = this.width * 0.5 - this.nodeWidth * 0.5
-      this.centerOffsetY = this.height * 0.5 + this.headingHeight * 0.5 - this.nodeHeight * 0.5
+      this.centerOffsetY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5 - this.nodeHeight * 0.5
     },
     lineGen(index, isIncoming) {
       let startX = 0
@@ -104,12 +105,12 @@ export default {
         startX = this.nodeWidth
         startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.inComingOffsetY
         endX = this.width * 0.5 - this.nodeWidth * 0.5
-        endY = this.height * 0.5 + this.headingHeight * 0.5
+        endY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5
       } else {
         startX = this.width - this.nodeWidth
         startY = index * (this.nodeHeight + this.padding) + 0.5 * this.nodeHeight + this.outGoingOffsetY
         endX = this.width * 0.5 + this.nodeWidth * 0.5
-        endY = this.height * 0.5 + this.headingHeight * 0.5
+        endY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5
       }
       mid1X = startX + (endX - startX) / 2
       mid1Y = startY
@@ -119,18 +120,22 @@ export default {
       return 'M ' + startX + ' ' + startY + ' C ' + mid1X + ' ' + mid1Y + ', ' + mid2X + ' ' + mid2Y + ', ' + endX + ' ' + endY
     }
   },
-  updated() {
+  mounted() {
     window.addEventListener("resize", this.updateSize);
+    this.updateSize()
+  },
+  updated() {
     this.updateSize()
   },
   computed: {
     references() {
       /*
       return {
-        incoming: ['2 BvE 4/21', '458jhfgsd', '191msnd', 'dasda', 'asdja', 'sda', 'asd'],
-        outgoing: ['ndvy.ask', 'aljsdjow9', '-9kakpkapfghfghdf00'],
+        incoming: ['VI ZR 498/19', 'dd', 'dliua', 'asdjha'],
+        outgoing: ['asd', 'asdkhasdik', 'asdkjh'],
         self: '79123hj'
-      }*/
+      }
+      */
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -141,6 +146,9 @@ export default {
         self: self,
       }
     },
+    extendedNodeExtraHeight() {
+      return this.extendedNodeHeight - this.nodeHeight
+    }
   }
 }
 </script>

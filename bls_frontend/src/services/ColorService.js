@@ -12,6 +12,12 @@ export const colorDictionary = {
     ['versäumnisurteil']: '',
 };
 
+export const resultColorDictionary = {
+    ['erfolg']: 'success-color',
+    ['irrelevant']: 'irrelevant-color',
+    ['verloren']: 'unsuccessful-color',
+};
+
 export class ColorService {
     constructor() {
         //this.generateColor('vorlage', '220, 86, 58')
@@ -21,6 +27,15 @@ export class ColorService {
         const key = docType.toLowerCase()
         if (colorDictionary[key]) {
             return colorDictionary[key]
+        } else {
+            return 'default-color'
+        }
+    }
+
+    resultColorClass(result) {
+        const key = result.toLowerCase()
+        if (resultColorDictionary[key]) {
+            return resultColorDictionary[key]
         } else {
             return 'default-color'
         }

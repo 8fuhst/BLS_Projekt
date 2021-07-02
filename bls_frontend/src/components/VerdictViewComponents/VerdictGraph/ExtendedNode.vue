@@ -3,7 +3,7 @@
     <rect x="0" y="0" width="100%" height="100%" stroke="black" fill="white" stroke-width="1px" />
     <text x="12" y="24" font-size="16" fill="black">{{ config.text }}</text>
     <text x="12" y="47" font-size="16" font-weight="bold" fill="black" >Keywords</text>
-    <text id="keywords" x="16" y="70" font-size="16" fill="black">{{ keyWords }}</text>
+    <text v-if="keyWords.length > 0" id="keywords" x="16" y="70" font-size="16" fill="black">{{ keyWords }}</text>
   </svg>
 </template>
 
@@ -25,28 +25,28 @@ export default {
   },
   methods: {
     async getNewVerdict() {
-      this.$store.commit('setPage', 0)
-      await this.$store.dispatch('setQuery', this.config.text)
-      const newVerdict = this.$store.getters.getVerdicts[0]
+      const newVerdict = await this.$store.dispatch('getVerdictByFilenumber', this.config.text)
       await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
 
       window.scroll({
         top: 0,
         left: 0,
       });
+
+      this.$emit('removeHover')
     },
-    getKeywords() {
-      const keyWords = ['Ablehnung', 'GKG', 'Kostenverzeichnisses']
-      // TODO: Keywords requesten
-      this.keyWords = keyWords.join(', ')
+    async getKeywords() {
+      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.config.text)
+      const keyWords = verdict.keywords
+      this.keyWords = keyWords.slice(0,3).join(', ')
     },
     resizeSVG() {
       const svg = document.getElementById("panel");
       const text = document.getElementById("keywords");
-      // Get the bounds of the SVG content
+
       const bbox = text.getBoundingClientRect();
-      // Update the width and height using the size of the contents
       const newWidth = Math.max((bbox.right - bbox.left + 28), 165)
+
       svg.setAttribute("width", newWidth + '');
       this.currentWidth = newWidth
     }

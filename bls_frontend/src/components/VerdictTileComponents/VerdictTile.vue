@@ -23,16 +23,18 @@
         </b-row>
 
         <b-row class="bottom-margin">
-          <KeyWordTags :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']" />
+          <KeyWordTags :keyWords="verdict.keywords" />
         </b-row>
       </b-container>
 
       <!-- Aktenzeichen row !-->
-      <div v-if="verdict.filenumber" class="bottom-margin">
+      <div v-if="verdict.filenumber" class="mb-2">
         <h5>Aktenzeichen</h5>
         <CopyButton :textId="verdict.documentnumber + 'filenumber'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
+
+      <h4><b-badge :class="resultColorClass">{{ verdict.result }}</b-badge></h4>
 
       <!-- Texte !-->
       <div v-if="keysentence" class="bottom-margin">
@@ -100,6 +102,7 @@ export default {
     return {
       norms: '',
       colorClass: '',
+      resultColorClass: '',
       date: '',
       showNormsExpandable: false,
       filenumbers: '',
@@ -130,6 +133,7 @@ export default {
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
+    this.resultColorClass = colorService.resultColorClass(this.verdict.result)
 
     const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)

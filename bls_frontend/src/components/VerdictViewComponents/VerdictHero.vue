@@ -10,7 +10,9 @@
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-          <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
+          <KeyWordTags class="bottom-margin" :keyWords="verdict.keywords"/>
+
+          <h2><b-badge :class="resultColorClass">{{ verdict.result }}</b-badge></h2>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -39,6 +41,9 @@
 import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
+import {ColorService} from "@/services/ColorService";
+
+const colorService = new ColorService()
 
 export default {
   name: "VerdictHero",
@@ -60,6 +65,8 @@ export default {
         this.filenumber = this.verdict.filenumber.join(', ')
       }
 
+      this.resultColorClass = colorService.resultColorClass(this.verdict.result)
+
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     },
@@ -75,6 +82,7 @@ export default {
       date: '',
       filenumber: null,
       stickyNavButtons: false,
+      resultColorClass: '',
     }
   },
   mounted() {

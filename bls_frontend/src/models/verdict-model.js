@@ -29,6 +29,16 @@ export class VerdictModel {
             this.title = verdict.title;
             this.modelledReasonsForDecision = [];
             this.modelledOffense = [];
+            if (verdict.keywords) {
+                this.keywords = verdict.keywords;
+            } else {
+                this.keywords = ['asdas', 'askjhd', 'hallo', 'aksgbdkajsd', 'asjkhd']
+            }
+            if (verdict.result) {
+                this.result = verdict.result
+            } else {
+                this.result = 'verloren'
+            }
         } else {
             this.date = '';
             this.mitwirkung = '';
@@ -52,6 +62,8 @@ export class VerdictModel {
             this.title = '';
             this.modelledReasonsForDecision = [];
             this.modelledOffense = [];
+            this.keywords = [];
+            this.result = '';
         }
 
     }
