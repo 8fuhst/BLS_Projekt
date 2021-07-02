@@ -57,7 +57,7 @@ tenor_str = ["1. Die Verfassungsbeschwerde wird nicht zur Entscheidung angenomme
 offense_str = []
 reasonsfordecision_str = []
 
-response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
+#response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
 
-print(response)
-print(defuse_response(response))
+#print(response)
+#print(defuse_response(response))

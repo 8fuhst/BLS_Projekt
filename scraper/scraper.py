@@ -14,11 +14,11 @@ from shutil import copyfile
 import references as ref
 import time
 import formatter
-import classification as classi
+# import classification as classi
 import keywords
 
-#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
+es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+#es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
 # TODO: Call once per day
 def update_xml_table_of_contents(): # todo uncomment this
