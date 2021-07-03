@@ -25,6 +25,8 @@ def build_watson_query(title, tenor_array, offense_array, reasons_array, reasons
     offense_array = ['{} '.format(elem) for elem in offense_array]
     reasons_array = ['{} '.format(elem) for elem in reasons_array]
     reasonsfordecision_array = ['{} '.format(elem) for elem in reasonsfordecision_array]
+    if type(title) is list:
+        title = "".join(title)
     result = title + "\n"
     result += "".join(tenor_array) + "\n"
     result += "".join(offense_array) + "\n"
