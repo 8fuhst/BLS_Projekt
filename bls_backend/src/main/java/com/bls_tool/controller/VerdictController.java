@@ -10,17 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class VerdictController {
     @Autowired
     VerdictRepository verdictRepository;
-    /*@GetMapping("/verdict")
-    public JSONObject verdict() {
-        Verdict verdict1 = new Verdict();
-        return verdict1.toJSON();
-    }
-
-    @GetMapping("/verdict/" + docnr)
-    public JSONObject getSpecificVerdict() {
-
-    }
-*/
+    
     @GetMapping("/verdict")
     @ResponseBody
     public Verdict getSpecificVerdict(@RequestParam String documentnumber) {
