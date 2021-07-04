@@ -2,14 +2,17 @@
 export const colorDictionary = {
     ['ablehnung einstweilige anordnung']: 'ablehnung-color',
     ['urteil']: 'urteil-color',
-    ['teilurteil']: '',
-    // TODO: Farben aussuchen, generieren
-    ['nichtannahmebeschluss']: '',
+    ['teilurteil']: 'teilurteil-color',
+    ['nichtannahmebeschluss']: 'nichtannahme-color',
     ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: 'gegenstand-color',
-    ['stattgebender kammerbeschluss']: '',
+    ['stattgebender kammerbeschluss']: 'kammerStatt-color',
+    ['kammerbeschluss']: 'kammer-color',
+    ['kammerbeschluss ohne begründung']: 'kammerOhne-color',
     ['beschluss']: 'beschluss-color',
     ['vorlagebeschluss']: 'vorlage-color',
-    ['versäumnisurteil']: '',
+    ['versäumnisurteil']: 'versaeumnis-color',
+    ['einstweilige anordnung']: 'einstweilige-color',
+    ['eugh-vorlage']: 'eugh-color',
 };
 
 export const resultColorDictionary = {
