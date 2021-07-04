@@ -6,6 +6,7 @@
           <div class="bottom-margin">
             <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
             <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
+            <DownloadButton :verdictInfo="verdict"/>
           </div>
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
@@ -42,12 +43,13 @@ import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
 import {ColorService} from "@/services/ColorService";
+import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
 const colorService = new ColorService()
 
 export default {
   name: "VerdictHero",
-  components: {VerdictGraph, KeyWordTags, CopyButton },
+  components: {DownloadButton, VerdictGraph, KeyWordTags, CopyButton },
   computed: {
     verdict() {
       return this.$store.getters.getCurrentVerdict
