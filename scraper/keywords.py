@@ -25,6 +25,8 @@ def build_watson_query(title, tenor_array, offense_array, reasons_array, reasons
     offense_array = ['{} '.format(elem) for elem in offense_array]
     reasons_array = ['{} '.format(elem) for elem in reasons_array]
     reasonsfordecision_array = ['{} '.format(elem) for elem in reasonsfordecision_array]
+    if type(title) is list:
+        title = "".join(title)
     result = title + "\n"
     result += "".join(tenor_array) + "\n"
     result += "".join(offense_array) + "\n"
@@ -57,7 +59,7 @@ tenor_str = ["1. Die Verfassungsbeschwerde wird nicht zur Entscheidung angenomme
 offense_str = []
 reasonsfordecision_str = []
 
-response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
+#response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
 
-print(response)
-print(defuse_response(response))
+#print(response)
+#print(defuse_response(response))

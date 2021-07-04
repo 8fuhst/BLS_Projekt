@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 
-@Document(indexName = "verdicts") //
+@Document(indexName = "verdicts3") //
 public class Verdict {
     @Id
     private String _id;
