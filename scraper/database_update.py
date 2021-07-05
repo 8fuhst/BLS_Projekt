@@ -2,8 +2,8 @@ import keywords
 import scraper
 from elasticsearch import Elasticsearch
 
-
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
+
 
 def update_incoming_count():
     """
@@ -22,6 +22,7 @@ def update_incoming_count():
                 }
                 es.update(index="verdict", id=line, body=updated)
 
+
 def update_missing_keywords():
     """
     Updates missing keywords in the keyword-field for the index 'verdicts'
@@ -36,12 +37,12 @@ def update_missing_keywords():
     for docnr in missing_keywords_list:
         json_object = es.get(index='verdict', id=docnr)
         json_object['keywords'] = keywords.prepare_and_generate_keywords(
-        json_object['documentnumber'],
-        json_object['title'],
-        json_object['tenor'],
-        json_object['offense'],
-        json_object['reasons'],
-        json_object['reasonfordecision'])
+            json_object['documentnumber'],
+            json_object['title'],
+            json_object['tenor'],
+            json_object['offense'],
+            json_object['reasons'],
+            json_object['reasonfordecision'])
 
         # Modify dict to fit ES Convention
         updated = {
@@ -50,23 +51,29 @@ def update_missing_keywords():
         es.update(index="verdict", id=docnr, body=updated)
 
 
-def update_database():
+def update_database(index="verdicts"):  # todo: index Variabel gestalten?
     """
     Updates an existing Elasticsearch-Database by scraping the newest verdicts from
     www.rechtsprechung-im-internet.de
     and adding them to the 'verdicts' index. and also adding new references to the 'verdict_nodes' index.
     """
-    scraper.extract_new_links()
+    if es.indices.exists(index=index):
+        scraper.extract_new_links()
+    else:
+        print("Index to be updated does not exists!")
 
-def create_database(index = "verdicts"): # todo: index Variabel gestalten?
+
+def create_database(index="verdicts"):  # todo: s.o.
     """
     Creates a new 'verdicts' and 'verdict_nodes' index in an existing Elasticsearch-Database by scraping all data from
     www.rechtsprechung-im-internet.de
-    Existing indexes with the same name will be overwritten!
+    Existing indices with the same name will be overwritten!
     :param index:
     """
-    es.indices.delete(index=index, ignore=[400, 404])
-    es.indices.delete(index=index + "_nodes", ignore=[400, 404])
+    if es.indices.exists(index=index):
+        es.indices.delete(index=index, ignore=[400, 404])
+    if es.indices.exists(index=index + "_nodes"):
+        es.indices.delete(index=index + "_nodes", ignore=[400, 404])
     f = open("links.txt", "w")
     f.close()
     f = open("present_documents.txt", "w")
