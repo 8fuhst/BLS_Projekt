@@ -11,9 +11,9 @@
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-          <KeyWordTags class="bottom-margin" style="margin-left: -6px" :keyWords="verdict.keywords"/>
+          <KeyWordTags class="bottom-margin" style="margin-left: 1px" :keyWords="verdict.keywords"/>
 
-          <h2><b-badge :class="resultColorClass" style="margin-left: 2px">{{ verdict.result }}</b-badge></h2>
+          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.result }}</b-badge></h2>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -131,7 +131,7 @@ export default {
 
   .button-group {
     position: absolute;
-    margin-left: 17px;
+    margin-left: 4px;
     bottom: 12px;
   }
 
