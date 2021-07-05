@@ -37,7 +37,7 @@ export class VerdictModel {
             if (verdict.result) {
                 this.result = verdict.result
             } else {
-                this.result = 'verloren'
+                this.result = 'Erfolg'
             }
         } else {
             this.date = '';

@@ -6,14 +6,14 @@
           <div class="bottom-margin">
             <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
             <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
-            <DownloadButton :verdictInfo="verdict"/>
+            <DownloadButton class="download-button" :documentnumber="verdict.documentnumber"/>
           </div>
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-          <KeyWordTags class="bottom-margin" :keyWords="verdict.keywords"/>
+          <KeyWordTags class="bottom-margin" style="margin-left: -6px" :keyWords="verdict.keywords"/>
 
-          <h2><b-badge :class="resultColorClass">{{ verdict.result }}</b-badge></h2>
+          <h2><b-badge :class="resultColorClass" style="margin-left: 2px">{{ verdict.result }}</b-badge></h2>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -131,11 +131,17 @@ export default {
 
   .button-group {
     position: absolute;
-
+    margin-left: 17px;
     bottom: 12px;
   }
 
   .scroll {
     scroll-behavior: smooth;
+  }
+
+  .download-button {
+    position: relative;
+    top: -5px;
+    left: 12px;
   }
 </style>

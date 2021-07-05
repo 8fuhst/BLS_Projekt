@@ -2,15 +2,21 @@
   <div class="reference bottom-margin" @mouseover="setHover(true)" @mouseleave="setHover(false)" :style="'top: ' + height + 'px'">
     <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + index + 'ref'" :link="true" :linkFilenumber="text" v-if="hover"/>
     <b-card-text :id="section + index + 'ref'" >{{ text }}</b-card-text>
+
+    <div v-if="keywords.length > 0">
+      <h2>Keywords</h2>
+      <KeyWordTags class="bottom-margin" style="margin-left: -6px" :keyWords="keywords"/>
+    </div>
   </div>
 </template>
 
 <script>
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
+import KeyWordTags from "@/components/KeyWordTags";
 
 export default {
   name: "VerdictReference",
-  components: {HoverMenu},
+  components: {HoverMenu, KeyWordTags},
   props: {
     section: {
       type: String,
@@ -33,6 +39,7 @@ export default {
       height: 0,
       index: 0,
       stopUpdating: false,
+      keywords: [],
     }
   },
   methods: {
@@ -58,7 +65,11 @@ export default {
       if (!this.stopUpdating) {
         this.height = rect.top - heroHeight + scrollTop
       }
-    }
+    },
+    async getKeywords() {
+      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.config.text)
+      this.keyWords = verdict.keywords
+    },
   },
   mounted() {
     this.index = parseInt(this.indexInput)

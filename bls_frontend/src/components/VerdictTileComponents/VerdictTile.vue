@@ -4,13 +4,17 @@
       <b-container>
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
-          <b-col class="no-side-padding">
+          <b-col class="no-side-padding" cols="11">
             <b-button @click="setCurrentVerdict" class="doc-type-tag">
               <b-card-text class="inline-text">
                 {{ verdict.documenttype }}
               </b-card-text>
               <img src="@/assets/forward.png">
             </b-button>
+          </b-col>
+
+          <b-col class="no-side-padding" cols="1">
+            <DownloadButton class="download-button" :documentnumber="verdict.documentnumber"/>
           </b-col>
         </b-row>
 
@@ -85,6 +89,7 @@ import {ColorService} from "@/services/ColorService";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import {VerdictModel} from "@/models/verdict-model";
 import KeyWordTags from "@/components/KeyWordTags";
+import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
 const colorService = new ColorService()
 
@@ -97,6 +102,7 @@ export default {
     KeyWordTags,
     CopyButton,
     ExpandableText,
+    DownloadButton,
   },
   data() {
     return {

@@ -46,4 +46,28 @@ export default class ApiService {
             return new VerdictNodeModel(null)
         }
     }
+
+    async downloadVerdictData(documentnumber) {
+        try {
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdict?documentnumber=` + documentnumber)
+            const verdict = await res.json()
+
+            const txtData = JSON.stringify(verdict)
+            const txtName = documentnumber + ".json"
+            const blob = new Blob([txtData])
+            const url = URL.createObjectURL(blob)
+
+            const download = (path, filename) => {
+                const anchor = document.createElement('a')
+                anchor.href = path
+                anchor.download = filename
+                document.body.appendChild(anchor)
+                anchor.click()
+                document.body.removeChild(anchor)
+            }
+            download(url, txtName)
+        } catch (e) {
+            console.log('Error downloading verdict: ' + e)
+        }
+    }
 }
