@@ -75,4 +75,3 @@ def create_database(index = "verdicts"): # todo: index Variabel gestalten?
     f.close()
 
     scraper.extract_new_links()
-    

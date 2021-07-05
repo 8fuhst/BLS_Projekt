@@ -22,7 +22,7 @@ def prepare_and_generate_keywords(docnr, title, tenor_array, offense_array, reas
         build_watson_query(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array)))
     except:
         result = []
-        print("Generating keywords for " + docnr + "failed.")
+        print("Generating keywords for " + docnr + " failed.")
         f = open("no_keywords.txt", "a")
         f.write(docnr + "\n")
         f.close()
