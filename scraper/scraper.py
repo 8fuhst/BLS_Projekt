@@ -267,20 +267,6 @@ def update_database(linklist):
         copyfile("oldlinks.txt", "links.txt")
 
 
-def update_incoming_count():
-    with open("present_documents.txt", "r", encoding='UTF-8') as file:
-        for line in file.readlines():
-            json_object = es.get(index='verdict', id=line)
-            if es.exists(index='verdict_nodes', id=json_object['filenumber']):
-                verdict_node = es.get(index='verdict_nodes', id=json_object['filenumber'])
-                json_object['incoming_count'] = verdict_node['incoming_count']
-                # Modify dict to fit ES Convention
-                updated = {
-                    'doc': json_object
-                }
-                es.update(index="verdict", id=json_object['filenumber'], body=updated)
-
-
 def extract_new_links():
     tic = time.time()
     print("Updating rii-toc.xml...")
