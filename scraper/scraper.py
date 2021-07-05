@@ -133,6 +133,7 @@ def eval_xml(xml_string):
 
     # extract keywords from the text using watson api:
     result_dict['keywords'] = keywords.prepare_and_generate_keywords(
+        result_dict['documentnumber'],
         result_dict['title'],
         result_dict['tenor'],
         result_dict['offense'],

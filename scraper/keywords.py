@@ -15,10 +15,18 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 
 natural_language_understanding.set_service_url(api_url)
 
-def prepare_and_generate_keywords(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
-    return defuse_response(
+def prepare_and_generate_keywords(docnr, title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
+    try:
+        result = defuse_response(
         generate_keywords(
         build_watson_query(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array)))
+    except:
+        result = []
+        print("Generating keywords for " + docnr + "failed.")
+        f = open("no_keywords.txt", "a")
+        f.write(docnr + "\n")
+        f.close()
+    return result
 
 def build_watson_query(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
     tenor_array = ['{} '.format(elem) for elem in tenor_array]
