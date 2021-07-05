@@ -179,6 +179,7 @@ def create_reference_dict(filenumber, outgoing_reference_list = [], outgoing_ref
     }
     return provisional_references_dict
 
+#todo: textdateien robuster machen, d.h. vor dem schreiben prüfen ob vorhanden, sonst erstellen
 def update_database(linklist):
     """
     Reads the links in the oldlinks.txt File, unzips them and extracts metadata.
@@ -251,22 +252,33 @@ def update_database(linklist):
                 # Update ES Document with new References
                 es.update(index="verdict_nodes", id=filenr, body=updated)
         # Save Verdict in Elasticsearch
-        for json_object in json_list:
+        with open("present_documents.txt", "a", encoding='UTF-8') as file:
+            for json_object in json_list:
+                #es_json_object = json.dumps(json_object) # TODO Rename all things json
+                # TODO Classifier aufrufen:
+                #json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
+                # es.index(index='verdicts', body=json_object) #todo so hat es auf jeden fall funktioniert'
+                es.index(index='verdicts', id=json_object['documentnumber'], body=json_object)
+                file.write(json_object['documentnumber'] + "\n")
 
-            #es_json_object = json.dumps(json_object) # TODO Rename all things json
-            # TODO Classifier aufrufen:
-            #json_object['successful'] = classi.classify(json_object['tenor'])  # todo performance
-            es.index(index='verdicts', body=json_object) #todo id='documentnumber'
     else:
         print("Refresh failed!")
         copyfile("oldlinks.txt", "links.txt")
 
-# def update_incoming_count():
-#     # todo dies in der verdict node schleife probieren und die verdicts voher reinspeichern, dokumentnumber für verdicts als id nutzen
-#     json_list = es.get(index='verdict')
-#     if es.exists(index='verdict_nodes', id=json_object['filenumber']):
-#         verdict_node = es.get(index='verdict_nodes', id=json_object['filenumber'])
-#         json_object['incoming_count'] = verdict_node['incoming_count']
+
+def update_incoming_count():
+    with open("present_documents.txt", "r", encoding='UTF-8') as file:
+        for line in file.readlines():
+            json_object = es.get(index='verdict', id=line)
+            if es.exists(index='verdict_nodes', id=json_object['filenumber']):
+                verdict_node = es.get(index='verdict_nodes', id=json_object['filenumber'])
+                json_object['incoming_count'] = verdict_node['incoming_count']
+                # Modify dict to fit ES Convention
+                updated = {
+                    'doc': json_object
+                }
+                es.update(index="verdict", id=json_object['filenumber'], body=updated)
+
 
 def extract_new_links():
     tic = time.time()
