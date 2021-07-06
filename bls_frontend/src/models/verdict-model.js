@@ -32,7 +32,7 @@ export class VerdictModel {
             if (verdict.keywords) {
                 this.keywords = verdict.keywords;
             } else {
-                this.keywords = ['asdas', 'askjhd', 'hallo', 'aksgbdkajsd', 'asjkhd']
+                this.keywords = ['Keyword1', 'Keyword2', 'Keyword3', 'Keyword4', 'Keyword5']
             }
             if (verdict.result) {
                 this.result = verdict.result

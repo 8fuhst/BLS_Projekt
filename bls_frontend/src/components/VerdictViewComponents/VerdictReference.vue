@@ -1,11 +1,11 @@
 <template>
-  <div class="reference bottom-margin" @mouseover="setHover(true)" @mouseleave="setHover(false)" :style="'top: ' + height + 'px'">
+  <div class="reference mb-4" @mouseover="setHover(true)" @mouseleave="setHover(false)" :style="'top: ' + height + 'px'">
     <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + index + 'ref'" :link="true" :linkFilenumber="text" v-if="hover"/>
-    <b-card-text :id="section + index + 'ref'" >{{ text }}</b-card-text>
+    <b-card-text class="mb-2" :id="section + index + 'ref'" >{{ text }}</b-card-text>
 
-    <div v-if="keywords.length > 0">
-      <h2>Keywords</h2>
-      <KeyWordTags class="bottom-margin" style="margin-left: -6px" :keyWords="keywords"/>
+    <div v-if="keywords.length > 0" class="mb-2">
+      <h4>Keywords</h4>
+      <KeyWordTags style="margin-left: -6px" :keyWords="keywords"/>
     </div>
   </div>
 </template>
@@ -26,11 +26,6 @@ export default {
     },
     text: {
       type: String,
-    }
-  },
-  computed: {
-    change() {
-      return this.$store.getters.getChange
     }
   },
   data() {
@@ -67,8 +62,8 @@ export default {
       }
     },
     async getKeywords() {
-      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.config.text)
-      this.keyWords = verdict.keywords
+      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
+      this.keywords = verdict.keywords
     },
   },
   mounted() {
@@ -76,6 +71,7 @@ export default {
   },
   updated() {
     this.setHeight()
+    this.getKeywords()
   }
 }
 </script>
@@ -97,9 +93,5 @@ export default {
     position: absolute;
     top: -8px;
     right: 15px;
-  }
-
-  .bottom-margin {
-    margin-bottom: 15px;
   }
 </style>

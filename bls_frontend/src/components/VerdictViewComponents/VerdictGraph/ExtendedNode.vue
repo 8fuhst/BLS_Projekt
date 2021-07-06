@@ -58,7 +58,6 @@ export default {
       this.y = this.config.y
     }
 
-    this.getKeywords()
     if (this.config.show) {
       this.resizeSVG()
     }
@@ -70,6 +69,8 @@ export default {
     } else if (this.config.type === 3) {
       this.x = this.config.x - this.currentWidth + 110
     }
+
+    this.getKeywords()
   }
 }
 </script>

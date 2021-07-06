@@ -12,7 +12,7 @@
     <ReferenceNode :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
     <ReferenceNode @typeEvent="setType(3)" @hoverEvent="hoverEvent" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
 
-    <ExtendedNode @removeHover="removeHover" :config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" />
+    <ExtendedNode @removeHover="removeHover" v-bind:config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" />
   </svg>
 </template>
 
@@ -129,13 +129,12 @@ export default {
   },
   computed: {
     references() {
-      /*
       return {
         incoming: ['VI ZR 498/19', 'dd', 'dliua', 'asdjha'],
         outgoing: ['asd', 'asdkhasdik', 'asdkjh'],
         self: '79123hj'
       }
-      */
+      /*
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -145,6 +144,8 @@ export default {
         incoming: incoming,
         self: self,
       }
+
+       */
     },
     extendedNodeExtraHeight() {
       return this.extendedNodeHeight - this.nodeHeight
