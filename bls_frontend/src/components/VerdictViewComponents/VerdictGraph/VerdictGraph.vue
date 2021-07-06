@@ -129,12 +129,14 @@ export default {
   },
   computed: {
     references() {
+      /*
       return {
         incoming: ['VI ZR 498/19', 'dd', 'dliua', 'asdjha'],
         outgoing: ['asd', 'asdkhasdik', 'asdkjh'],
         self: '79123hj'
       }
-      /*
+
+      */
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -144,8 +146,6 @@ export default {
         incoming: incoming,
         self: self,
       }
-
-       */
     },
     extendedNodeExtraHeight() {
       return this.extendedNodeHeight - this.nodeHeight
