@@ -7,7 +7,7 @@ export default class ApiService {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/search?query=` + query + `&page=` + page)
             let data = await res.json()
-            data = data.content.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict).withModelledOffenseAndReasons())
             return data
         } catch (e) {
             console.log('Error requesting verdicts by query: ' + e)
@@ -29,7 +29,7 @@ export default class ApiService {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/newest?page=` + page)
             let data = await res.json()
-            data = data.content.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict).withModelledOffenseAndReasons())
             return data
         } catch (e) {
             console.log('Error requesting newest verdicts: ' + e)
