@@ -4,7 +4,7 @@
       <b-container>
         <!-- Doctype row !-->
         <b-row class="bottom-margin">
-          <b-col class="no-side-padding">
+          <b-col class="no-side-padding" cols="11">
             <b-button @click="setCurrentVerdict" class="doc-type-tag">
               <b-card-text class="inline-text">
                 {{ verdict.documenttype }}
@@ -12,6 +12,14 @@
               <img src="@/assets/forward.png">
             </b-button>
           </b-col>
+
+          <b-col class="no-side-padding" cols="1">
+            <DownloadButton class="download-button" :documentnumber="verdict.documentnumber"/>
+          </b-col>
+        </b-row>
+
+        <b-row v-if="verdict.title" class="bottom-margin title">
+          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
         </b-row>
 
         <b-row v-if="verdict.title" class="bottom-margin title">
@@ -23,16 +31,18 @@
         </b-row>
 
         <b-row class="bottom-margin">
-          <KeyWordTags :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']" />
+          <KeyWordTags :keyWords="verdict.keywords" />
         </b-row>
       </b-container>
 
       <!-- Aktenzeichen row !-->
-      <div v-if="verdict.filenumber" class="bottom-margin">
+      <div v-if="verdict.filenumber" class="mb-2">
         <h5>Aktenzeichen</h5>
         <CopyButton :textId="verdict.documentnumber + 'filenumber'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
+
+      <h4><b-badge :class="resultColorClass">{{ verdict.successful }}</b-badge></h4>
 
       <!-- Texte !-->
       <div v-if="keysentence" class="bottom-margin">
@@ -83,6 +93,7 @@ import {ColorService} from "@/services/ColorService";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import {VerdictModel} from "@/models/verdict-model";
 import KeyWordTags from "@/components/KeyWordTags";
+import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
 const colorService = new ColorService()
 
@@ -95,11 +106,13 @@ export default {
     KeyWordTags,
     CopyButton,
     ExpandableText,
+    DownloadButton,
   },
   data() {
     return {
       norms: '',
       colorClass: '',
+      resultColorClass: '',
       date: '',
       showNormsExpandable: false,
       filenumbers: '',
@@ -130,6 +143,7 @@ export default {
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
+    this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
     const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)

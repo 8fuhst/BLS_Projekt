@@ -7,7 +7,7 @@ export default class ApiService {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/search?query=` + query + `&page=` + page)
             let data = await res.json()
-            data = data.content.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict).withModelledOffenseAndReasons())
             return data
         } catch (e) {
             console.log('Error requesting verdicts by query: ' + e)
@@ -25,11 +25,27 @@ export default class ApiService {
         }
     }
 
+    async fetchVerdictByFilenumber(filenumber) {
+        try {
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictFN?filenumber=` + filenumber)
+            const data = await res.json()
+            if (data) {
+                const verdict = new VerdictModel(data).withModelledOffenseAndReasons()
+                return verdict
+            } else {
+                return undefined
+            }
+        } catch (e) {
+            console.log('Error requesting verdict by filenumber: ' + e)
+            return undefined
+        }
+    }
+
     async fetchNewest(page) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/newest?page=` + page)
             let data = await res.json()
-            data = data.content.map((verdict) => new VerdictModel(verdict))
+            data = data.content.map((verdict) => new VerdictModel(verdict).withModelledOffenseAndReasons())
             return data
         } catch (e) {
             console.log('Error requesting newest verdicts: ' + e)
@@ -38,65 +54,35 @@ export default class ApiService {
 
     async fetchVerdictNode(filenumber) {
         try {
-            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
-            let data = await res.json()
-            /*
-            const hardcode = JSON.parse('{\n' +
-                '  "filenumber": "IV ZR 36/09",\n' +
-                '  "outgoingReferenceList": [\n' +
-                '    [\n' +
-                '      {\n' +
-                '        "vorinstanz": [\n' +
-                '          [\n' +
-                '            "0",\n' +
-                '            "IV ZR 36/09"\n' +
-                '          ]\n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "gruende": [\n' +
-                '          [\n' +
-                '            "5",\n' +
-                '            "X ARZ 362/02"\n' +
-                '          ]\n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "entscheidungsgruende": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "tatbestand": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "tenor": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      },\n' +
-                '      {\n' +
-                '        "leitsatz": [\n' +
-                '          \n' +
-                '        ]\n' +
-                '      }\n' +
-                '    ]\n' +
-                '  ],\n' +
-                '  "outgoingReferenceSet": [\n' +
-                '    "IV ZR 36/09,X ARZ 362/02"\n' +
-                '  ],\n' +
-                '  "incomingReferenceSet": [\n' +
-                '    "IV ZR 36/09"\n' +
-                '  ],\n' +
-                '  "incomingCount": 1\n' +
-                '}')
-
-             */
+            const res = await fetch( process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
             return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)
             return new VerdictNodeModel(null)
+        }
+    }
+
+    async downloadVerdictData(documentnumber) {
+        try {
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdict?documentnumber=` + documentnumber)
+            const verdict = await res.json()
+
+            const txtData = JSON.stringify(verdict)
+            const txtName = documentnumber + ".json"
+            const blob = new Blob([txtData])
+            const url = URL.createObjectURL(blob)
+
+            const download = (path, filename) => {
+                const anchor = document.createElement('a')
+                anchor.href = path
+                anchor.download = filename
+                document.body.appendChild(anchor)
+                anchor.click()
+                document.body.removeChild(anchor)
+            }
+            download(url, txtName)
+        } catch (e) {
+            console.log('Error downloading verdict: ' + e)
         }
     }
 }
