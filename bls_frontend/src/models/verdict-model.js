@@ -34,10 +34,10 @@ export class VerdictModel {
             } else {
                 this.keywords = ['Keyword1', 'Keyword2', 'Keyword3', 'Keyword4', 'Keyword5']
             }
-            if (verdict.result) {
-                this.result = verdict.result
+            if (verdict.successful) {
+                this.successful = verdict.successful
             } else {
-                this.result = 'Irrelevant'
+                this.successful = 'Irrelevant'
             }
         } else {
             this.date = '';
@@ -63,7 +63,7 @@ export class VerdictModel {
             this.modelledReasonsForDecision = [];
             this.modelledOffense = [];
             this.keywords = [];
-            this.result = '';
+            this.successful = '';
         }
 
     }

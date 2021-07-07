@@ -38,7 +38,7 @@
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
 
-      <h4><b-badge :class="resultColorClass">{{ verdict.result }}</b-badge></h4>
+      <h4><b-badge :class="resultColorClass">{{ verdict.successful }}</b-badge></h4>
 
       <!-- Texte !-->
       <div v-if="keysentence" class="bottom-margin">
@@ -139,7 +139,7 @@ export default {
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
-    this.resultColorClass = colorService.resultColorClass(this.verdict.result)
+    this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
     const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)

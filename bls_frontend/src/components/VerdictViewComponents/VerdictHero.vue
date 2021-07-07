@@ -13,7 +13,7 @@
 
           <KeyWordTags class="bottom-margin" style="margin-left: 1px" :keyWords="verdict.keywords"/>
 
-          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.result }}</b-badge></h2>
+          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge></h2>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -67,7 +67,7 @@ export default {
         this.filenumber = this.verdict.filenumber.join(', ')
       }
 
-      this.resultColorClass = colorService.resultColorClass(this.verdict.result)
+      this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
