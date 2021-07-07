@@ -57,7 +57,7 @@ def find_reference(text_array, outgoing_references_set):
 
 # print(find_reference("test", test, set()))
 
-print(find_reference(test2, set()))
+#print(find_reference(test2, set()))
 
 # {1: [ref1, ref2], }
 # [1, ref1, ref2], [2, ref3, ref4]
