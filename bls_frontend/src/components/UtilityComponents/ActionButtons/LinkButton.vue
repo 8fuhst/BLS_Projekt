@@ -12,15 +12,15 @@ export default {
   },
   methods: {
     async getNewVerdict() {
-      this.$store.commit('setPage', 0)
-      await this.$store.dispatch('setQuery', this.filenumber)
-      const newVerdict = this.$store.getters.getVerdicts[0]
-      await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
+      const newVerdict = await this.$store.dispatch('getVerdictByFilenumber', this.filenumber)
+      if (newVerdict) {
+        await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
 
-      window.scroll({
-        top: 0,
-        left: 0,
-      });
+        window.scroll({
+          top: 0,
+          left: 0,
+        });
+      }
     }
   }
 }

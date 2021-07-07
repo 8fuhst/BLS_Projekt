@@ -171,3 +171,247 @@
 .vorlage-color div div div div div span {
     background-color: rgba(220, 86, 58, 0.59);
 }
+
+.einstweilige-color {
+    border-color: rgba(163, 100, 36, 0.59);
+}
+
+.einstweilige-color div div div div button {
+    background-color: rgba(163, 100, 36, 0.59);
+}
+
+.einstweilige-color div div div div button:hover {
+    background-color: rgba(163, 100, 36, 0.7);
+}
+
+.einstweilige-color div div div div button:focus {
+    background-color: rgba(163, 100, 36, 0.59);
+    box-shadow: 0 0 0 3px rgba(163, 100, 36, 0.25) !important;
+}
+
+.einstweilige-color div div div div button:active {
+    background-color: rgba(163, 100, 36, 0.85) !important;
+}
+
+.einstweilige-color .card-footer {
+    border-top: 1px solid rgba(163, 100, 36, 0.2);
+}
+
+.einstweilige-color div div div div div span {
+    background-color: rgba(163, 100, 36, 0.59);
+}
+
+.nichtannahme-color {
+    border-color: rgba(255, 106, 0, 0.59);
+}
+
+.nichtannahme-color div div div div button {
+    background-color: rgba(255, 106, 0, 0.59);
+}
+
+.nichtannahme-color div div div div button:hover {
+    background-color: rgba(255, 106, 0, 0.7);
+}
+
+.nichtannahme-color div div div div button:focus {
+    background-color: rgba(255, 106, 0, 0.59);
+    box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.25) !important;
+}
+
+.nichtannahme-color div div div div button:active {
+    background-color: rgba(255, 106, 0, 0.85) !important;
+}
+
+.nichtannahme-color .card-footer {
+    border-top: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+.nichtannahme-color div div div div div span {
+    background-color: rgba(255, 106, 0, 0.59);
+}
+
+.versaeumnis-color {
+    border-color: rgba(65,191,179, 0.59);
+}
+
+.versaeumnis-color div div div div button {
+    background-color: rgba(65,191,179, 0.59);
+}
+
+.versaeumnis-color div div div div button:hover {
+    background-color: rgba(65,191,179, 0.7);
+}
+
+.versaeumnis-color div div div div button:focus {
+    background-color: rgba(65,191,179, 0.59);
+    box-shadow: 0 0 0 3px rgba(65,191,179, 0.25) !important;
+}
+
+.versaeumnis-color div div div div button:active {
+    background-color: rgba(65,191,179, 0.85) !important;
+}
+
+.versaeumnis-color .card-footer {
+    border-top: 1px solid rgba(65,191,179, 0.2);
+}
+
+.versaeumnis-color div div div div div span {
+    background-color: rgba(65,191,179, 0.59);
+}
+
+.eugh-color {
+    border-color: rgba(11, 26, 99, 0.59);
+}
+
+.eugh-color div div div div button {
+    background-color: rgba(11, 26, 99, 0.59);
+}
+
+.eugh-color div div div div button:hover {
+    background-color: rgba(11, 26, 99, 0.7);
+}
+
+.eugh-color div div div div button:focus {
+    background-color: rgba(11, 26, 99, 0.59);
+    box-shadow: 0 0 0 3px rgba(11, 26, 99, 0.25) !important;
+}
+
+.eugh-color div div div div button:active {
+    background-color: rgba(11, 26, 99, 0.85) !important;
+}
+
+.eugh-color .card-footer {
+    border-top: 1px solid rgba(11, 26, 99, 0.2);
+}
+
+.eugh-color div div div div div span {
+    background-color: rgba(11, 26, 99, 0.59);
+}
+
+.teilurteil-color {
+    border-color: rgba(64, 131, 156, 0.59);
+}
+
+.teilurteil-color div div div div button {
+    background-color: rgba(64, 131, 156, 0.59);
+}
+
+.teilurteil-color div div div div button:hover {
+    background-color: rgba(64, 131, 156, 0.7);
+}
+
+.teilurteil-color div div div div button:focus {
+    background-color: rgba(64, 131, 156, 0.59);
+    box-shadow: 0 0 0 3px rgba(64, 131, 156, 0.25) !important;
+}
+
+.teilurteil-color div div div div button:active {
+    background-color: rgba(64, 131, 156, 0.85) !important;
+}
+
+.kammer-color {
+    border-color: rgba(247, 0, 255, 0.59);
+}
+
+.kammer-color div div div div button {
+    background-color: rgba(247, 0, 255, 0.59);
+}
+
+.kammer-color div div div div button:hover {
+    background-color: rgba(247, 0, 255, 0.7);
+}
+
+.kammer-color div div div div button:focus {
+    background-color: rgba(247, 0, 255, 0.59);
+    box-shadow: 0 0 0 3px rgba(247, 0, 255, 0.25) !important;
+}
+
+.kammer-color div div div div button:active {
+    background-color: rgba(247, 0, 255, 0.85) !important;
+}
+
+.kammer-color .card-footer {
+    border-top: 1px solid rgba(247, 0, 255, 0.2);
+}
+
+.kammer-color div div div div div span {
+    background-color: rgba(247, 0, 255, 0.59);
+}
+
+.kammerStatt-color {
+    border-color: rgba(250, 97, 255, 0.59);
+}
+
+.kammerStatt-color div div div div button {
+    background-color: rgba(250, 97, 255, 0.59);
+}
+
+.kammerStatt-color div div div div button:hover {
+    background-color: rgba(250, 97, 255, 0.7);
+}
+
+.kammerStatt-color div div div div button:focus {
+    background-color: rgba(250, 97, 255, 0.59);
+    box-shadow: 0 0 0 3px rgba(250, 97, 255, 0.25) !important;
+}
+
+.kammerStatt-color div div div div button:active {
+    background-color: rgba(250, 97, 255, 0.85) !important;
+}
+
+.kammerStatt-color .card-footer {
+    border-top: 1px solid rgba(250, 97, 255, 0.2);
+}
+
+.kammerStatt-color div div div div div span {
+    background-color: rgba(250, 97, 255, 0.59);
+}
+
+.kammerOhne-color {
+    border-color: rgba(160, 2, 166, 0.59);
+}
+
+.kammerOhne-color div div div div button {
+    background-color: rgba(160, 2, 166, 0.59);
+}
+
+.kammerOhne-color div div div div button:hover {
+    background-color: rgba(160, 2, 166, 0.7);
+}
+
+.kammerOhne-color div div div div button:focus {
+    background-color: rgba(160, 2, 166, 0.59);
+    box-shadow: 0 0 0 3px rgba(160, 2, 166, 0.25) !important;
+}
+
+.kammerOhne-color div div div div button:active {
+    background-color: rgba(160, 2, 166, 0.85) !important;
+}
+
+.kammerOhne-color .card-footer {
+    border-top: 1px solid rgba(160, 2, 166, 0.2);
+}
+
+.kammerOhne-color div div div div div span {
+    background-color: rgba(160, 2, 166, 0.59);
+}
+
+.teilurteil-color .card-footer {
+    border-top: 1px solid rgba(64, 131, 156, 0.2);
+}
+
+.teilurteil-color div div div div div span {
+    background-color: rgba(64, 131, 156, 0.59);
+}
+
+.success-color {
+    background-color: #5cb85c;
+}
+
+.irrelevant-color {
+    background-color: #d1c0a8;
+}
+
+.unsuccessful-color {
+    background-color: #ef6055;
+}

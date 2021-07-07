@@ -2,14 +2,23 @@
 export const colorDictionary = {
     ['ablehnung einstweilige anordnung']: 'ablehnung-color',
     ['urteil']: 'urteil-color',
-    ['teilurteil']: '',
-    // TODO: Farben aussuchen, generieren
-    ['nichtannahmebeschluss']: '',
+    ['teilurteil']: 'teilurteil-color',
+    ['nichtannahmebeschluss']: 'nichtannahme-color',
     ['gegenstandswertfestsetzung im verfassungsgerichtlichen verfahren']: 'gegenstand-color',
-    ['stattgebender kammerbeschluss']: '',
+    ['stattgebender kammerbeschluss']: 'kammerStatt-color',
+    ['kammerbeschluss']: 'kammer-color',
+    ['kammerbeschluss ohne begründung']: 'kammerOhne-color',
     ['beschluss']: 'beschluss-color',
     ['vorlagebeschluss']: 'vorlage-color',
-    ['versäumnisurteil']: '',
+    ['versäumnisurteil']: 'versaeumnis-color',
+    ['einstweilige anordnung']: 'einstweilige-color',
+    ['eugh-vorlage']: 'eugh-color',
+};
+
+export const resultColorDictionary = {
+    ['erfolg']: 'success-color',
+    ['irrelevant']: 'irrelevant-color',
+    ['verloren']: 'unsuccessful-color',
 };
 
 export class ColorService {
@@ -21,6 +30,15 @@ export class ColorService {
         const key = docType.toLowerCase()
         if (colorDictionary[key]) {
             return colorDictionary[key]
+        } else {
+            return 'default-color'
+        }
+    }
+
+    resultColorClass(result) {
+        const key = result.toLowerCase()
+        if (resultColorDictionary[key]) {
+            return resultColorDictionary[key]
         } else {
             return 'default-color'
         }

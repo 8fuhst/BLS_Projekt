@@ -1,18 +1,38 @@
 <template>
   <div class="hero" id="verdictHero">
-    <div class="bottom-margin">
-      <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
-      <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
-    </div>
+    <b-container fluid>
+      <b-row>
+        <b-col xl="8" sm="12">
+          <div class="bottom-margin">
+            <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
+            <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
+            <DownloadButton class="download-button" :documentnumber="verdict.documentnumber"/>
+          </div>
 
-    <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
+          <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-    <KeyWordTags class="bottom-margin" :keyWords="['Ablehnung', 'GKG', 'Kostenverzeichnisses', 'Gerichtskosten', 'etc', 'usw', 'Ich bin ein Keyword']"/>
+          <KeyWordTags class="bottom-margin" style="margin-left: 1px" :keyWords="verdict.keywords"/>
 
-    <div v-if="keysentence">
-      <h5 class="d-inline">Leitsatz</h5>
-      <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
-      <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
+          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge></h2>
+
+          <div v-if="keysentence">
+            <h5 class="d-inline">Leitsatz</h5>
+            <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
+            <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
+          </div>
+        </b-col>
+        <b-col class="py-3" xl="4" sm="0">
+          <VerdictGraph />
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <div class="button-group" >
+      <b-button-group>
+        <b-button v-if="verdict.tenor" @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
+        <b-button v-if="verdict.modelledOffense.length > 0" @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
+        <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
+      </b-button-group>
     </div>
 
 
@@ -29,10 +49,15 @@
 <script>
 import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
+import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
+import {ColorService} from "@/services/ColorService";
+import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
+
+const colorService = new ColorService()
 
 export default {
   name: "VerdictHero",
-  components: { KeyWordTags, CopyButton },
+  components: {DownloadButton, VerdictGraph, KeyWordTags, CopyButton },
   computed: {
     verdict() {
       return this.$store.getters.getCurrentVerdict
@@ -50,6 +75,8 @@ export default {
         this.filenumber = this.verdict.filenumber.join(', ')
       }
 
+      this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
+
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     },
@@ -65,6 +92,7 @@ export default {
       date: '',
       filenumber: null,
       stickyNavButtons: false,
+      resultColorClass: '',
     }
   },
   mounted() {
@@ -81,8 +109,8 @@ export default {
 <style scoped>
   .hero {
     min-height: 345px;
-    width: 80%;
-    margin: 0 10%;
+    width: 90%;
+    margin: 0 5%;
     position: relative;
     padding: 20px 24px 62px 24px;
   }
@@ -111,11 +139,17 @@ export default {
 
   .button-group {
     position: absolute;
-
+    margin-left: 4px;
     bottom: 12px;
   }
 
   .scroll {
     scroll-behavior: smooth;
+  }
+
+  .download-button {
+    position: relative;
+    top: -5px;
+    left: 12px;
   }
 </style>

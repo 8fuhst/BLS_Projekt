@@ -1,0 +1,25 @@
+(Feststellungsbescheid über eine bestandskräftige Steuerfestsetzung im Insolvenzverfahren - Bestandskräftige Steuerfestsetzung ist ein Schuldtitel i.S.
+des § 179 Abs. 2 InsO - Befugnis zur Betreibung eines Verfahrens trotz eines erwirkten Titels - Örtliche Zuständigkeit bei Gefahr im Verzug)
+Liegt bei Eröffnung des Insolvenzverfahrens eine bestandskräftige Steuerfestsetzung und damit ein Schuldtitel i.S.
+des § 179 Abs. 2 InsO vor, ist das FA im Falle des Bestreitens der Forderung durch den Insolvenzverwalter berechtigt, das Bestehen der angemeldeten Forderung durch Bescheid festzustellen, wenn der Insolvenzverwalter seinen Widerspruch auf die von ihm behauptete Unwirksamkeit der Forderungsanmeldung stützt (Abgrenzung zum Senatsurteil vom 23. Februar 2005 VII R 63/03, BFHE 209, 23, BStBl II 2005, 591) .
+I. Der Kläger und Revisionsbeklagte (Kläger) ist Insolvenzverwalter über das Vermögen der X-GmbH (GmbH).
+Die GmbH gehörte der in D ansässigen Unternehmensgruppe D an.
+Hieraus ergab sich die Zuständigkeit des Finanzamts J, bei dem am 20. Dezember 2005 die nach § 168 der Abgabenordnung (AO) nicht zustimmungspflichtige Umsatzsteuerjahreserklärung 2004 der GmbH einging.
+Mit Beschluss vom 1. März 2006 eröffnete das zuständige Amtsgericht (AG) das Insolvenzverfahren über das Vermögen der GmbH und bestellte den Kläger zum Insolvenzverwalter.
+Der Kläger wie auch der Beklagte und Revisionskläger (das Finanzamt --FA--) gingen davon aus, dass sich die Geschäftsleitung der GmbH seit der Eröffnung des Insolvenzverfahrens beim Kläger befand und sich hieraus die örtliche Zuständigkeit des FA ergab.
+Aufgrund der mit dem Beschluss über die Verfahrenseröffnung ergangenen Aufforderung des AG, Insolvenzforderungen bis zum 18. April 2006 anzumelden, meldete das Finanzamt J am 13. April 2006 beim Kläger neben weiteren Steuerforderungen Umsatzsteuer 2004 in Höhe von ca. 2.200 € zur Insolvenztabelle an.
+Der Kläger bestritt die angemeldete Forderung.
+Mit Schreiben vom 28. Juni 2006 wies das FA den Kläger darauf hin, dass er zwar Widerspruch erhoben habe, die Umsatzsteuer 2004 jedoch bestandskräftig festgesetzt worden sei.
+Darauf erwiderte der Kläger, dass ihm eine Forderungsanmeldung des FA nicht vorliege.
+Falls das FA die Abgabenforderungen beanspruche, möge es eine Forderungsanmeldung einreichen und das Finanzamt J veranlassen, seine Forderung zurückzunehmen.
+Daraufhin reichte das FA am 6. Juli 2006 beim Kläger eine Aufstellung der Forderungen gegen die GmbH ein.
+Da der Kläger seinen Widerspruch nicht zurücknahm, erließ das FA am 28. August 2006 einen Feststellungsbescheid.
+Danach wurde --neben weiteren Steuerforderungen-- das Bestehen der Umsatzsteuer 2004 und der Säumniszuschläge zur Umsatzsteuer 2004 in der angemeldeten Höhe gemäß § 251 Abs.
+3 AO als Insolvenzforderung festgestellt.
+Der hiergegen eingelegte Einspruch hatte keinen Erfolg.
+Das Finanzgericht (FG) gab der Klage, die sich nach einer Verfahrenstrennung gemäß § 73 der Finanzgerichtsordnung (FGO) nur noch gegen die Feststellung der Umsatzsteuer 2004 und der Säumniszuschläge zur Umsatzsteuer 2004 richtete, hinsichtlich der Feststellung der Umsatzsteuer 2004 statt.
+Die Frage der örtlichen Zuständigkeit hielt es für unbeachtlich, da die beiden Finanzämter nicht unterschiedliche, sondern dieselbe Forderung geltend gemacht hätten.
+Das FA sei aber nicht befugt gewesen, wegen der bereits bestandskräftig festgesetzten Umsatzsteuer 2004 einen weiteren Feststellungsbescheid zu erlassen.
+Das Urteil des FG ist in Entscheidungen der Finanzgerichte 2008, 186 veröffentlicht.
+Mit seiner Revision rügt das FA die Verletzung materiellen Rechts.
+Das Urteil des FG verstoße gegen § 251 Abs.
