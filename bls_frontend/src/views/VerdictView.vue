@@ -69,4 +69,8 @@ export default {
   .scroll {
     scroll-behavior: smooth;
   }
+
+  .scroll {
+    scroll-behavior: smooth;
+  }
 </style>

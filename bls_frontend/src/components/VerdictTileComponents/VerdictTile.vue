@@ -22,6 +22,10 @@
           <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
         </b-row>
 
+        <b-row v-if="verdict.title" class="bottom-margin title">
+          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
+        </b-row>
+
         <b-row class="bottom-margin text-padding">
           <b-card-text>{{ date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>

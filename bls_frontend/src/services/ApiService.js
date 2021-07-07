@@ -55,7 +55,6 @@ export default class ApiService {
     async fetchVerdictNode(filenumber) {
         try {
             const res = await fetch( process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
-            let data = await res.json()
             return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)

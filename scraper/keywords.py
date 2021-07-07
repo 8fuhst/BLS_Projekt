@@ -15,10 +15,18 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 
 natural_language_understanding.set_service_url(api_url)
 
-def prepare_and_generate_keywords(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
-    return defuse_response(
+def prepare_and_generate_keywords(docnr, title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
+    try:
+        result = defuse_response(
         generate_keywords(
         build_watson_query(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array)))
+    except:
+        result = []
+        print("Generating keywords for " + docnr + " failed.")
+        f = open("no_keywords.txt", "a")
+        f.write(docnr + "\n")
+        f.close()
+    return result
 
 def build_watson_query(title, tenor_array, offense_array, reasons_array, reasonsfordecision_array):
     tenor_array = ['{} '.format(elem) for elem in tenor_array]
@@ -35,6 +43,21 @@ def build_watson_query(title, tenor_array, offense_array, reasons_array, reasons
     return result
 
 def generate_keywords(text):
+    """
+    Generates Keywords for a given String by using the watson-natural-language-understanding API.
+    Per execution this function uses 1 NLU Item, because the length of the input-text is cut to less
+    than 10000 characters and the extracted feature is only ConceptsOptions.
+    This results in 0.003 USD per execution(?).
+
+    documentation:
+    https://cloud.ibm.com/apidocs/natural-language-understanding?code=python#text-analytics-features
+    pricing:
+    https://www.ibm.com/cloud/watson-natural-language-understanding/pricing
+
+    :param text: the text to be analysed
+    :return: the generated keywords, the relevance (score) and the dbpedia_resource
+    :rtype: list[dict{str: text, float: relevance, str: dbpedia_resource}]
+    """
     if len(text) > 9500:
         text = text[:9500]
     response = natural_language_understanding.analyze(
@@ -59,7 +82,7 @@ tenor_str = ["1. Die Verfassungsbeschwerde wird nicht zur Entscheidung angenomme
 offense_str = []
 reasonsfordecision_str = []
 
-#response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
-
-#print(response)
+# response = generate_keywords(build_watson_query(title_str, tenor_str, offense_str, reasons_str, reasonsfordecision_str))
+#
+# print(response)
 #print(defuse_response(response))
