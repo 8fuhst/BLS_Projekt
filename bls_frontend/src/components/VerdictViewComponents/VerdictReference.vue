@@ -63,7 +63,11 @@ export default {
     },
     async getKeywords() {
       const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
-      this.keywords = verdict.keywords
+      if (verdict && verdict.keywords) {
+        this.keywords = verdict.keywords.slice(0,5)
+      } else {
+        this.keywords = []
+      }
     },
   },
   mounted() {

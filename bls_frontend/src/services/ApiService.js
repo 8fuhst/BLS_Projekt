@@ -25,6 +25,22 @@ export default class ApiService {
         }
     }
 
+    async fetchVerdictByFilenumber(filenumber) {
+        try {
+            const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictFN?filenumber=` + filenumber)
+            const data = await res.json()
+            if (data) {
+                const verdict = new VerdictModel(data).withModelledOffenseAndReasons()
+                return verdict
+            } else {
+                return undefined
+            }
+        } catch (e) {
+            console.log('Error requesting verdict by filenumber: ' + e)
+            return undefined
+        }
+    }
+
     async fetchNewest(page) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/newest?page=` + page)

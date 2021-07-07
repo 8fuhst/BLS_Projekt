@@ -13,12 +13,14 @@ export default {
   methods: {
     async getNewVerdict() {
       const newVerdict = await this.$store.dispatch('getVerdictByFilenumber', this.filenumber)
-      await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
+      if (newVerdict) {
+        await this.$router.push({name: 'Verdict', query: {docnr: newVerdict.documentnumber}})
 
-      window.scroll({
-        top: 0,
-        left: 0,
-      });
+        window.scroll({
+          top: 0,
+          left: 0,
+        });
+      }
     }
   }
 }

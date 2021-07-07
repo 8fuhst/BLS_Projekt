@@ -1,9 +1,9 @@
 <template>
   <div class="references">
-    <VerdictReference v-for="(reference, index) in reasons" v-bind:key="index"
-      :section="'bewertung'" :indexInput="reference[0]" :text="reference[1]"/>
-    <VerdictReference v-for="(reference, index) in offense" v-bind:key="index"
-                      :section="'sachverhalt'" :indexInput="reference[0]" :text="reference[1]"/>
+    <VerdictReference v-for="(reference, idx) in reasons" v-bind:key="idx"
+      :section="'bewertung'" :indexInput="reference.index" :text="reference.referenz"/>
+    <VerdictReference v-for="(reference, idx) in offense" v-bind:key="idx"
+                      :section="'sachverhalt'" :indexInput="reference.index" :text="reference.referenz"/>
   </div>
 </template>
 
@@ -17,17 +17,17 @@ export default {
       return this.$store.getters.getVerdictNode
     },
     reasons() {
-      if (this.verdictNode.outgoingReferenceList[1] && this.verdictNode.outgoingReferenceList[1].gruende && this.verdictNode.outgoingReferenceList[1].gruende.length > 0) {
-        return this.verdictNode.outgoingReferenceList[1].gruende
-      } else if (this.verdictNode.outgoingReferenceList[2] && this.verdictNode.outgoingReferenceList[2].entscheidungsgruende && this.verdictNode.outgoingReferenceList[2].entscheidungsgruende.length > 0) {
-        return this.verdictNode.outgoingReferenceList[2].entscheidungsgruende
+      if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].gruende && this.verdictNode.outgoingReferenceList[0].gruende.length > 0) {
+        return this.verdictNode.outgoingReferenceList[0].gruende
+      } else if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].entscheidungsgruende && this.verdictNode.outgoingReferenceList[0].entscheidungsgruende.length > 0) {
+        return this.verdictNode.outgoingReferenceList[0].entscheidungsgruende
       } else {
         return []
       }
     },
     offense() {
-      if (this.verdictNode.outgoingReferenceList[3] && this.verdictNode.outgoingReferenceList[3].tatbestand && this.verdictNode.outgoingReferenceList[3].tatbestand.length > 0) {
-        return this.verdictNode.outgoingReferenceList[3].tatbestand
+      if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].tatbestand && this.verdictNode.outgoingReferenceList[0].tatbestand.length > 0) {
+        return this.verdictNode.outgoingReferenceList[0].tatbestand
       } else {
         return []
       }

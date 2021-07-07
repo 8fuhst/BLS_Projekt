@@ -101,17 +101,16 @@ export default new Vuex.Store({
       })
 
       if (index === -1) {
-        // TODO: Request by filenumber richtig machen sobald es geht
-        state.commit('setPage', 0)
-        await state.dispatch('setQuery', filenumber)
-        const verdict = this.state.verdicts[0]
-        state.commit('cacheVerdicts', [verdict])
-        return verdict
+        const verdict = await apiService.fetchVerdictByFilenumber(filenumber)
+        if (verdict) {
+          state.commit('cacheVerdicts', [verdict])
+          return verdict
+        } else {
+          return undefined
+        }
       }
 
-      return this.state.verdictCache.find( (verdict) => {
-        return verdict.filenumber === filenumber
-      })
+      return this.state.verdictCache[index]
     },
     async setVerdictNode(state, filenumber) {
       const index = this.state.verdictNodeCache.findIndex( (node) => {
