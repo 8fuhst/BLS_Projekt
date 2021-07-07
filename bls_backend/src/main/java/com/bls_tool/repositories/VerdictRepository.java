@@ -32,4 +32,6 @@ public interface VerdictRepository extends ElasticsearchRepository<Verdict, Stri
     Page<Verdict> findAllByTenorOrOffenseOrReasonsOrReasonfordecision(String tenor, String offense, String reasons, String reasonfordecision, Pageable pageable);
 
     Page<Verdict> findBy(String query, Pageable pageable);
+
+    Verdict findByFilenumber(String filenr);
 }
