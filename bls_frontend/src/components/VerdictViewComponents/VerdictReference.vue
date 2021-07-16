@@ -54,11 +54,13 @@ export default {
       }
 
       const heroHeight = document.getElementById('verdictHero').offsetHeight
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      console.log(scrollTop)
       const rect = element.getBoundingClientRect()
+      console.log(rect.top)
       if (!this.stopUpdating) {
-        this.height = rect.top - heroHeight + scrollTop
+        this.height = rect.top + scrollTop - heroHeight
       }
     },
     async getKeywords() {
@@ -72,10 +74,10 @@ export default {
   },
   mounted() {
     this.index = parseInt(this.indexInput)
+    this.getKeywords()
   },
   updated() {
     this.setHeight()
-    this.getKeywords()
   }
 }
 </script>

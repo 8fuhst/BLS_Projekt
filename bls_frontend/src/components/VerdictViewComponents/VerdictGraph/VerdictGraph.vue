@@ -8,21 +8,20 @@
       <path v-for="(_, index) in references.outgoing" :key="`out_p_${index}`" :d="lineGen(index, false)"/>
     </svg>
 
-    <ReferenceNode @typeEvent="setType(1)" @hoverEvent="hoverEvent" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
-    <ReferenceNode :text="references.self" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
-    <ReferenceNode @typeEvent="setType(3)" @hoverEvent="hoverEvent" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" />
+    <ReferenceNode @hoverEvent="hoverEvent" :whichHovers="hoverId" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="1"/>
+    <ReferenceNode :text="references.self" :whichHovers="hoverId" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="2" />
+    <ReferenceNode @hoverEvent="hoverEvent" :whichHovers="hoverId" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="3" />
 
-    <ExtendedNode @removeHover="removeHover" v-bind:config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" />
+    <!--<ExtendedNode @removeHover="removeHover" v-bind:config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" /> -->
   </svg>
 </template>
 
 <script>
 import ReferenceNode from "@/components/VerdictViewComponents/VerdictGraph/ReferenceNode";
-import ExtendedNode from "@/components/VerdictViewComponents/VerdictGraph/ExtendedNode";
 
 export default {
   name: "VerdictGraph",
-  components: {ReferenceNode, ExtendedNode},
+  components: {ReferenceNode},
   data() {
     return {
       width: 200,
@@ -47,27 +46,15 @@ export default {
         isLast: false
       },
       currentType: 1,
+      hoverId: '0'
     }
   },
   methods: {
     setType(type) {
       this.currentType = type
     },
-    hoverEvent(x, y, text, index) {
-      let isLast = false
-      if (this.currentType === 1) {
-        isLast = index === this.references.incoming.length - 1 && index !== 0
-      } else if (this.currentType === 3) {
-        isLast = index === this.references.outgoing.length - 1 && index !== 0
-      }
-      this.hoverNodeConfig = {
-        x,
-        y,
-        text,
-        show: true,
-        type: this.currentType,
-        isLast
-      }
+    hoverEvent(hoverId) {
+      this.hoverId = hoverId
     },
     removeHover() {
       this.hoverNodeConfig = {
@@ -129,14 +116,12 @@ export default {
   },
   computed: {
     references() {
-      /*
       return {
-        incoming: ['VI ZR 498/19', 'dd', 'dliua', 'asdjha'],
-        outgoing: ['asd', 'asdkhasdik', 'asdkjh'],
-        self: '79123hj'
+        incoming: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
+        outgoing: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
+        self: 'VI ZR 498/19'
       }
-
-      */
+      /*
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -146,6 +131,8 @@ export default {
         incoming: incoming,
         self: self,
       }
+
+       */
     },
     extendedNodeExtraHeight() {
       return this.extendedNodeHeight - this.nodeHeight
