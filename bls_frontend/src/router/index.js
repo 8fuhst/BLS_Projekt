@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Verdict from "@/views/VerdictView";
 import Search from "@/views/Search";
+import About from "@/views/About";
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes = [
     path: process.env.VUE_APP_PATH_BASE + '/suche',
     name: 'Search',
     component: Search
+  },
+  {
+    path: process.env.VUE_APP_PATH_BASE + '/about',
+    name: 'About',
+    component: About
   },
   {
     path: process.env.VUE_APP_PATH_BASE + '/urteil',

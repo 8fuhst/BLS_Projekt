@@ -1,11 +1,11 @@
 <template>
   <div class="references">
-    <VerdictReference class="position-absolute" v-for="(reference, idx) in tenor" v-bind:key="idx"
-                      :section="'bewertung'" :indexInput="reference.index" :text="reference.referenz"/>
-    <VerdictReference class="position-absolute" v-for="(reference, idx) in reasons" v-bind:key="idx"
-      :section="'bewertung'" :indexInput="reference.index" :text="reference.referenz"/>
-    <VerdictReference class="position-absolute" v-for="(reference, idx) in offense" v-bind:key="idx"
-                      :section="'sachverhalt'" :indexInput="reference.index" :text="reference.referenz"/>
+    <VerdictReference class="position-absolute" v-for="(refGroup, idx) in tenor" v-bind:key="idx"
+                      :section="'bewertung'" :references="refGroup" />
+    <VerdictReference class="position-absolute" v-for="(refGroup, idx) in reasons" v-bind:key="idx"
+      :section="'bewertung'" :references="refGroup"/>
+    <VerdictReference class="position-absolute" v-for="(refGroup, idx) in offense" v-bind:key="idx"
+                      :section="'sachverhalt'" :references="refGroup" />
   </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
   name: "VerdictReferenceList",
   components: {VerdictReference},
   computed: {
+    verdict() {
+      return this.$store.getters.getCurrentVerdict
+    },
     verdictNode() {
       return this.$store.getters.getVerdictNode
     },
@@ -22,26 +25,62 @@ export default {
       if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].gruende && this.verdictNode.outgoingReferenceList[0].gruende.length > 0) {
         return this.verdictNode.outgoingReferenceList[0].gruende
       } else if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].entscheidungsgruende && this.verdictNode.outgoingReferenceList[0].entscheidungsgruende.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0].entscheidungsgruende
+        return this.matchIndicesReasons(this.verdictNode.outgoingReferenceList[0].entscheidungsgruende)
       } else {
-        return [{index: '30', referenz: 'VI ZR 498/19'}]
+        return []
       }
     },
     offense() {
       if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].tatbestand && this.verdictNode.outgoingReferenceList[0].tatbestand.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0].tatbestand
+        return this.matchIndicesOffense(this.verdictNode.outgoingReferenceList[0].tatbestand)
       } else {
         return []
       }
     },
     tenor() {
       if (this.verdictNode.outgoingReferenceList[0] && this.verdictNode.outgoingReferenceList[0].tenor && this.verdictNode.outgoingReferenceList[0].tenor.length > 0) {
-        return this.verdictNode.outgoingReferenceList[0].tenor
+        return [this.verdictNode.outgoingReferenceList[0].tenor]
       } else {
         return []
       }
     }
   },
+  methods: {
+    matchIndicesOffense(references) {
+      const offense = this.verdict.modelledOffense
+      const referenceGroupList = []
+      let i
+      for (i = 0; i < offense.length; i++) {
+        const indices = offense[i].indices
+        const matchedReferences = references.filter((reference) => {
+          return indices.find((possibleIndex) => {
+            return possibleIndex + '' === reference.index }) !== undefined
+        })
+
+        if (matchedReferences.length > 0) {
+          referenceGroupList.push(matchedReferences)
+        }
+      }
+      return referenceGroupList
+    },
+    matchIndicesReasons(references) {
+      const reasons = this.verdict.modelledReasonsForDecision
+      const referenceGroupList = []
+      let i
+      for (i = 0; i < reasons.length; i++) {
+        const indices = reasons[i].indices
+        const matchedReferences = references.filter((reference) => {
+          return indices.find((possibleIndex) => {
+            return possibleIndex + '' === reference.index }) !== undefined
+        })
+
+        if (matchedReferences.length > 0) {
+          referenceGroupList.push(matchedReferences)
+        }
+      }
+      return referenceGroupList
+    }
+  }
 }
 </script>
 

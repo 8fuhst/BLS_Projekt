@@ -1,12 +1,29 @@
 <template>
-  <div class="reference mb-4" @mouseover="setHover(true)" @mouseleave="setHover(false)" :style="'top: ' + height + 'px'">
-    <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + index + 'ref'" :link="true" :linkFilenumber="text" v-if="hover"/>
-    <b-card-text class="mb-2" :id="section + index + 'ref'" >{{ text }}</b-card-text>
+  <div class="ref-container" :style="'top: ' + height + 'px'">
+    <b-tabs v-if="tabs" class="margin tabs-c">
+      <b-tab v-for="(reference, idx) in references" :key="idx" :title="(idx + 1) + ''">
+        <div class="reference" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+          <HoverMenu class="hover-menu-tabs" :copy="true" :copyTextId="section + reference.index + 'ref'" :link="true" :linkFilenumber="reference.referenz" v-if="hover"/>
+          <b-card-text class="mb-2" :id="section + reference.index + 'ref'" >{{ reference.referenz }}</b-card-text>
 
-    <div v-if="keywords.length > 0" class="mb-2">
-      <h4>Keywords</h4>
-      <KeyWordTags style="margin-left: -6px" :keyWords="keywords"/>
+          <div v-if="keywords[idx] && keywords[idx].length > 0" class="mb-2">
+            <h4>Keywords</h4>
+            <KeyWordTags style="margin-left: -6px" :keyWords="keywords[idx]"/>
+          </div>
+        </div>
+      </b-tab>
+    </b-tabs>
+
+    <div v-if="!tabs" class="reference margin" @mouseover="setHover(true)" @mouseleave="setHover(false)">
+      <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + references[0].index + 'ref'" :link="true" :linkFilenumber="references[0].referenz" v-if="hover"/>
+      <b-card-text class="mb-2" :id="section + references[0].index + 'ref'" >{{ references[0].referenz }}</b-card-text>
+
+      <div v-if="keywords[0] && keywords[0].length > 0" class="mb-2">
+        <h4>Keywords</h4>
+        <KeyWordTags style="margin-left: -6px" :keyWords="keywords[0]"/>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -21,11 +38,8 @@ export default {
     section: {
       type: String,
     },
-    indexInput: {
-      type: String,
-    },
-    text: {
-      type: String,
+    references: {
+      type: Array,
     }
   },
   data() {
@@ -35,6 +49,11 @@ export default {
       index: 0,
       stopUpdating: false,
       keywords: [],
+    }
+  },
+  computed: {
+    tabs() {
+      return this.references.length > 1
     }
   },
   methods: {
@@ -53,28 +72,29 @@ export default {
         element = document.getElementById(this.section + this.index + 'x' + next)
       }
 
-      const heroHeight = document.getElementById('verdictHero').offsetHeight
-
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      console.log(scrollTop)
-      const rect = element.getBoundingClientRect()
-      console.log(rect.top)
-      if (!this.stopUpdating) {
-        this.height = rect.top + scrollTop - heroHeight
+      if (element) {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const rect = element.getBoundingClientRect()
+        if (!this.stopUpdating) {
+          this.height = rect.top + scrollTop - 47
+        }
       }
     },
     async getKeywords() {
-      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
-      if (verdict && verdict.keywords) {
-        this.keywords = verdict.keywords.slice(0,5)
-      } else {
-        this.keywords = []
+      for (let i = 0; i < this.references.length; i++) {
+        const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.references[i].referenz)
+        if (verdict && verdict.keywords) {
+          this.keywords.push(verdict.keywords.slice(0,5))
+        } else {
+          this.keywords.push([])
+        }
       }
     },
   },
   mounted() {
-    this.index = parseInt(this.indexInput)
+    this.index = parseInt(this.references[0].index)
     this.getKeywords()
+    window.addEventListener("resize", this.setHeight)
   },
   updated() {
     this.setHeight()
@@ -84,20 +104,45 @@ export default {
 
 <style scoped>
   .reference {
-    margin: 0 10%;
+    position: relative;
     background-color: white;
     border-radius: 4px;
-    position: relative;
-    padding: 15px 12px
+    padding: 15px 12px;
+    z-index: 0;
   }
 
+  .margin {
+    margin: 0 10%
+  }
   .reference:hover {
     background-color: rgb(187,187,187);
+    z-index: 2;
   }
 
   .hover-menu {
     position: absolute;
     top: -8px;
     right: 15px;
+  }
+
+  .hover-menu-tabs {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+  }
+
+  .ref-container {
+    width: 34.2%;
+  }
+</style>
+
+<style>
+  .tabs-c div ul li a:not(.active) {
+    background-color: #d2d2d2;
+    color: black;
+  }
+
+  .tabs-c div ul li a.active {
+    color: rgb(162, 30, 41) !important;
   }
 </style>

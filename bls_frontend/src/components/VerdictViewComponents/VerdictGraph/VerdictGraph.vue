@@ -116,12 +116,13 @@ export default {
   },
   computed: {
     references() {
+      /*
       return {
         incoming: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
         outgoing: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
         self: 'VI ZR 498/19'
       }
-      /*
+      */
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
@@ -131,8 +132,6 @@ export default {
         incoming: incoming,
         self: self,
       }
-
-       */
     },
     extendedNodeExtraHeight() {
       return this.extendedNodeHeight - this.nodeHeight
