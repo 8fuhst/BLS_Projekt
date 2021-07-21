@@ -34,6 +34,7 @@ export default {
   },
   created() {
     this.$store.dispatch('setCurrent', this.$route.query.docnr)
+    window.document.title = 'BLS Tool - Urteil - ' + this.verdict.filenumber[0]
   },
   mounted() {
     window.scroll({

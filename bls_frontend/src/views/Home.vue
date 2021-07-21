@@ -14,6 +14,9 @@ export default {
   components: {
     VerdictTileList,
   },
+  created() {
+    window.document.title = 'BLS Tool - Home'
+  },
   mounted() {
     this.$store.dispatch('getNewest')
   },

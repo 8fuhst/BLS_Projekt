@@ -13,7 +13,10 @@
 
 <script>
 export default {
-  name: "About"
+  name: "About",
+  created() {
+    window.document.title = 'BLS Tool - About'
+  }
 }
 </script>
 

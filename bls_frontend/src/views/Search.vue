@@ -17,6 +17,9 @@ export default {
     Searchbar,
     VerdictTileList
   },
+  created() {
+    window.document.title = this.$route.query.query ? 'BLS Tool - Suche - ' + this.$route.query.query : 'BLS Tool - Suche'
+  },
   mounted() {
     this.$store.dispatch('setQuery', this.$route.query.query)
   },
@@ -29,6 +32,7 @@ export default {
     $route() {
       this.$store.commit('setPage', 0)
       this.$store.dispatch('setQuery', this.$route.query.query)
+      window.document.title = 'BLS Tool - Suche - ' + this.$route.query.query
     }
   }
 }

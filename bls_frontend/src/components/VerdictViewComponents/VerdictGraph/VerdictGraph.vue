@@ -1,5 +1,5 @@
 <template>
-  <svg :width="width" :height="height" @click="removeHover">
+  <svg :width="width" :height="height">
     <text x="0" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.incoming.length > 0">Eingehend</text>
     <text text-anchor="end" :x="width" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.outgoing.length > 0">Ausgehend</text>
 
@@ -8,11 +8,10 @@
       <path v-for="(_, index) in references.outgoing" :key="`out_p_${index}`" :d="lineGen(index, false)"/>
     </svg>
 
-    <ReferenceNode @hoverEvent="hoverEvent" :whichHovers="hoverId" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="1"/>
+    <ReferenceNode @hoverEvent="hoverEvent" @newCoordinates="newCoordinates" :whichHovers="hoverId" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="1"/>
     <ReferenceNode :text="references.self" :whichHovers="hoverId" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="2" />
-    <ReferenceNode @hoverEvent="hoverEvent" :whichHovers="hoverId" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="3" />
-
-    <!--<ExtendedNode @removeHover="removeHover" v-bind:config="hoverNodeConfig" :width="nodeWidth * 2" :height="87" /> -->
+    <ReferenceNode @hoverEvent="hoverEvent" @newCoordinates="newCoordinates" :whichHovers="hoverId" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="3" />
+    <use id="use" :x="hoverConfig.x" :y="hoverConfig.y" />
   </svg>
 </template>
 
@@ -37,13 +36,9 @@ export default {
       padding: 10,
       headingHeight: 32,
       extendedNodeHeight: 87,
-      hoverNodeConfig: {
+      hoverConfig: {
         x: 0,
         y: 0,
-        text: '',
-        show: false,
-        type: 3,
-        isLast: false
       },
       currentType: 1,
       hoverId: '0'
@@ -55,12 +50,13 @@ export default {
     },
     hoverEvent(hoverId) {
       this.hoverId = hoverId
+      const topmost = document.getElementById('use')
+      topmost.setAttributeNS('http://www.w3.org/1999/xlink',
+          'xlink:href',
+          '#panel' + hoverId);
     },
-    removeHover() {
-      this.hoverNodeConfig = {
-        ...this.hoverNodeConfig,
-        show: false,
-      }
+    newCoordinates(x,y) {
+      this.hoverConfig = {x, y}
     },
     updateSize() {
       const {
@@ -119,10 +115,11 @@ export default {
       /*
       return {
         incoming: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
-        outgoing: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
+        outgoing: ['VI hgfd 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
         self: 'VI ZR 498/19'
       }
-      */
+
+       */
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
