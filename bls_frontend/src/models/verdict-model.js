@@ -68,6 +68,11 @@ export class VerdictModel {
 
     }
 
+    withFilenumber(filenumber) {
+        this.filenumber = filenumber
+        return this
+    }
+
     withModelledOffenseAndReasons() {
         let i
         if (this.reasonsForDecision) {

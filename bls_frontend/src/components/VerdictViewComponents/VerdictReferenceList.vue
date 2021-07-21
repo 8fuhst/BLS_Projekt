@@ -54,7 +54,7 @@ export default {
         const indices = offense[i].indices
         const matchedReferences = references.filter((reference) => {
           return indices.find((possibleIndex) => {
-            return possibleIndex + '' === reference.index }) !== undefined
+            return possibleIndex + '' === reference.index + '' }) !== undefined
         })
 
         if (matchedReferences.length > 0) {
@@ -71,7 +71,7 @@ export default {
         const indices = reasons[i].indices
         const matchedReferences = references.filter((reference) => {
           return indices.find((possibleIndex) => {
-            return possibleIndex + '' === reference.index }) !== undefined
+            return possibleIndex + '' === reference.index + '' }) !== undefined
         })
 
         if (matchedReferences.length > 0) {

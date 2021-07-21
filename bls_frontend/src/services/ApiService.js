@@ -33,11 +33,11 @@ export default class ApiService {
                 const verdict = new VerdictModel(data).withModelledOffenseAndReasons()
                 return verdict
             } else {
-                return undefined
+                return new VerdictModel(undefined).withFilenumber(filenumber)
             }
         } catch (e) {
             console.log('Error requesting verdict by filenumber: ' + e)
-            return undefined
+            return new VerdictModel(undefined).withFilenumber(filenumber)
         }
     }
 
@@ -59,7 +59,7 @@ export default class ApiService {
             return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)
-            return new VerdictNodeModel(null)
+            return new VerdictNodeModel(undefined)
         }
     }
 
