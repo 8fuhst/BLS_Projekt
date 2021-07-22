@@ -97,6 +97,9 @@ import DownloadButton from "@/components/UtilityComponents/ActionButtons/Downloa
 
 const colorService = new ColorService()
 
+/**
+ *
+ */
 export default {
   name: "VerdictTile",
   props: {

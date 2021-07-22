@@ -2,7 +2,7 @@
   <div class="hero" id="verdictHero">
     <b-container fluid>
       <b-row>
-        <b-col xl="8" sm="12">
+        <b-col>
           <div class="bottom-margin">
             <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
             <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
@@ -11,9 +11,11 @@
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-          <KeyWordTags class="bottom-margin" style="margin-left: 1px" :keyWords="verdict.keywords"/>
+          <KeyWordTags class="bottom-margin" :keyWords="verdict.keywords"/>
 
-          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge></h2>
+          <h2>
+            <b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge>
+          </h2>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -21,20 +23,13 @@
             <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
           </div>
         </b-col>
-        <b-col class="py-3" xl="4" sm="0">
-          <VerdictGraph />
-        </b-col>
+      </b-row>
+      <b-row class="py-3">
+        <div :class="scrollHidden ? 'graph-container-hidden' : 'graph-container'">
+          <VerdictGraph @scrollHidden="hideScroll" />
+        </div>
       </b-row>
     </b-container>
-
-    <div class="button-group" >
-      <b-button-group>
-        <b-button v-if="verdict.tenor" @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
-        <b-button v-if="verdict.modelledOffense.length > 0" @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
-        <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
-      </b-button-group>
-    </div>
-
 
     <div class="button-group" >
       <b-button-group>
@@ -61,7 +56,7 @@ export default {
   computed: {
     verdict() {
       return this.$store.getters.getCurrentVerdict
-    }
+    },
   },
   methods: {
     goBack() {
@@ -84,6 +79,9 @@ export default {
       document.querySelector(id).scrollIntoView({
         behavior: 'smooth'
       });
+    },
+    hideScroll(hidden) {
+      this.scrollHidden = hidden
     }
   },
   data() {
@@ -93,6 +91,7 @@ export default {
       filenumber: null,
       stickyNavButtons: false,
       resultColorClass: '',
+      scrollHidden: true
     }
   },
   mounted() {
@@ -151,5 +150,18 @@ export default {
     position: relative;
     top: -5px;
     left: 12px;
+  }
+
+  .graph-container {
+    width: 100%;
+    max-height: 369px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .graph-container-hidden {
+    width: 100%;
+    max-height: 369px;
+    overflow: hidden;
   }
 </style>

@@ -31,6 +31,12 @@
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
 import KeyWordTags from "@/components/KeyWordTags";
 
+/**
+ * Component for the references in the VerdictReferenceList.
+ *
+ * @param section Describes the section where the reference was found
+ * @param references Array of the references that were found for an entry of the longtext
+ */
 export default {
   name: "VerdictReference",
   components: {HoverMenu, KeyWordTags},
@@ -52,11 +58,19 @@ export default {
     }
   },
   computed: {
+    /**
+     * Returns whether the references shall be tabulated.
+     */
     tabs() {
       return this.references.length > 1
     }
   },
   methods: {
+    /**
+     * Sets the hover property according to the parameter hover
+     *
+     * @param hover boolean for whether hover is set or not. True if hover shall be set to true. Else false
+     */
     setHover(hover) {
       this.hover = hover
     },
