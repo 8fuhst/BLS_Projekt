@@ -5,6 +5,9 @@
 </template>
 
 <script>
+/**
+ * Component to build the divider
+ */
 export default {
   name: "VerdictDivider",
   props: {

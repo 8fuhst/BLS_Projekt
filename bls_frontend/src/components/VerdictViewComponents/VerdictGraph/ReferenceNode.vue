@@ -14,6 +14,20 @@
 </template>
 
 <script>
+/**
+ * Component to generate the reference graph
+ *
+ * @param text of incoming or outgoing reference
+ * @param index to identify the reference
+ * @param xOffset to determine the x-axis offset
+ * @param yOffset to determine the y-axis offset
+ * @param width of the rectangle for the node
+ * @param height of the rectangle for the node
+ * @param padding to adjust padding between nodes
+ * @param type to identify the reference
+ * @param whichHovers to determine which node is hovered
+ *
+ */
 export default {
   name: "ReferenceNode",
   props: {
@@ -50,9 +64,15 @@ export default {
     }
   },
   methods: {
+    /**
+     * Emits a hover event on a node
+     */
     setHover() {
       this.$emit('hoverEvent', this.type + this.index + '')
     },
+    /**
+     * Gets new referenced verdict
+     */
     async getNewVerdict() {
       const newVerdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
       if (newVerdict) {
@@ -64,6 +84,9 @@ export default {
         });
       }
     },
+    /**
+     * Gets first three keywords by reference
+     */
     async getKeywords() {
       const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
       if (verdict && verdict.keywords) {
@@ -72,15 +95,19 @@ export default {
         this.keywords = ''
       }
     },
+    /**
+     * Sets the current width according to needed width
+     */
     resizeSVG() {
       const text = document.getElementById('keywords' + this.type + this.index);
-
       const bbox = text ? text.getBoundingClientRect() : undefined
-
       const newWidth = bbox ? Math.max((bbox.right - bbox.left + 28), 165) : 110
 
       this.currentWidth = newWidth
     },
+    /**
+     * Sets the properties for to current value
+     */
     setProperties() {
       this.getKeywords()
 

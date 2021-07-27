@@ -19,14 +19,24 @@
 import VerdictText from "@/components/VerdictViewComponents/VerdictText";
 import {mapGetters} from 'vuex'
 
+/**
+ * Component to build the detailed information on reasons and offenses of a verdict
+ *
+ */
 export default {
   name: "VerdictLongtext",
   components: {VerdictText},
   computed: {
     ...mapGetters(['getCurrentVerdict']),
+    /**
+     * Returns the current verdict
+     */
     verdict() {
       return this.getCurrentVerdict
     },
+    /**
+     * Returns the tenor of current verdict
+     */
     tenor() {
       return this.verdict.tenor.join(' ')
     }

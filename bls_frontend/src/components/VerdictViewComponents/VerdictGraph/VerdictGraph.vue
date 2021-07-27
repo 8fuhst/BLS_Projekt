@@ -18,6 +18,10 @@
 <script>
 import ReferenceNode from "@/components/VerdictViewComponents/VerdictGraph/ReferenceNode";
 
+/**
+ * Component to create the reference graph
+ *
+ */
 export default {
   name: "VerdictGraph",
   components: {ReferenceNode},
@@ -45,9 +49,13 @@ export default {
     }
   },
   methods: {
+    // TODO: Diese Methode löschen?
     setType(type) {
       this.currentType = type
     },
+    /**
+     * Brings the hovered element on top (z-axis)
+     */
     hoverEvent(hoverId) {
       this.hoverId = hoverId
       const topmost = document.getElementById('use')
@@ -55,9 +63,15 @@ export default {
           'xlink:href',
           '#panel' + hoverId);
     },
+    /**
+     * Sets x and y to new values
+     */
     newCoordinates(x,y) {
       this.hoverConfig = {x, y}
     },
+    /**
+     * Updates size of graph according to contained elements
+     */
     updateSize() {
       const {
         width
@@ -75,6 +89,9 @@ export default {
       this.centerOffsetX = this.width * 0.5 - this.nodeWidth * 0.5
       this.centerOffsetY = (this.height - this.extendedNodeExtraHeight) * 0.5 + this.headingHeight * 0.5 - this.nodeHeight * 0.5
     },
+    /**
+     * Generates the edges
+     */
     lineGen(index, isIncoming) {
       let startX = 0
       let startY = 0

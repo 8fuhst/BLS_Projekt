@@ -74,6 +74,9 @@ export default {
     setHover(hover) {
       this.hover = hover
     },
+    /**
+     * Sets height according to needed height
+     */
     setHeight() {
       let element
       element = document.getElementById(this.section + this.index)
@@ -94,6 +97,9 @@ export default {
         }
       }
     },
+    /**
+     * Gets first five keywords by reference
+     */
     async getKeywords() {
       for (let i = 0; i < this.references.length; i++) {
         const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.references[i].referenz)

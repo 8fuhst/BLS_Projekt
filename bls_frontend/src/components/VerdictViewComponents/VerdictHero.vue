@@ -49,19 +49,31 @@ import {ColorService} from "@/services/ColorService";
 import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
 const colorService = new ColorService()
-
+/**
+ * Component to build the header on the detailed view of the current verdict
+ *
+ */
 export default {
   name: "VerdictHero",
   components: {DownloadButton, VerdictGraph, KeyWordTags, CopyButton },
   computed: {
+    /**
+     * Returns the current verdict
+     */
     verdict() {
       return this.$store.getters.getCurrentVerdict
     },
   },
   methods: {
+    /**
+     * To navigate back to Home view
+     */
     goBack() {
       this.$router.back()
     },
+    /**
+     * Sets the properties for keysentence, filenumber, resultColorClass and date according to current value
+     */
     setProperties() {
       if (this.verdict.keysentence) {
         this.keysentence = this.verdict.keysentence.join(' ')
@@ -75,11 +87,21 @@ export default {
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     },
+    /**
+     * Scrolls to the requested part of verdict
+     *
+     * @param id String of the part to scroll to
+     */
     scrollTo(id) {
       document.querySelector(id).scrollIntoView({
         behavior: 'smooth'
       });
     },
+    /**
+     * Sets the hidden property according to the parameter hidden
+     *
+     * @param hidden boolean for whether hidden is set or not. True if hidden shall be set to true. Else false
+     */
     hideScroll(hidden) {
       this.scrollHidden = hidden
     }
