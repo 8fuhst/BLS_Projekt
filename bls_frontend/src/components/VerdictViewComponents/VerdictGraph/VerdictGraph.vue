@@ -49,10 +49,6 @@ export default {
     }
   },
   methods: {
-    // TODO: Diese Methode löschen?
-    setType(type) {
-      this.currentType = type
-    },
     /**
      * Brings the hovered element on top (z-axis)
      */

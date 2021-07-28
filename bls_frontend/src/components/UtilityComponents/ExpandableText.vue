@@ -10,6 +10,15 @@
 </template>
 
 <script>
+
+/**
+ * Component to make text expandable
+ *
+ * @param content String containing the expandable text
+ * @param id String to identify verdict documentnumber
+ * @param textId String to identify verdict documentnumber
+ *
+ */
 export default {
   name: "ExpandableText",
   props: {
@@ -23,6 +32,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * Toggles between showing full content and not showing full content
+     */
     toggleShowFullContent() {
       this.showFullContent = !this.showFullContent;
     }

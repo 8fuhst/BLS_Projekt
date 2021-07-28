@@ -16,6 +16,10 @@
 <script>
 import VerdictTile from "@/components/VerdictTileComponents/VerdictTile";
 
+/**
+ * Component to display different verdict tiles in a list
+ *
+ */
 export default {
   name: "VerdictTileList",
   created () {
@@ -36,9 +40,18 @@ export default {
     }
   },
   methods: {
+    /**
+     * Sets offsetTop to current y value when scrolled
+     */
     onScroll() {
       this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
     },
+    /**
+     * Checks if spinner element is visible
+     *
+     * @param el the spinner element
+     * @returns {boolean} true when visible
+     */
     isElementInViewport(el) {
       const rect = el.getBoundingClientRect();
       return (
@@ -48,6 +61,9 @@ export default {
           rect.right <= (window.innerWidth || document.documentElement.clientWidth)
       );
     },
+    /**
+     * Loads next verdicts to display
+     */
     getNextPage() {
       const currentPage = this.$store.getters.getPage
       const nextPage = currentPage + 1

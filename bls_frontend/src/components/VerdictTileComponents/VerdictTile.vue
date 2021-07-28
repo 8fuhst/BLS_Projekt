@@ -98,6 +98,9 @@ import DownloadButton from "@/components/UtilityComponents/ActionButtons/Downloa
 const colorService = new ColorService()
 
 /**
+ * Component for verdict tile
+ *
+ * @param verdict a verdict object to be displayed in the tile
  *
  */
 export default {
@@ -152,6 +155,9 @@ export default {
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   },
   methods: {
+    /**
+     * Set the current verdict
+     */
     setCurrentVerdict() {
       this.$router.push({ name: 'Verdict', query: { docnr: this.verdict.documentnumber } })
     }
