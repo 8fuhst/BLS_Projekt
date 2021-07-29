@@ -138,12 +138,14 @@ def initialize_database(index="verdicts"):  # todo: s.o.
     f = open("no_keywords.txt", "w")
     f.close()
     if not path.exists('keywords.txt'):
-        # lade keywords.txt aus Git
-        url_keywords = "https://raw.githubusercontent.com/8fuhst/BLS_Projekt/master/scraper/keywords.txt?token=APY6CXGAS7QPTEUFKGSHX2DBAC2NI" # todo richtige url?
-        r = requests.get(url_keywords)
         f = open("keywords.txt", "w")
-        f.write(r.content) # todo testen
-        f.close()
+        # lade keywords.txt aus Git
+        try:
+            url_keywords = "https://raw.githubusercontent.com/8fuhst/BLS_Projekt/master/scraper/keywords.txt"
+            r = requests.get(url_keywords)
+            f.write(r.content)  # todo testen
+        finally:
+            f.close()
 
     tic = time.time()
     scraper.update_database()
