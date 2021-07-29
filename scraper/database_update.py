@@ -92,7 +92,7 @@ def update_missing_keywords():
             print("\t", int(i / n * 100), "%")
 
 
-def update_database(index="verdicts"):  # todo: index Variabel gestalten?
+def scrape_new_data(index="verdicts"):  # todo: index Variabel gestalten?
     """
     Updates an existing Elasticsearch-Database by scraping the newest verdicts from
     www.rechtsprechung-im-internet.de
@@ -102,9 +102,25 @@ def update_database(index="verdicts"):  # todo: index Variabel gestalten?
         tic = time.time()
         scraper.update_database()
         toc = time.time()
-        print("Done! Time needed: {}".format(str(toc - tic)))
+        print("Scraping done! Time needed: {}".format(str(toc - tic)))
     else:
         print("Index to be updated does not exists!")
+
+def update_database(index="verdicts"):
+    """
+    Updates an existing Elasticsearch-Database by scraping the newest verdicts and adding references and keywords.
+    :param index:
+    """
+    tic = time.time()
+    print("Start scraping new Data ...")
+    scrape_new_data(index)
+    print("Starting to add missing keywords ...")
+    update_missing_keywords()
+    print("Updating incoming references-count ...")
+    update_incoming_count()
+    # todo: classification
+    toc = time.time()
+    print("Update finished! Time needed: {}".format(str(toc - tic)))
 
 
 def initialize_database(index="verdicts"):  # todo: s.o.
@@ -147,11 +163,13 @@ def initialize_database(index="verdicts"):  # todo: s.o.
         finally:
             f.close()
 
+    # start the initialisation process
     tic = time.time()
+    print("Start scraping the Data ...")
     scraper.update_database()
-    print("Starting to generate keywords...")
+    print("Starting to generate keywords ...")
     update_missing_keywords()
-    print("Updating incoming references-count...")
+    print("Updating incoming references-count ...")
     update_incoming_count()
     # todo: classification
     toc = time.time()
