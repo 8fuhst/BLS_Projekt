@@ -92,6 +92,7 @@ def update_missing_keywords():
             print("\t", int(i / n * 100), "%")
 
 
+# TODO: Call once per day
 def scrape_new_data(index="verdicts"):  # todo: index Variabel gestalten?
     """
     Updates an existing Elasticsearch-Database by scraping the newest verdicts from
