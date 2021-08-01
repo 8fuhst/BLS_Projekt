@@ -13,10 +13,6 @@
 
           <KeyWordTags class="bottom-margin" :keyWords="verdict.keywords"/>
 
-          <h2>
-            <b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge>
-          </h2>
-
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
             <CopyButton class="d-inline-block" :textId="verdict.documentnumber + 'keysentence'" />
@@ -45,10 +41,8 @@
 import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
-import {ColorService} from "@/services/ColorService";
 import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
-const colorService = new ColorService()
 /**
  * Component to build the header on the detailed view of the current verdict
  *
@@ -81,8 +75,6 @@ export default {
       if (this.verdict.filenumber) {
         this.filenumber = this.verdict.filenumber.join(', ')
       }
-
-      this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
@@ -186,4 +178,6 @@ export default {
     max-height: 369px;
     overflow: hidden;
   }
+
+  .graph-container::-webkit-scrollbar { width: 0 !important }
 </style>

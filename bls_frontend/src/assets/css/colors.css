@@ -403,15 +403,3 @@
 .teilurteil-color div div div div div span {
     background-color: rgba(64, 131, 156, 0.59);
 }
-
-.success-color {
-    background-color: #5cb85c;
-}
-
-.irrelevant-color {
-    background-color: #d1c0a8;
-}
-
-.unsuccessful-color {
-    background-color: #ef6055;
-}

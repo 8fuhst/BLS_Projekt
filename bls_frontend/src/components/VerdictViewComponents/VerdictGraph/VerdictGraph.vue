@@ -1,7 +1,7 @@
 <template>
   <svg :width="width" :height="height">
     <text x="0" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.incoming.length > 0">Eingehend</text>
-    <text text-anchor="end" :x="width-20" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.outgoing.length > 0">Ausgehend</text>
+    <text text-anchor="end" :x="width" y="20" font-size="16" font-weight="bold" fill="black" v-if="references.outgoing.length > 0">Ausgehend</text>
 
     <svg fill="white" fill-opacity="0" stroke="#000" stroke-width="1">
       <path v-for="(_, index) in references.incoming" :key="`in_p_${index}`" :d="lineGen(index, true)"/>
@@ -10,7 +10,7 @@
 
     <ReferenceNode @hoverEvent="hoverEvent" @newCoordinates="newCoordinates" :whichHovers="hoverId" v-for="(node, index) in references.incoming" :key="`in_${index}`" :text="node" :index="index" :xOffset="inComingOffsetX" :yOffset="inComingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="1"/>
     <ReferenceNode :text="references.self" :whichHovers="hoverId" :index="0" :xOffset="centerOffsetX" :yOffset="centerOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="2" />
-    <ReferenceNode @hoverEvent="hoverEvent" @newCoordinates="newCoordinates" :whichHovers="hoverId" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX -20" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="3" />
+    <ReferenceNode @hoverEvent="hoverEvent" @newCoordinates="newCoordinates" :whichHovers="hoverId" v-for="(node, index) in references.outgoing" :key="`out_${index}`" :text="node" :index="index" :xOffset="outGoingOffsetX" :yOffset="outGoingOffsetY" :width="nodeWidth" :height="nodeHeight" :padding="padding" type="3" />
     <use id="use" :x="hoverConfig.x" :y="hoverConfig.y" />
   </svg>
 </template>
@@ -30,9 +30,9 @@ export default {
       width: 200,
       height: 200,
       inComingOffsetX: 0,
-      inComingOffsetY: 0,
+      inComingOffsetY: 37,
       outGoingOffsetX: 100,
-      outGoingOffsetY: 0,
+      outGoingOffsetY: 37,
       centerOffsetX: 50,
       centerOffsetY: 175,
       nodeHeight: 50,
@@ -125,25 +125,25 @@ export default {
   },
   computed: {
     references() {
+      /*
       this.$emit('scrollHidden', false)
       return {
         incoming: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'asdasd'],
         outgoing: ['VI hgfd 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
         self: 'VI ZR 498/19'
       }
+      */
 
-      /*
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
       const self = this.$store.getters.getCurrentVerdict.filenumber[0]
-      this.$emit('scrollHidden', max(outgoing.length, incoming.length) <=5)
+      this.$emit('scrollHidden', Math.max(outgoing.length, incoming.length) <=5)
       return {
         outgoing: outgoing,
         incoming: incoming,
         self: self,
       }
-      */
     },
     extendedNodeExtraHeight() {
       return this.extendedNodeHeight - this.nodeHeight

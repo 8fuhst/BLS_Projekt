@@ -34,11 +34,6 @@ export class VerdictModel {
             } else {
                 this.keywords = ['Keyword1', 'Keyword2', 'Keyword3', 'Keyword4', 'Keyword5']
             }
-            if (verdict.successful) {
-                this.successful = verdict.successful
-            } else {
-                this.successful = 'Irrelevant'
-            }
         } else {
             this.date = '';
             this.mitwirkung = '';
@@ -63,7 +58,6 @@ export class VerdictModel {
             this.modelledReasonsForDecision = [];
             this.modelledOffense = [];
             this.keywords = [];
-            this.successful = '';
         }
 
     }

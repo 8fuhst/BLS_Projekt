@@ -42,8 +42,6 @@
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
 
-      <h4><b-badge :class="resultColorClass">{{ verdict.successful }}</b-badge></h4>
-
       <!-- Texte !-->
       <div v-if="keysentence" class="bottom-margin">
         <h5 class="link" @click="setCurrentVerdict">Leitsatz</h5>

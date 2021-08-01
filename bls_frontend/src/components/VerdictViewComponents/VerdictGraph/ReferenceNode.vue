@@ -36,7 +36,7 @@ export default {
     xOffset: Number,
     yOffset: {
       type: Number,
-      default: 0
+      default: 20,
     },
     width: {
       type: Number,
@@ -61,6 +61,7 @@ export default {
       keywords: '',
       currentWidth: 110,
       currentHeight: 50,
+      keywordsFetched: false,
     }
   },
   methods: {
@@ -88,11 +89,14 @@ export default {
      * Gets first three keywords by reference
      */
     async getKeywords() {
-      const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
-      if (verdict && verdict.keywords) {
-        this.keywords = verdict.keywords.slice(0,3).join(', ')
-      } else {
-        this.keywords = ''
+      if (!this.keywordsFetched) {
+        const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.text)
+        if (verdict && verdict.keywords) {
+          this.keywords = verdict.keywords.slice(0,3).join(', ')
+        } else {
+          this.keywords = ''
+        }
+        this.keywordsFetched = true
       }
     },
     /**
@@ -137,6 +141,12 @@ export default {
     this.setProperties()
   },
   watch: {
+    xOffset() {
+      this.setProperties()
+    },
+    yOffset() {
+      this.setProperties()
+    },
     whichHovers() {
       if (this.type + this.index + '' === this.whichHovers) {
         this.hover = true
