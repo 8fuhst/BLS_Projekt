@@ -1,6 +1,13 @@
 import {LongtextModel} from "@/models/longtext-model";
 
+/**
+ * Model for the verdicts
+ */
 export class VerdictModel {
+    /**
+     * Constructor
+     * @param verdict The data of a verdict
+     */
     constructor(verdict) {
         if (verdict) {
             this.date = verdict.date;
@@ -32,7 +39,7 @@ export class VerdictModel {
             if (verdict.keywords) {
                 this.keywords = verdict.keywords;
             } else {
-                this.keywords = ['Keyword1', 'Keyword2', 'Keyword3', 'Keyword4', 'Keyword5']
+                this.keywords = []
             }
         } else {
             this.date = '';
@@ -62,11 +69,20 @@ export class VerdictModel {
 
     }
 
+    /**
+     * Sets the filenumber and returns the verdict
+     * @param filenumber New filenumber
+     * @returns {VerdictModel} The new verdictmodel
+     */
     withFilenumber(filenumber) {
         this.filenumber = filenumber
         return this
     }
 
+    /**
+     * Creates models for the verdict longtext entries for the Offense and Reasons section
+     * @returns {VerdictModel} The new verdictmodel
+     */
     withModelledOffenseAndReasons() {
         let i
         if (this.reasonsForDecision) {

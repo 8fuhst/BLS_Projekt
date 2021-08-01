@@ -22,10 +22,6 @@
           <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
         </b-row>
 
-        <b-row v-if="verdict.title" class="bottom-margin title">
-          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
-        </b-row>
-
         <b-row class="bottom-margin text-padding">
           <b-card-text>{{ date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>
@@ -147,7 +143,6 @@ export default {
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
-    this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
     const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)

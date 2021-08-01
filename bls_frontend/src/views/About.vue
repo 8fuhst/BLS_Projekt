@@ -4,7 +4,7 @@
       Das BLS Tool
     </h1>
     <p>Ein Tool im Rahmen des Projekt Basecamp</p>
-    <p>Suche - Finde - Extrahiere, die Urteile die du auch wirklich brauchst</p>
+    <p>Zum Suchen und Betrachten von Urteilen.</p>
     <p>
       Autoren: Fabian Kazemi, Hendrik Brandt, Noah Fuhst, Marc Ditschke und Steffen Schubert
     </p>
@@ -12,6 +12,9 @@
 </template>
 
 <script>
+/**
+ * About page of the App
+ */
 export default {
   name: "About",
   created() {

@@ -6,7 +6,7 @@
       </b-col>
     </b-row>
 
-    <div class="text-center py-3" id="spinner" >
+    <div class="text-center py-3" id="spinner" v-if="moreResults" >
       <b-spinner class="spinner"></b-spinner>
     </div>
   </div>
@@ -81,6 +81,9 @@ export default {
     fetching() {
       return this.$store.getters.getFetching && this.firstPage
     },
+    moreResults() {
+      return this.$store.getters.getMoreResults
+    }
   },
   components: {VerdictTile},
   mounted() {
