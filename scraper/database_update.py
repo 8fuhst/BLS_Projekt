@@ -178,6 +178,6 @@ def initialize_database(index="verdicts"):  # todo: s.o.
 
 
 if __name__ == '__main__':
-    initialize_database()
+    update_database()
     # update_missing_keywords()
     # update_incoming_count()
