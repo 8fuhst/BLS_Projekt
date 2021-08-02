@@ -25,19 +25,28 @@
 </template>
 
 <script>
+/**
+ * Component for the site Header
+ */
 export default {
   name: "Header",
   data() {
     return {
       currentRoute: this.$route,
       newQuery: '',
-      mybutton: null,
+      backToTopButton: null,
     }
   },
   computed: {
+    /**
+     * Returns the available routes
+     */
     routes() {
       return this.$router.getRoutes().filter( (route) => !route.meta.hidden)
     },
+    /**
+     * Returns the home route
+     */
     homeRoute() {
       return process.env.VUE_APP_PATH_BASE + '/'
     }
@@ -46,16 +55,25 @@ export default {
     $route(to) {this.currentRoute = to}
   },
   methods: {
+    /**
+     * Submits a search query
+     */
     onSubmit() {
       this.$router.push({ name: 'Search', query: { query: this.newQuery } })
     },
+    /**
+     * Displays the back-to-top button when scroll is above 20
+     */
     scrollFunction() {
       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        this.mybutton.style.display = "block";
+        this.backToTopButton.style.display = "block";
       } else {
-        this.mybutton.style.display = "none";
+        this.backToTopButton.style.display = "none";
       }
     },
+    /**
+     * Scrolls to top of page
+     */
     topFunction() {
       window.scroll({
         top: 0,
@@ -65,7 +83,7 @@ export default {
     }
   },
   mounted() {
-    this.mybutton = document.getElementById("back-to-top");
+    this.backToTopButton = document.getElementById("back-to-top");
     window.onscroll = () => this.scrollFunction()
   }
 }

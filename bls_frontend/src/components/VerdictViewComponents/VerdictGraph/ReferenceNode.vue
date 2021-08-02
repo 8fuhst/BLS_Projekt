@@ -17,15 +17,15 @@
 /**
  * Component to generate the reference graph
  *
- * @param text of incoming or outgoing reference
- * @param index to identify the reference
- * @param xOffset to determine the x-axis offset
- * @param yOffset to determine the y-axis offset
- * @param width of the rectangle for the node
- * @param height of the rectangle for the node
- * @param padding to adjust padding between nodes
- * @param type to identify the reference
- * @param whichHovers to determine which node is hovered
+ * @param text Text of reference to be displayed
+ * @param index Index of the reference in the reference lists
+ * @param xOffset Offset along the x-axis
+ * @param yOffset Offset along the y-axis
+ * @param width Width of the rectangle for the node
+ * @param height Height of the rectangle for the node
+ * @param padding Padding between nodes
+ * @param type Type of the reference
+ * @param whichHovers Index and type to determine which node is hovered
  *
  */
 export default {

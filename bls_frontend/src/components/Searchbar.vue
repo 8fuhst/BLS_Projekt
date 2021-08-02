@@ -22,6 +22,9 @@
 
 <script>
 
+/**
+ * Component for the searchbar on the search page
+ */
 export default {
   name: "Searchbar",
   data() {
@@ -33,6 +36,9 @@ export default {
     this.newQuery = this.$route.query.query
   },
   methods: {
+    /**
+     * Submits a new query
+     */
     onSubmit() {
       this.$router.push({ name: 'Search', query: { query: this.newQuery } })
     }

@@ -1,6 +1,9 @@
 import {VerdictModel} from "@/models/verdict-model";
 import {VerdictNodeModel} from "@/models/verdict-node-model";
 
+/**
+ * Service to handle API requests
+ */
 export default class ApiService {
 
     /**

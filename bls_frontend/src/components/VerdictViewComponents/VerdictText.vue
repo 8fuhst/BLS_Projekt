@@ -12,13 +12,13 @@
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
 
 /**
- * Component for the verdict text
+ * Component for the verdict text entries
  *
- * @param prefix States the prefix
- * @param text Actual text of verdict section
- * @param indices Describes the index where the reference was found
- * @param section Describes the section where the reference was found
- * @param divider True when a divider between text is in place
+ * @param prefix Prefix of the text entry
+ * @param text Text of text entry
+ * @param indices Describes the indices in this text entry from the data for referencing purposes
+ * @param section Describes the section of the text entry
+ * @param divider Whether this text entry shall be a divider
  *
  */
 export default {

@@ -8,7 +8,7 @@
 /**
  * Component for the copy button
  *
- * @param textId for the verdict documentnumber
+ * @param textId Id of the referenced textelement
  *
  */
 export default {
@@ -25,7 +25,7 @@ export default {
     /**
      * Copies the text to clipboard
      *
-     * @param id for the text to copy
+     * @param id Id of the textelement to copy
      */
     copyToClipboard(id) {
       const text = document.querySelector('#' + id).innerHTML

@@ -24,7 +24,8 @@ export default {
   name: "VerdictTileList",
   created () {
     window.addEventListener('scroll', this.onScroll);
-  },destroyed () {
+  },
+  destroyed () {
     window.removeEventListener('scroll', this.onScroll);
   },
   data () {

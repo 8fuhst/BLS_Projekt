@@ -10,6 +10,9 @@ npm install
 npm run serve
 ```
 
+Beachte, dass das Backend seperat gestartet werden muss, damit Urteile angezeigt werden
+(Neben dem Backend muss zudem eine SSH-Verbindung zum rzssh1 Server bestehen, damit das Backend mit der Datenbank kommunizieren kann).
+
 ## Deployment
 
 ### Compilen und Dateien fürs Deployment erstellen
