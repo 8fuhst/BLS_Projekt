@@ -206,6 +206,8 @@ def build_json_objects(linklist):
         json_object, json_reference_object = eval_xml(get_xml_from_link(link))
         json_list.append(json_object)
         json_reference_list.append(json_reference_object)
+
+        # Prozentuale Fortschrittsanzeige auf Konsole bei großen Updates
         counter += 1
         if counter % 1000 == 0:
             print("\t", int(counter / n * 100), "%")
@@ -283,21 +285,13 @@ def write_to_database(json_list, json_reference_list):
             # Update ES Document with new References
             es.update(index="verdict_nodes", id=filenr, body=updated)
 
+        # Prozentuale Fortschrittsanzeige auf Konsole bei großen Updates
         counter += 1
         if counter % 1000 == 0:
             print("\t", int(counter / n * 100), "%")
 
 
 def update_database():
-    # with open("oldlinks.txt", "r", encoding='UTF-8') as file:
-    #     # was ist der höchste idenfier
-    #
-    #     count = 0 # count = höchster identifier oder 0
-    #     for line in file.readlines():
-    #         json_object = get_xml_from_link(line)
-    #         es.index(index='verdicts', doc_type='verdict', id=count, body=json_object)
-    #         count = count + 1
-
     # Getting new links
     linklist = extract_new_links()
 
