@@ -119,26 +119,20 @@ export default {
   mounted() {
     window.addEventListener("resize", this.updateSize);
     this.updateSize()
+    //const showGraph = this.references.outgoing > 0 || this.references.incoming > 0
+    //this.$emit('showGraphEvent', showGraph)
   },
   updated() {
     this.updateSize()
   },
   computed: {
     references() {
-      /*
-      this.$emit('scrollHidden', false)
-      return {
-        incoming: ['VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'VI ZR 498/19', 'asdasd'],
-        outgoing: ['VI hgfd 498/19', 'VI ZR 498/19', 'VI ZR 498/19'],
-        self: 'VI ZR 498/19'
-      }
-      */
-
       const node = this.$store.getters.getVerdictNode
       const outgoing = node.outgoingReferenceSet
       const incoming = node.incomingReferenceSet
       const self = this.$store.getters.getCurrentVerdict.filenumber[0]
       this.$emit('scrollHidden', Math.max(outgoing.length, incoming.length) <=5)
+      this.$emit('showGraphEvent', outgoing.length > 0 || incoming.length > 0)
       return {
         outgoing: outgoing,
         incoming: incoming,

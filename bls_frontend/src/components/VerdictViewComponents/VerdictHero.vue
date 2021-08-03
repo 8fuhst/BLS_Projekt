@@ -20,9 +20,9 @@
           </div>
         </b-col>
       </b-row>
-      <b-row class="py-3">
+      <b-row class="py-3" v-show="graphShown">
         <div :class="scrollHidden ? 'graph-container-hidden' : 'graph-container'">
-          <VerdictGraph @scrollHidden="hideScroll" />
+          <VerdictGraph @showGraphEvent="showGraph" @scrollHidden="hideScroll" />
         </div>
       </b-row>
     </b-container>
@@ -96,6 +96,14 @@ export default {
      */
     hideScroll(hidden) {
       this.scrollHidden = hidden
+    },
+    /**
+     * Sets the graphShown property according to the parameter show
+     *
+     * @param show Boolean for whether the graph should be shown or not. True if graph should be shown
+     */
+    showGraph(show) {
+      this.graphShown = show
     }
   },
   data() {
@@ -105,7 +113,8 @@ export default {
       filenumber: null,
       stickyNavButtons: false,
       resultColorClass: '',
-      scrollHidden: true
+      scrollHidden: true,
+      graphShown: false
     }
   },
   mounted() {

@@ -9,6 +9,7 @@
     <div class="text-center py-3" id="spinner" v-if="moreResults" >
       <b-spinner class="spinner"></b-spinner>
     </div>
+    <h4 class="mt-2" align="center" v-if="!moreResults">Keine weiteren Ergebnisse...</h4>
   </div>
 
 </template>
@@ -98,5 +99,9 @@ export default {
     color: #A21E29;
     width: 50px;
     height: 50px;
+  }
+
+  h4 {
+    color: rgba(99, 99, 99, 0.84);
   }
 </style>

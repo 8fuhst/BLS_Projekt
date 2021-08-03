@@ -1,5 +1,5 @@
 <template>
-  <svg @mouseover="setHover()" class="node" :x="x" :y="y" :width="currentWidth" :height="currentHeight">
+  <svg @mouseover="setHover()" :class="keywords.length > 0 ? 'hover' : ''" :x="x" :y="y" :width="currentWidth" :height="currentHeight">
     <rect x="0" y="0" :width="width" :height="height" stroke="black" fill="white" stroke-width="1px" />
     <text x="50%" y="50%" text-anchor="middle" font-size="16" fill="black">{{ text }}</text>
 
@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style scoped>
-  svg:hover {
+  .hover:hover {
     cursor: pointer;
   }
 </style>
