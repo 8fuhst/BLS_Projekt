@@ -12,19 +12,18 @@ import json
 from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
-import time
 import formatter
 # import classification as classi
-import keywords
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 #es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
 
-# TODO: Call once per day
-def update_xml_table_of_contents(): # todo uncomment this
+
+def update_xml_table_of_contents():
     """
-    Gets the updated xml table of contents file from the website and writes it to the rii-toc.xml file using pycurl.
-    :return:
+    Gets the updated xml table of contents file from
+    https://www.rechtsprechung-im-internet.de/
+    and writes it to the rii-toc.xml file using pycurl.
     """
     # Create curl object:
     curl = pycurl.Curl()
@@ -37,19 +36,20 @@ def update_xml_table_of_contents(): # todo uncomment this
         curl.perform()
     curl.close()
 
-#update_xml_table_of_contents()
 
-def get_xml_from_file(xml_link):
+def get_xml_from_link(xml_link):
     """
-    Unzips the file and converts its content to xml string
+    Unzips a file from an url and converts its content to xml string
     :param xml_link: link for zip file
+    :return: the xml as utf-8 string
+    :rtype: str xml_string
     """
     first_xml = urlopen(xml_link)
     # Unzip XML file
     zipfile = ZipFile(BytesIO(first_xml.read()))
     # Get XML contents
     xml_string = zipfile.read(zipfile.namelist()[len(zipfile.namelist())-1]).decode("utf_8")
-    return eval_xml(xml_string)
+    return xml_string
 
 
 def eval_xml(xml_string):
@@ -154,7 +154,7 @@ def eval_xml(xml_string):
     #return json_result_dict, json_reference_dict
     return result_dict, provisional_references_dict
 
-# get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
+# get_xml_from_link("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
 
 
 def extract_links_from_toc_xml():
@@ -172,7 +172,17 @@ def extract_links_from_toc_xml():
             # counter += 1 # todo remove
 
 
-def create_reference_dict(filenumber, outgoing_reference_dict ={}, outgoing_reference_set = set(), incoming_reference_set = [], documentnumber = ""):
+def create_reference_dict(filenumber, outgoing_reference_dict={}, outgoing_reference_set=set(), incoming_reference_set=[], documentnumber=""):
+    """
+    Creates a reference-dict for a given filenumber.
+    :param filenumber: the filenumber
+    :param outgoing_reference_dict: outgoing reference-dict (contains the positions of the references)
+    :param outgoing_reference_set: outgoing reference-set
+    :param incoming_reference_set: incoming reference-set
+    :param documentnumber: the documentnumber
+    :return: the reference-dict
+    :rtype: dict{str: filenumber, dict: outgoing_reference_dict, list: outgoing_reference_set, list: incoming_reference_set, int: incoming_count, str: documentnumber}
+    """
     provisional_references_dict = {
         'filenumber': filenumber,
         'outgoing_reference_list': outgoing_reference_dict,
@@ -193,9 +203,11 @@ def build_json_objects(linklist):
     counter = 0
     n = len(linklist)
     for link in linklist:
-        json_object, json_reference_object = get_xml_from_file(link)
+        json_object, json_reference_object = eval_xml(get_xml_from_link(link))
         json_list.append(json_object)
         json_reference_list.append(json_reference_object)
+
+        # Prozentuale Fortschrittsanzeige auf Konsole bei großen Updates
         counter += 1
         if counter % 1000 == 0:
             print("\t", int(counter / n * 100), "%")
@@ -204,7 +216,7 @@ def build_json_objects(linklist):
 
 def write_to_database(json_list, json_reference_list):
     # Save Verdicts in Elasticsearch
-    print("writing verdicts...")
+    print("writing verdicts ...")
     counter = 0
     n = len(json_list)
     with open("present_documents.txt", "a", encoding='UTF-8') as f:
@@ -273,21 +285,13 @@ def write_to_database(json_list, json_reference_list):
             # Update ES Document with new References
             es.update(index="verdict_nodes", id=filenr, body=updated)
 
+        # Prozentuale Fortschrittsanzeige auf Konsole bei großen Updates
         counter += 1
         if counter % 1000 == 0:
             print("\t", int(counter / n * 100), "%")
 
 
 def update_database():
-    # with open("oldlinks.txt", "r", encoding='UTF-8') as file:
-    #     # was ist der höchste idenfier
-    #
-    #     count = 0 # count = höchster identifier oder 0
-    #     for line in file.readlines():
-    #         json_object = get_xml_from_file(line)
-    #         es.index(index='verdicts', doc_type='verdict', id=count, body=json_object)
-    #         count = count + 1
-
     # Getting new links
     linklist = extract_new_links()
 
@@ -295,7 +299,7 @@ def update_database():
     json_list, json_reference_list = build_json_objects(linklist)
 
     if len(linklist) == len(json_list):
-        print("Starting to write to Database...")
+        print("Starting to write to Database ...")
         write_to_database(json_list, json_reference_list) # todo: Robust gegen Schreibfehler machen -> links.txt anpassen
         print(len(json_list), "new Verdicts added to ES")
     else:
@@ -304,33 +308,39 @@ def update_database():
 
 
 def extract_new_links():
-    print("Updating rii-toc.xml...")
+    """
+    Gets the newest rii-toc.xml from https://www.rechtsprechung-im-internet.de/ and builds a list of the new links out
+    of it with help of the previous link.txt.
+    The link.txt and oldlinks.txt will be overwitten in this process!
+    :return: A list containing the new links (list of verdicts, which are not already in ES)
+    :rtype: list(str: link)
+    """
+    # preparations
+    print("Updating rii-toc.xml ...")
     update_xml_table_of_contents()
     copyfile("links.txt", "oldlinks.txt")
-    print("Extracting links...")
+
+    # Update link.txt
+    print("Extracting links ...")
     extract_links_from_toc_xml()
+
+    # build difference list between old- and new-links
     link_set = set()
     new_links = []
-    # build difference list between old- and new-links
     with open("oldlinks.txt", "r", encoding='UTF-8') as file:
         for line in file.readlines():
             link_set.add(line)
     with open("links.txt", "r", encoding='UTF-8') as file:
         for line in file.readlines():
-            if not line in link_set:
+            if line not in link_set:
                 new_links.append(line)
     return new_links
-
-
-# extract_new_links()
 
 #incoming_reference_set = ["filenr"]
 #provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
 #print(provisional_references_dict)
 
-#print(get_xml_from_file("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE426901801.zip"))
+#print(get_xml_from_link("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE426901801.zip"))
 
 #print(es.get(index='verdicts', doc_type='verdict', id=0))
 
-# get_xml_files()
-#extract_links_from_toc_xml()
