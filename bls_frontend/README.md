@@ -22,19 +22,21 @@ npm run build
 Liefert zum einen 'dist'-Ordner und 'BLS_Tool.war' file
 
 ### Deployment auf Tomcat server
-1. Auf den [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) des basecamp gehen 
-2. Einloggen 
-3. Aktive Instanz von BLS_Tool undeployen
-4. Neue Version von BLS_Tool.war hochladen
+1. 'env.production' Anpassen für http, also in API_URL Port ':8080' hinzufügen und vorne zu http ändern
+2. Auf den [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) des basecamp gehen 
+3. Einloggen 
+4. Aktive Instanz von BLS_Tool undeployen
+5. Neue Version von BLS_Tool.war hochladen
 
 ### Deployment über Apache
-1. Dist Ordner, der über build erstellt wurde auf basecamp-demos Server verschieben
+1. 'env.production' Anpassen für https, also in API_URL Port entfernen und vorne zu https ändern
+2. Dist Ordner, der über build erstellt wurde auf basecamp-demos Server verschieben
    (Am einfachsten mit Tools wie win-scp
    Dist Ordner erst auf eigenes Konto auf Informatik Server legen und dann unteren Befehl von Informatik Server aus)
 ```
 scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
 ```
-2. Rechte der Dateien lesbar für www-data machen
+3. Rechte der Dateien lesbar für www-data machen
 ```
 ssh ba-proj-bls2021@basecamp-demos
 cd /var/www/html/BLS_Tool
