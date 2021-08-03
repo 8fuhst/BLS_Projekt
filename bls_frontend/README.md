@@ -28,13 +28,15 @@ Liefert zum einen 'dist'-Ordner und 'BLS_Tool.war' file
 4. Neue Version von BLS_Tool.war hochladen
 
 ### Deployment über Apache
-1. Dist Ordner, der über build erstellt wurde mit
+1. Dist Ordner, der über build erstellt wurde auf basecamp-demos Server verschieben
+   (Am einfachsten mit Tools wie win-scp
+   Dist Ordner erst auf eigenes Konto auf Informatik Server legen und dann unteren Befehl von Informatik Server aus)
 ```
 scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auf basecamp-demos Server verschieben
 2. Rechte der Dateien lesbar für www-data machen
 ```
+ssh ba-proj-bls2021@basecamp-demos
+cd /var/www/html/BLS_Tool
 chmod -R 755 *
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In BLS_Tool Ordner auf basecamp-demos Server ausführen
