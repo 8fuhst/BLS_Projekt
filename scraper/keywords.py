@@ -3,7 +3,7 @@ from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, KeywordsOptions, CategoriesOptions, ConceptsOptions
 
-with open("./credentials.txt", "r") as credentials:
+with open("credentials.txt", "r") as credentials:
     api_key = credentials.readline()[:-1]  # removes the /n from the string
     api_url = credentials.readline()
 
