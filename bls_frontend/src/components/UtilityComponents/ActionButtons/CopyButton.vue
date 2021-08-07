@@ -5,6 +5,12 @@
 </template>
 
 <script>
+/**
+ * Component for the copy button
+ *
+ * @param textId Id of the referenced textelement
+ *
+ */
 export default {
   name: "CopyButton",
   props: {
@@ -16,6 +22,11 @@ export default {
     }
   },
   methods: {
+    /**
+     * Copies the text to clipboard
+     *
+     * @param id Id of the textelement to copy
+     */
     copyToClipboard(id) {
       const text = document.querySelector('#' + id).innerHTML
       const elem = document.createElement("textarea")

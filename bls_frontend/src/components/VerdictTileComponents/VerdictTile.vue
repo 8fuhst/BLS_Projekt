@@ -22,10 +22,6 @@
           <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
         </b-row>
 
-        <b-row v-if="verdict.title" class="bottom-margin title">
-          <b-card-text class="link" @click="setCurrentVerdict">{{ verdict.title }}</b-card-text>
-        </b-row>
-
         <b-row class="bottom-margin text-padding">
           <b-card-text>{{ date }} | {{ verdict.court + ' ' + verdict.spruchkoerper }}</b-card-text>
         </b-row>
@@ -41,8 +37,6 @@
         <CopyButton :textId="verdict.documentnumber + 'filenumber'"/>
         <b-card-text class="text-padding" :id="verdict.documentnumber + 'filenumber'">{{ filenumbers }}</b-card-text>
       </div>
-
-      <h4><b-badge :class="resultColorClass">{{ verdict.successful }}</b-badge></h4>
 
       <!-- Texte !-->
       <div v-if="keysentence" class="bottom-margin">
@@ -97,6 +91,12 @@ import DownloadButton from "@/components/UtilityComponents/ActionButtons/Downloa
 
 const colorService = new ColorService()
 
+/**
+ * Component for verdict tile
+ *
+ * @param verdict a verdict object to be displayed in the tile
+ *
+ */
 export default {
   name: "VerdictTile",
   props: {
@@ -143,12 +143,14 @@ export default {
     }
 
     this.colorClass = colorService.colorClass(this.verdict.documenttype)
-    this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
 
     const date = this.verdict.date + ''
     this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
   },
   methods: {
+    /**
+     * Set the current verdict
+     */
     setCurrentVerdict() {
       this.$router.push({ name: 'Verdict', query: { docnr: this.verdict.documentnumber } })
     }

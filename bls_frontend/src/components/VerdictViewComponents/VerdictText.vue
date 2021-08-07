@@ -11,6 +11,16 @@
 <script>
 import HoverMenu from "@/components/UtilityComponents/HoverMenu";
 
+/**
+ * Component for the verdict text entries
+ *
+ * @param prefix Prefix of the text entry
+ * @param text Text of text entry
+ * @param indices Describes the indices in this text entry from the data for referencing purposes
+ * @param section Describes the section of the text entry
+ * @param divider Whether this text entry shall be a divider
+ *
+ */
 export default {
   name: "VerdictText",
   components: {HoverMenu},
@@ -40,9 +50,17 @@ export default {
     }
   },
   methods: {
+    /**
+     * Sets the hover property according to the parameter hover
+     *
+     * @param hover boolean for whether hover is set or not. True if hover shall be set to true. Else false
+     */
     setHover(hover) {
       this.hover = hover
     },
+    /**
+     * Sets the properties for displayedText, hasPrefix and id according to current value
+     */
     setProperties() {
       this.displayedText = this.text
       if (!/^[0-9.]+$/.test(this.prefix)) {
@@ -55,6 +73,11 @@ export default {
         this.id = id.replace(/\s/g, '')
       }
     },
+    /**
+     * Determines if a prefix is a divider as defined
+     *
+     * @param prefix String to check if it defines a prefix
+     */
     isDivider(prefix)  {
       return /^[XIV.]+$/.test(prefix) || this.divider
     }

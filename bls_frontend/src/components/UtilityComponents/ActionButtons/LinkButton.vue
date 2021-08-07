@@ -5,12 +5,22 @@
 </template>
 
 <script>
+
+/**
+ * Component for the link button
+ *
+ * @param filenumber for the verdict to link to
+ *
+ */
 export default {
   name: "LinkButton",
   props: {
     filenumber: String,
   },
   methods: {
+    /**
+     * Loads the linked verdict
+     */
     async getNewVerdict() {
       const newVerdict = await this.$store.dispatch('getVerdictByFilenumber', this.filenumber)
       if (newVerdict) {

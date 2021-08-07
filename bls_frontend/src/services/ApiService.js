@@ -1,8 +1,17 @@
 import {VerdictModel} from "@/models/verdict-model";
 import {VerdictNodeModel} from "@/models/verdict-node-model";
 
+/**
+ * Service to handle API requests
+ */
 export default class ApiService {
 
+    /**
+     * Fetches an array of verdicts for a specified query
+     * @param query The query for the search
+     * @param page The page index of the search
+     * @returns {Promise<*>} Array of fetched verdicts
+     */
     async fetchVerdicts(query, page) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/search?query=` + query + `&page=` + page)
@@ -14,6 +23,11 @@ export default class ApiService {
         }
     }
 
+    /**
+     * Fetches a single verdict by its documentnumber
+     * @param documentnumber The documentnumber of the verdict
+     * @returns {Promise<VerdictModel>} The fetched Verdict as Verdictmodel
+     */
     async fetchVerdict(documentnumber) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdict?documentnumber=` + documentnumber)
@@ -25,6 +39,11 @@ export default class ApiService {
         }
     }
 
+    /**
+     * Fetches a single verdict by its filenumber
+     * @param filenumber The filenumber of the verdict
+     * @returns {Promise<VerdictModel>} The fetched Verdict as Verdictmodel
+     */
     async fetchVerdictByFilenumber(filenumber) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdictFN?filenumber=` + filenumber)
@@ -33,14 +52,19 @@ export default class ApiService {
                 const verdict = new VerdictModel(data).withModelledOffenseAndReasons()
                 return verdict
             } else {
-                return undefined
+                return new VerdictModel(undefined).withFilenumber(filenumber)
             }
         } catch (e) {
             console.log('Error requesting verdict by filenumber: ' + e)
-            return undefined
+            return new VerdictModel(undefined).withFilenumber(filenumber)
         }
     }
 
+    /**
+     * Fetches an array of the newest verdicts
+     * @param page The page index of the search
+     * @returns {Promise<*>} Array of fetched verdicts
+     */
     async fetchNewest(page) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/newest?page=` + page)
@@ -52,16 +76,26 @@ export default class ApiService {
         }
     }
 
+    /**
+     * Fetches a verdictnode by the filenumber of a verdict for the references
+     * @param filenumber The filenumber of the verdict
+     * @returns {Promise<VerdictNodeModel>} The fetched verdictnode as verdictnodemodel
+     */
     async fetchVerdictNode(filenumber) {
         try {
             const res = await fetch( process.env.VUE_APP_BASE_API_URL + `/verdictNode?filenumber=` + filenumber)
+            const data = await res.json()
             return new VerdictNodeModel(data)
         } catch (e) {
             console.log('Error requesting verdict node: ' + e)
-            return new VerdictNodeModel(null)
+            return new VerdictNodeModel(undefined)
         }
     }
 
+    /**
+     * Prepares the data of a verdict and then downloads it
+     * @param documentnumber The documentnumber of the verdict
+     */
     async downloadVerdictData(documentnumber) {
         try {
             const res = await fetch(process.env.VUE_APP_BASE_API_URL + `/verdict?documentnumber=` + documentnumber)

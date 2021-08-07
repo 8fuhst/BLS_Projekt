@@ -8,6 +8,16 @@
 <script>
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import LinkButton from "@/components/UtilityComponents/ActionButtons/LinkButton";
+
+/**
+ * Component for the hover menu
+ *
+ * @param copy Boolean - true when the copy function should be displayed, else false
+ * @param copyTextId String to be copied
+ * @param link Boolean - true when the link function should be displayed, else false
+ * @param linkFilenumber String of filenumber to be navigated to
+ *
+ */
 export default {
   name: "HoverMenu",
   components: {LinkButton, CopyButton},

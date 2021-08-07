@@ -6,9 +6,10 @@
       </b-col>
     </b-row>
 
-    <div class="text-center py-3" id="spinner" >
+    <div class="text-center py-3" id="spinner" v-if="moreResults" >
       <b-spinner class="spinner"></b-spinner>
     </div>
+    <h4 class="mt-2" align="center" v-if="!moreResults">Keine weiteren Ergebnisse...</h4>
   </div>
 
 </template>
@@ -16,11 +17,16 @@
 <script>
 import VerdictTile from "@/components/VerdictTileComponents/VerdictTile";
 
+/**
+ * Component to display different verdict tiles in a list
+ *
+ */
 export default {
   name: "VerdictTileList",
   created () {
     window.addEventListener('scroll', this.onScroll);
-  },destroyed () {
+  },
+  destroyed () {
     window.removeEventListener('scroll', this.onScroll);
   },
   data () {
@@ -36,9 +42,18 @@ export default {
     }
   },
   methods: {
+    /**
+     * Sets offsetTop to current y value when scrolled
+     */
     onScroll() {
       this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
     },
+    /**
+     * Checks if spinner element is visible
+     *
+     * @param el the spinner element
+     * @returns {boolean} true when visible
+     */
     isElementInViewport(el) {
       const rect = el.getBoundingClientRect();
       return (
@@ -48,6 +63,9 @@ export default {
           rect.right <= (window.innerWidth || document.documentElement.clientWidth)
       );
     },
+    /**
+     * Loads next verdicts to display
+     */
     getNextPage() {
       const currentPage = this.$store.getters.getPage
       const nextPage = currentPage + 1
@@ -65,6 +83,9 @@ export default {
     fetching() {
       return this.$store.getters.getFetching && this.firstPage
     },
+    moreResults() {
+      return this.$store.getters.getMoreResults
+    }
   },
   components: {VerdictTile},
   mounted() {
@@ -78,5 +99,9 @@ export default {
     color: #A21E29;
     width: 50px;
     height: 50px;
+  }
+
+  h4 {
+    color: rgba(99, 99, 99, 0.84);
   }
 </style>

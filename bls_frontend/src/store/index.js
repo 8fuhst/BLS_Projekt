@@ -16,26 +16,50 @@ export default new Vuex.Store({
     verdictNode: new VerdictNodeModel(null),
     verdictCache: [],
     verdictNodeCache: [],
+    moreResults: true,
   },
   mutations: {
+    /**
+     * Sets the current verdicts loaded
+     */
     setVerdicts(state, payload) {
       state.verdicts = payload
+      state.moreResults = payload.length !== 0
     },
+    /**
+     * Appends verdicts to the current verdicts loaded
+     */
     appendVerdicts(state, payload) {
       state.verdicts = state.verdicts.concat(payload)
+      state.moreResults = payload.length !== 0
     },
+    /**
+     * Sets the current verdict thats active
+     */
     setVerdict(state, payload) {
       state.currentVerdict = payload
     },
+    /**
+     * Sets the fetching state
+     */
     setFetching(state, payload) {
       state.fetching = payload
     },
+    /**
+     * Sets the page for search queries
+     */
     setPage(state, payload) {
       state.page = payload
     },
+    /**
+     * Sets the current active verdictnode
+     */
     setVerdictNode(state, payload) {
       state.verdictNode = payload
     },
+    /**
+     * Caches verdicts loaded for later use
+     */
     cacheVerdicts(state, payload) {
       payload.forEach( (verdict) => {
         const index = state.verdictCache.findIndex( (cachedVerdict) => {
@@ -47,6 +71,9 @@ export default new Vuex.Store({
         }
       })
     },
+    /**
+     * Caches verdictnodes for later use
+     */
     cacheVerdictNodes(state, payload) {
       payload.forEach( (node) => {
         const index = this.state.verdictNodeCache.findIndex( (cachedNode) => {
@@ -60,6 +87,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /**
+     * Sets a new query, then fetches and caches new verdicts
+     */
     async setQuery(state, newQuery) {
       state.commit('setFetching', true)
       const verdicts = await apiService.fetchVerdicts(newQuery, this.state.page)
@@ -71,6 +101,9 @@ export default new Vuex.Store({
       }
       state.commit('cacheVerdicts', verdicts)
     },
+    /**
+     * Fetches and caches the newest verdicts
+     */
     async getNewest(state) {
       state.commit('setFetching', true)
       const verdicts = await apiService.fetchNewest(this.state.page)
@@ -82,6 +115,9 @@ export default new Vuex.Store({
       }
       state.commit('cacheVerdicts', verdicts)
     },
+    /**
+     * Fetches or loads verdict from cache by its documentnumber, then sets it active
+     */
     async setCurrent(state, documentnumber) {
       const index = this.state.verdictCache.findIndex( (verdict) => {
         return verdict.documentnumber === documentnumber
@@ -95,6 +131,9 @@ export default new Vuex.Store({
         state.commit('setVerdict', verdict)
       }
     },
+    /**
+     * Fetches or loads verdict from cache by its filenumber, then returns it
+     */
     async getVerdictByFilenumber(state, filenumber) {
       const index = this.state.verdictCache.findIndex( (verdict) => {
         return verdict.filenumber === filenumber
@@ -112,6 +151,9 @@ export default new Vuex.Store({
 
       return this.state.verdictCache[index]
     },
+    /**
+     * Fetches or loads verdictnode from cache, then sets it active
+     */
     async setVerdictNode(state, filenumber) {
       const index = this.state.verdictNodeCache.findIndex( (node) => {
         return node.filenumber === filenumber
@@ -136,5 +178,6 @@ export default new Vuex.Store({
     getVerdictNode: state => state.verdictNode,
     getCachedVerdicts: state => state.verdictCache,
     getCachedVerdictNodes: state => state.verdictNodeCache,
+    getMoreResults: state => state.moreResults
   }
 })
