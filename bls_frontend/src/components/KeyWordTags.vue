@@ -7,6 +7,11 @@
 </template>
 
 <script>
+/**
+ * Component for the keyword badge-row
+ *
+ * @param keyWords Array of the keywords to be displayed
+ */
 export default {
   name: "KeyWordTags",
   props: {

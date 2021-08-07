@@ -6,18 +6,28 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import VerdictTileList from "@/components/VerdictTileComponents/VerdictTileList";
 
+/**
+ * Home Component.
+ * Shows when you start up the App.
+ * Shows a list of new Verdicts.
+ */
 export default {
   name: 'Home',
   components: {
     VerdictTileList,
   },
+  created() {
+    window.document.title = 'BLS Tool - Home'
+  },
   mounted() {
     this.$store.dispatch('getNewest')
   },
   methods: {
+    /**
+     * Fetches the next page of verdicts in the list.
+     */
     fetchNextPage() {
       this.$store.dispatch('getNewest')
     }

@@ -1,4 +1,11 @@
+/**
+ * Model for the verdictnodes
+ */
 export class VerdictNodeModel {
+    /**
+     * Constructor
+     * @param verdictNode The data of the verdictnode
+     */
     constructor(verdictNode) {
         if (verdictNode) {
             this.filenumber = verdictNode.filenumber;

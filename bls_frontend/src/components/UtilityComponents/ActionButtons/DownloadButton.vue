@@ -9,12 +9,23 @@ import ApiService from "@/services/ApiService";
 
 const apiService = new ApiService()
 
+/**
+ * Component for the download button
+ *
+ * @param documentnumber for the verdict to download
+ *
+ */
 export default {
   name: "DownloadButton",
   props: {
     documentnumber: String,
   },
   methods: {
+    /**
+     * Downloads the verdict
+     *
+     * @param documentnumber for the verdict to download
+     */
     download(documentnumber){
       apiService.downloadVerdictData(documentnumber)
     },

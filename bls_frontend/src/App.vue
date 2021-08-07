@@ -7,6 +7,10 @@
 
 <script>
 import Header from "@/components/Header";
+
+/**
+ * Main Component of the app
+ */
 export default {
   components: {Header},
 }

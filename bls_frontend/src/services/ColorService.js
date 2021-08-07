@@ -1,4 +1,3 @@
-// TODO: Dictionary befullen
 export const colorDictionary = {
     ['ablehnung einstweilige anordnung']: 'ablehnung-color',
     ['urteil']: 'urteil-color',
@@ -15,30 +14,29 @@ export const colorDictionary = {
     ['eugh-vorlage']: 'eugh-color',
 };
 
-export const resultColorDictionary = {
-    ['erfolg']: 'success-color',
-    ['irrelevant']: 'irrelevant-color',
-    ['verloren']: 'unsuccessful-color',
-};
-
+/**
+ * Service for generating and providing colors for the different types of verdict
+ */
 export class ColorService {
     constructor() {
+        /**
+         * Comment this line in to generate a new Color.
+         * Copy generated output from the browser console into 'colors.css'.
+         * Also create an entry in the above dictionary, where the key is your documenttype in lowercase letters
+         * and the value is the generated colorclass name
+         */
         //this.generateColor('vorlage', '220, 86, 58')
     }
 
+    /**
+     * Returns the name of the color class associated with a documenttype of a verdict
+     * @param docType The documenttype of the verdict
+     * @returns {string} The name of the color class
+     */
     colorClass(docType) {
         const key = docType.toLowerCase()
         if (colorDictionary[key]) {
             return colorDictionary[key]
-        } else {
-            return 'default-color'
-        }
-    }
-
-    resultColorClass(result) {
-        const key = result.toLowerCase()
-        if (resultColorDictionary[key]) {
-            return resultColorDictionary[key]
         } else {
             return 'default-color'
         }

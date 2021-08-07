@@ -2,7 +2,7 @@
   <div class="hero" id="verdictHero">
     <b-container fluid>
       <b-row>
-        <b-col xl="8" sm="12">
+        <b-col>
           <div class="bottom-margin">
             <b-icon-chevron-left @click="goBack" class="d-inline back"></b-icon-chevron-left>
             <b-card-text class="d-inline headline">{{ verdict.documenttype + ' | ' + date + ' | ' + verdict.court + ' ' + verdict.spruchkoerper + ' | ' + filenumber }}</b-card-text>
@@ -11,9 +11,7 @@
 
           <b-card-text class="font-weight-bold" v-if="verdict.title">{{ verdict.title }}</b-card-text>
 
-          <KeyWordTags class="bottom-margin" style="margin-left: 1px" :keyWords="verdict.keywords"/>
-
-          <h2><b-badge :class="resultColorClass" style="margin-left: -10px">{{ verdict.successful }}</b-badge></h2>
+          <KeyWordTags class="bottom-margin" :keyWords="verdict.keywords"/>
 
           <div v-if="keysentence">
             <h5 class="d-inline">Leitsatz</h5>
@@ -21,20 +19,13 @@
             <b-card-text class="text-padding" :id="verdict.documentnumber + 'keysentence'">{{ keysentence }}</b-card-text>
           </div>
         </b-col>
-        <b-col class="py-3" xl="4" sm="0">
-          <VerdictGraph />
-        </b-col>
+      </b-row>
+      <b-row class="py-3" v-show="graphShown">
+        <div :class="scrollHidden ? 'graph-container-hidden' : 'graph-container'">
+          <VerdictGraph @showGraphEvent="showGraph" @scrollHidden="hideScroll" />
+        </div>
       </b-row>
     </b-container>
-
-    <div class="button-group" >
-      <b-button-group>
-        <b-button v-if="verdict.tenor" @click="scrollTo('#tenor')" class="scroll">Zum Tenor</b-button>
-        <b-button v-if="verdict.modelledOffense.length > 0" @click="scrollTo('#sachverhalt')" class="scroll">Zur Sachverhaltsdarstellung</b-button>
-        <b-button v-if="verdict.modelledReasonsForDecision.length > 0" @click="scrollTo('#bewertung')" class="scroll">Zur rechtlichen Bewertung</b-button>
-      </b-button-group>
-    </div>
-
 
     <div class="button-group" >
       <b-button-group>
@@ -50,23 +41,33 @@
 import KeyWordTags from "@/components/KeyWordTags";
 import CopyButton from "@/components/UtilityComponents/ActionButtons/CopyButton";
 import VerdictGraph from "@/components/VerdictViewComponents/VerdictGraph/VerdictGraph";
-import {ColorService} from "@/services/ColorService";
 import DownloadButton from "@/components/UtilityComponents/ActionButtons/DownloadButton";
 
-const colorService = new ColorService()
-
+/**
+ * Component to build the header on the detailed view of the current verdict
+ *
+ */
 export default {
   name: "VerdictHero",
   components: {DownloadButton, VerdictGraph, KeyWordTags, CopyButton },
   computed: {
+    /**
+     * Returns the current verdict
+     */
     verdict() {
       return this.$store.getters.getCurrentVerdict
-    }
+    },
   },
   methods: {
+    /**
+     * To navigate back to Home view
+     */
     goBack() {
       this.$router.back()
     },
+    /**
+     * Sets the properties for keysentence, filenumber, resultColorClass and date according to current value
+     */
     setProperties() {
       if (this.verdict.keysentence) {
         this.keysentence = this.verdict.keysentence.join(' ')
@@ -75,15 +76,34 @@ export default {
         this.filenumber = this.verdict.filenumber.join(', ')
       }
 
-      this.resultColorClass = colorService.resultColorClass(this.verdict.successful)
-
       const date = this.verdict.date + ''
       this.date = date.substr(6, 2) + '.' + date.substr(4, 2) + '.' + date.substr(0, 4)
     },
+    /**
+     * Scrolls to the requested part of verdict
+     *
+     * @param id String of the part to scroll to
+     */
     scrollTo(id) {
       document.querySelector(id).scrollIntoView({
         behavior: 'smooth'
       });
+    },
+    /**
+     * Sets the hidden property according to the parameter hidden
+     *
+     * @param hidden boolean for whether hidden is set or not. True if hidden shall be set to true. Else false
+     */
+    hideScroll(hidden) {
+      this.scrollHidden = hidden
+    },
+    /**
+     * Sets the graphShown property according to the parameter show
+     *
+     * @param show Boolean for whether the graph should be shown or not. True if graph should be shown
+     */
+    showGraph(show) {
+      this.graphShown = show
     }
   },
   data() {
@@ -93,6 +113,8 @@ export default {
       filenumber: null,
       stickyNavButtons: false,
       resultColorClass: '',
+      scrollHidden: true,
+      graphShown: false
     }
   },
   mounted() {
@@ -152,4 +174,19 @@ export default {
     top: -5px;
     left: 12px;
   }
+
+  .graph-container {
+    width: 100%;
+    max-height: 369px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .graph-container-hidden {
+    width: 100%;
+    max-height: 369px;
+    overflow: hidden;
+  }
+
+  .graph-container::-webkit-scrollbar { width: 0 !important }
 </style>
