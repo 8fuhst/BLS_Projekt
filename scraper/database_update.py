@@ -38,6 +38,7 @@ def classify_verdicts():
         for line in file.readlines():
             json_object = es.get(index='verdicts', id=line[:-1])['_source']
             if json_object['successful'] == "":
+                # todo: testen ob "tenor" eine Liste ist.
                 json_object['successful'] = classification.classify(json_object['tenor'])  # todo performance
                 # Modify dict to fit ES Convention
                 updated = {
