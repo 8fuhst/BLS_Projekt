@@ -13,7 +13,6 @@ from elasticsearch import Elasticsearch
 from shutil import copyfile
 import references as ref
 import formatter
-# import classification as classi
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 #es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
@@ -141,8 +140,7 @@ def eval_xml(xml_string):
 
     result_dict['keywords'] = []
     result_dict['incoming_count'] = -1
-    result_dict['successful'] = ""  # TODO Classifier aufrufen:
-    # result_dict['successful'] = classi.classify(result_dict['tenor'])  # todo performance
+    result_dict['successful'] = ""
 
     # build provisional reference-dict for ES that does not contain incoming references yet:
     provisional_references_dict = create_reference_dict(result_dict['filenumber'], outgoing_references_dict, outgoing_references_set, [], result_dict['documentnumber'])
