@@ -34,6 +34,7 @@ Now there should be a .war file containing the project within the bls_backend ta
 3. Undeploy currently active version of bls_backend-0.0.1-SNAPSHOT
 4. Upload and deploy new version of bls_backend-0.0.1-SNAPSHOT
 Now there should be a .war file containing the project within the bls_backend target folder. This .war file can be used to deploy on any Tomcat or Apache server.
+There is also a deployed version running on http://basecamp-demos.informatik.uni-hamburg.de:8080/bls_backend-0.0.1-SNAPSHOT.
 
 ### Apache Version 
 The Apache version of the backend runs on https://basecamp-demos.informatik.uni-hamburg.de/bls_backend.
