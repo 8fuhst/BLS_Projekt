@@ -25,7 +25,7 @@ npm run build
 Creates a 'dist'-folder and 'BLS_Tool.war' file
 
 ### Deployment on Tomcat server
-1. Adapt 'env.production' for http (in API_URL add port ':8080' and change https to http if neccessary)
+1. Adapt 'env.production' for deployment on tomcat
 2. Build the app
    ```
    npm run build
@@ -36,7 +36,7 @@ Creates a 'dist'-folder and 'BLS_Tool.war' file
 6. Upload new version of 'BLS_Tool.war'
 
 ### Deployment through Apache
-1. Adapt 'env.production' for https (in API_URL remove port ':8080' and change http to https if neccessary)
+1. Adapt 'env.production' for deployment through apache
 2. Build the app
    ```
    npm run build
