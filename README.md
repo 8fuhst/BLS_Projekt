@@ -14,5 +14,12 @@ http://basecamp-demos.informatik.uni-hamburg.de:8080/BLS_Tool/
 ## Scraping
 
 ## Backend
+First make sure that the Elasticsearch Database is setup properly in BLS_Projekt/bls_backend/src/main/java/com/bls_tool/repositories/Config.java, default is localhost:9200.
 
+Build the bls_backend Java project using Maven with the following commands
+``` mvn clean ```
+``` mvn install ```
+``` mvn package ```
+
+Now there should be a .war file containing the project within the bls_backend target folder. This .war file can be used to deploy on any Tomcat or Apache server.
 ## Frontend
