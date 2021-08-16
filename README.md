@@ -17,7 +17,8 @@ http://basecamp-demos.informatik.uni-hamburg.de:8080/BLS_Tool/
 First make sure that the Elasticsearch Database is setup properly in BLS_Projekt/bls_backend/src/main/java/com/bls_tool/repositories/Config.java, default is localhost:9200.
 
 Build the bls_backend Java project using Maven with the following commands
-``` mvn clean
+``` 
+mvn clean
 mvn install
 mvn package
 ```
