@@ -7,10 +7,8 @@ The used data can be found on:
 https://www.rechtsprechung-im-internet.de
 
 The demo of the application can be found on:  
-http://basecamp-demos.informatik.uni-hamburg.de:8080/BLS_Tool/
-
-or
-
+http://basecamp-demos.informatik.uni-hamburg.de:8080/BLS_Tool/  
+or  
 https://basecamp-demos.informatik.uni-hamburg.de/BLS_Tool/
 ![GitHub Logo](listenansicht.png)
 
