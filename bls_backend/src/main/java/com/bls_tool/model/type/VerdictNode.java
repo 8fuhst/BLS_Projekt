@@ -6,7 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "verdict_nodes2")
+@Document(indexName = "verdict_nodes")
 public class VerdictNode {
     @Id
     private String _id;
