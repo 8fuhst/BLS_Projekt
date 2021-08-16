@@ -35,3 +35,4 @@ Now there should be a .war file containing the project within the bls_backend ta
 Now there should be a .war file containing the project within the bls_backend target folder. This .war file can be used to deploy on any Tomcat or Apache server.
 
 ## Frontend
+The frontend is a seperate Vue-app. For further details on deployment and local development see README in the 'bls_frontend' folder.
