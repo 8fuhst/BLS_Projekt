@@ -26,21 +26,29 @@ Creates a 'dist'-folder and 'BLS_Tool.war' file
 
 ### Deployment on Tomcat server
 1. Adapt 'env.production' for http (in API_URL add port ':8080' and change https to http if neccessary)
-2. Go to the basecamp [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) 
-3. Log in 
-4. Undeploy active instance of BLS_Tool
-5. Upload new version of 'BLS_Tool.war'
+2. Build the app
+   ```
+   npm run build
+   ```
+3. Go to the basecamp [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) 
+4. Log in 
+5. Undeploy active instance of BLS_Tool
+6. Upload new version of 'BLS_Tool.war'
 
 ### Deployment through Apache
 1. Adapt 'env.production' for https (in API_URL remove port ':8080' and change http to https if neccessary)
-2. Move the dist folder, that got created after build, onto the basecamp-demos server.
+2. Build the app
+   ```
+   npm run build
+   ```
+3. Move the dist folder, that got created after build, onto the basecamp-demos server.
    (You can use a tool like 'win-scp' to move folder onto own account on computer-science server, then use below command from there)
-```
-scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
-```
-3. Change permissions of the file, so it's readable for 'www-data'
-```
-ssh ba-proj-bls2021@basecamp-demos
-cd /var/www/html/BLS_Tool
-chmod -R 755 *
-```
+   ```
+   scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
+   ```
+4. Change permissions of the file, so it's readable for 'www-data'
+   ```
+   ssh ba-proj-bls2021@basecamp-demos
+   cd /var/www/html/BLS_Tool
+   chmod -R 755 *
+   ```
