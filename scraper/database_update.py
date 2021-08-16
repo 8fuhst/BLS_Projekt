@@ -5,6 +5,7 @@ import time
 from os import path
 from shutil import copyfile
 import requests
+import classification
 
 es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 
@@ -20,6 +21,25 @@ def update_incoming_count():
             if es.exists(index='verdict_nodes', id=json_object['filenumber']):
                 verdict_node = es.get(index='verdict_nodes', id=json_object['filenumber'])['_source']
                 json_object['incoming_count'] = verdict_node['incoming_count']
+                # Modify dict to fit ES Convention
+                updated = {
+                    'doc': json_object
+                }
+                # write in in ES
+                es.update(index="verdicts", id=line[:-1], body=updated)
+
+def classify_verdicts():
+    """
+    Updates the Classification of the verdicts by using classification.py and the trained model in
+    Transformer/classifier-model.
+    WARNING: the model is currently not working correct an thus this function is not called.
+    """
+    with open("present_documents.txt", "r", encoding='UTF-8') as file:
+        for line in file.readlines():
+            json_object = es.get(index='verdicts', id=line[:-1])['_source']
+            if json_object['successful'] == "":
+                # todo: testen ob "tenor" eine Liste ist.
+                json_object['successful'] = classification.classify(json_object['tenor'])  # todo performance
                 # Modify dict to fit ES Convention
                 updated = {
                     'doc': json_object
@@ -173,6 +193,8 @@ def initialize_database(index="verdicts"):  # todo: s.o.
     print("Updating incoming references-count ...")
     update_incoming_count()
     # todo: classification
+    # print("Updating classifications ...")
+    # classify_verdicts()
     toc = time.time()
     print("Done! Time needed: {}".format(str(toc - tic)))
 
