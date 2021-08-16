@@ -1,44 +1,54 @@
 # Frontend Vue App
-## Lokale Entwicklung
-### Projekt initialisieren
+## Local development
+### Initialize project
 ```
 npm install
 ```
 
-### Compilen und lokal ausführen mit Hot-Reload
+### Compile and execute with hot-reload
 ```
 npm run serve
 ```
 
-Beachte, dass das Backend seperat gestartet werden muss, damit Urteile angezeigt werden
-(Neben dem Backend muss zudem eine SSH-Verbindung zum rzssh1 Server bestehen, damit das Backend mit der Datenbank kommunizieren kann).
+Note, that the backend has to be started seperately to
+display verdicts (additionally there has to be a running
+SSH-connection to the rzssh1 server, so the backend can
+communicate with the database).
+
 
 ## Deployment
 
-### Compilen und Dateien fürs Deployment erstellen
+### Compile and create data for deployment
 ```
 npm run build
 ```
-Liefert zum einen 'dist'-Ordner und 'BLS_Tool.war' file
+Creates a 'dist'-folder and 'BLS_Tool.war' file
 
-### Deployment auf Tomcat server
-1. 'env.production' Anpassen für http, also in API_URL Port ':8080' hinzufügen und vorne zu http ändern
-2. Auf den [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) des basecamp gehen 
-3. Einloggen 
-4. Aktive Instanz von BLS_Tool undeployen
-5. Neue Version von BLS_Tool.war hochladen
+### Deployment on Tomcat server
+1. Adapt 'env.production' for deployment on tomcat
+2. Build the app
+   ```
+   npm run build
+   ```
+3. Go to the basecamp [Tomcat manager](http://basecamp-demos.informatik.uni-hamburg.de:8080/manager/html/) 
+4. Log in 
+5. Undeploy active instance of BLS_Tool
+6. Upload new version of 'BLS_Tool.war'
 
-### Deployment über Apache
-1. 'env.production' Anpassen für https, also in API_URL Port entfernen und vorne zu https ändern
-2. Dist Ordner, der über build erstellt wurde auf basecamp-demos Server verschieben
-   (Am einfachsten mit Tools wie win-scp
-   Dist Ordner erst auf eigenes Konto auf Informatik Server legen und dann unteren Befehl von Informatik Server aus)
-```
-scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
-```
-3. Rechte der Dateien lesbar für www-data machen
-```
-ssh ba-proj-bls2021@basecamp-demos
-cd /var/www/html/BLS_Tool
-chmod -R 755 *
-```
+### Deployment through Apache
+1. Adapt 'env.production' for deployment through apache
+2. Build the app
+   ```
+   npm run build
+   ```
+3. Move the dist folder, that got created after build, onto the basecamp-demos server.
+   (You can use a tool like 'win-scp' to move folder onto own account on computer-science server, then use below command from there)
+   ```
+   scp -r dist/* ba-proj-bls2021@basecamp-demos:/var/www/html/BLS_Tool
+   ```
+4. Change permissions of the file, so it's readable for 'www-data'
+   ```
+   ssh ba-proj-bls2021@basecamp-demos
+   cd /var/www/html/BLS_Tool
+   chmod -R 755 *
+   ```
