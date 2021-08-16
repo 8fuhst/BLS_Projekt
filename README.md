@@ -35,5 +35,8 @@ Now there should be a .war file containing the project within the bls_backend ta
 4. Upload and deploy new version of bls_backend-0.0.1-SNAPSHOT
 Now there should be a .war file containing the project within the bls_backend target folder. This .war file can be used to deploy on any Tomcat or Apache server.
 
+### Apache Version 
+The Apache version of the backend runs on https://basecamp-demos.informatik.uni-hamburg.de/bls_backend.
+
 ## Frontend
 The frontend is a seperate Vue-app. For further details on deployment and local development see README in the 'bls_frontend' folder.
