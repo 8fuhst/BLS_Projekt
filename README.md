@@ -13,6 +13,21 @@ https://basecamp-demos.informatik.uni-hamburg.de/BLS_Tool/
 ![GitHub Logo](listenansicht.png)
 
 ## Scraping
+### Creating new ES Index from scratch
+1. Ensure the ES Configuration in bls_backend/scraper/scraper.py is set up correctly. Default is localhost:9200 with timeout set to 60.
+2. Ensure that the Watson API Key and Link are present in your credentials.txt.
+3. Just run the scraper.py in the bls_backend/scraper module.
+
+### Updating ES Index
+1. Ensure that the links.txt file is not empty, it contains the URLs of all files already in the DB. If it is, you have to reinitialize the DB to update.
+2. Ensure that the Watson API Key and Link are present in your credentials.txt.
+3. Run the scraper.py in the bls_backend/scraper module.
+
+### Reinitializing
+1. Delete the ES Indices "Verdicts" and "verdict_nodes"
+2. Continue with "Creating new ES Index from scratch"
+
+You can set up regular updates with the scraper.py file using automation tools like Cron!
 
 ## Backend
 ### Elasticsearch
