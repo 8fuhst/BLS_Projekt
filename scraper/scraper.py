@@ -14,9 +14,7 @@ from shutil import copyfile
 import references as ref
 import formatter
 
-#es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}], timeout=60)
-
+es = Elasticsearch([{'host': 'basecamp-bigdata', 'port': 9200}], timeout=60)
 
 def update_xml_table_of_contents():
     """
@@ -119,25 +117,6 @@ def eval_xml(xml_string):
                 outgoing_references_dict[tag] = outgoing_references #todo tags_translation?
             result_dict[tags_translation[tag]] = tag_array
 
-            '''if tag == 'tenor':
-                if len(result_dict['tenor']) > 0:
-                    tenor_text = result_dict['tenor']
-                    preprocessed_tenor_text = formatter.replace_abbreviations(tenor_text)
-                    # TODO Model anfunken und tenor reinkloppen, Result mit in ES speichern
-                else:
-                    # result is always neutral if there is no tenor
-                    json_text = json.loads(result_dict)
-                    json_text.update({"result": "neutral"})''' #TODO Weiterbauen
-
-    # extract keywords from the text using watson api:
-    # result_dict['keywords'] = keywords.prepare_and_generate_keywords(
-    #     result_dict['documentnumber'],
-    #     result_dict['title'],
-    #     result_dict['tenor'],
-    #     result_dict['offense'],
-    #     result_dict['reasons'],
-    #     result_dict['reasonfordecision'])
-
     result_dict['keywords'] = []
     result_dict['incoming_count'] = -1
     result_dict['successful'] = ""
@@ -147,13 +126,7 @@ def eval_xml(xml_string):
     # ES fields: [ID][filenumber][list outgoing references][set outgoing references][set incoming references]
     # [sum of incoming references]
 
-    #json_reference_dict = json.dumps(provisional_references_dict)
-    #json_result_dict = json.dumps(result_dict)  # convert dictionary to json
-    #return json_result_dict, json_reference_dict
     return result_dict, provisional_references_dict
-
-# get_xml_from_link("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/JURE100055033.zip")
-
 
 def extract_links_from_toc_xml():
     """
@@ -161,14 +134,9 @@ def extract_links_from_toc_xml():
     """
     doc = ET.parse("./rii-toc.xml")  # Create ElementTree from rii-toc
     root = doc.getroot()             # Create root of ET
-    # counter = 0  # todo remove this
     with open("links.txt", "w") as file:
         for item in root:
-            # if counter > 499: # todo remove
-            #     break # todo remove
             file.write(str(item.find('link').text) + "\n")  # Extract all Links from rii-toc to links.txt
-            # counter += 1 # todo remove
-
 
 def create_reference_dict(filenumber, outgoing_reference_dict={}, outgoing_reference_set=set(), incoming_reference_set=[], documentnumber=""):
     """
@@ -220,11 +188,10 @@ def write_to_database(json_list, json_reference_list):
     with open("present_documents.txt", "a", encoding='UTF-8') as f:
         with open("no_keywords.txt", "a", encoding='UTF-8') as g:
             for json_object in json_list:
-                #es_json_object = json.dumps(json_object) # TODO Rename all things json
-                # es.index(index='verdicts', body=json_object) #todo so hat es auf jeden fall funktioniert'
                 es.index(index='verdicts', id=json_object['documentnumber'], body=json_object)
                 f.write(json_object['documentnumber'] + "\n")
                 g.write(json_object['documentnumber'] + "\n")
+                # Prozentuale Fortschrittsanzeige auf Konsole bei großen Updates
                 counter += 1
                 if counter % 1000 == 0:
                     print("\t", int(counter / n * 100), "%")
@@ -273,7 +240,7 @@ def write_to_database(json_list, json_reference_list):
             to_be_updated = es.get(index="verdict_nodes", id=filenr)['_source']
             # Add the outgoing references
             to_be_updated['outgoing_reference_list'].update(
-            json_reference_object['outgoing_reference_list']) # TODO extend() statt append()
+            json_reference_object['outgoing_reference_list'])
             to_be_updated['outgoing_reference_set'].extend(json_reference_object['outgoing_reference_set'])
             to_be_updated['documentnumber'] = docnr  # update juris number
             # Modify dict to fit ES Convention
@@ -290,6 +257,9 @@ def write_to_database(json_list, json_reference_list):
 
 
 def update_database():
+    """
+    Builds the json objects and then updates the elasticsearch database
+    """
     # Getting new links
     linklist = extract_new_links()
 
@@ -298,7 +268,7 @@ def update_database():
 
     if len(linklist) == len(json_list):
         print("Starting to write to Database ...")
-        write_to_database(json_list, json_reference_list) # todo: Robust gegen Schreibfehler machen -> links.txt anpassen
+        write_to_database(json_list, json_reference_list)
         print(len(json_list), "new Verdicts added to ES")
     else:
         copyfile("oldlinks.txt", "links.txt")
@@ -333,12 +303,4 @@ def extract_new_links():
             if line not in link_set:
                 new_links.append(line)
     return new_links
-
-#incoming_reference_set = ["filenr"]
-#provisional_references_dict = json.dumps(create_reference_dict("reference", [], set(), incoming_reference_set))
-#print(provisional_references_dict)
-
-#print(get_xml_from_link("http://www.rechtsprechung-im-internet.de/jportal/docs/bsjrs/KVRE426901801.zip"))
-
-#print(es.get(index='verdicts', doc_type='verdict', id=0))
 
