@@ -14,24 +14,38 @@ https://basecamp-demos.informatik.uni-hamburg.de/BLS_Tool/
 
 ## Scraping
 ### Creating new ES Index from scratch
-1. Ensure the ES Configuration in bls_backend/scraper/scraper.py is set up correctly. Default is localhost:9200 with timeout set to 60.
+1. Ensure the ES Configuration of the variable "es" in [scraper/database_update.py](https://github.com/8fuhst/BLS_Projekt/blob/master/scraper/database_update.py) is set up correctly. Default is localhost:9200 with timeout set to 60.
 2. Ensure that the Watson API Key and Link are present in your credentials.txt.
-3. Just run the scraper.py in the bls_backend/scraper module.
+3. Call initialize_database() in __name__ == '__main__' instead of update_database().
+4. Run the database_update.py. You can use the console with  
+`python3 database_update.py`
 
 ### Updating ES Index
-1. Ensure that the links.txt file is not empty, it contains the URLs of all files already in the DB. If it is, you have to reinitialize the DB to update.
+1. Ensure that the links.txt and present_documents.txt exsists in the current directory, they are containing the URLs/Filenumbers of all files already in the DB. If it is, you have to reinitialize the DB to update.
 2. Ensure that the Watson API Key and Link are present in your credentials.txt.
-3. Run the scraper.py in the bls_backend/scraper module.
+3. Run the database_update.py in the [bls_backend/scraper](https://github.com/8fuhst/BLS_Projekt/tree/master/scraper) module.
 
 ### Reinitializing
-1. Delete the ES Indices "Verdicts" and "verdict_nodes"
-2. Continue with "Creating new ES Index from scratch"
+1. Just do "Creating new ES Index from scratch". You will be asked ist you want to overwrite existig indeces.
 
-You can set up regular updates with the scraper.py file using automation tools like Cron!
+You can set up regular updates with the database_update.py file using automation tools like Cron!
 
 ## Backend
 ### Elasticsearch
 First make sure that the Elasticsearch Database is setup properly in BLS_Projekt/bls_backend/src/main/java/com/bls_tool/repositories/Config.java, default is localhost:9200.
+
+Usefull console commands are:
+
+`curl -XGET basecamp-bigdata:9200/_cat/indices?v`  
+if you want to check out the "verdict" index
+
+`curl -XDELETE basecamp-bigdata:9200/verdicts`  
+if you want to delete the "verdict" index
+
+`curl -X GET "basecamp-bigdata:9200/verdicts/_search?pretty" -H 'Content-Type: application/json' -d' {   "query": {     "match_all": { }   } } '`  
+and  
+`curl -X GET "basecamp-bigdata:9200/verdict_nodes/_search?pretty" -H 'Content-Type: application/json' -d' {   "query": {     "match_all": { }   } } '`  
+if you want to check if there are existing entries in the indices "verdicts" and "verdict_nodes".
 
 ### Building
 Build the bls_backend Java project using Maven with the following commands
@@ -55,4 +69,4 @@ There is also a deployed version running on http://basecamp-demos.informatik.uni
 The Apache version of the backend runs on https://basecamp-demos.informatik.uni-hamburg.de/bls_backend.
 
 ## Frontend
-The frontend is a seperate Vue-app. For further details on deployment and local development see README in the 'bls_frontend' folder.
+The frontend is a seperate Vue-app. For further details on deployment and local development see README in the ['bls_frontend'](https://github.com/8fuhst/BLS_Projekt/tree/master/bls_frontend) folder.
