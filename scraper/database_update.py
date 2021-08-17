@@ -194,4 +194,5 @@ def initialize_database(index="verdicts"):
 
 
 if __name__ == '__main__':
+    scraper.es = es
     update_database()
