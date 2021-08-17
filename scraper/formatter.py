@@ -70,7 +70,7 @@ def replace_punctuation_marks(text):
 
 # 01.01.1999 -> 1 Januar 1999
 def replace_dates(text):
-    pattern = re.compile("\d{2}\\.\d{2}\\.\d{4}") # Todo: weitere Datumsformate?
+    pattern = re.compile("\d{2}\\.\d{2}\\.\d{4}")
     matches = re.findall(pattern, text)
     result = ""
     for match in matches:
