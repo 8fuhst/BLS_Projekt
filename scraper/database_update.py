@@ -38,8 +38,7 @@ def classify_verdicts():
         for line in file.readlines():
             json_object = es.get(index='verdicts', id=line[:-1])['_source']
             if json_object['successful'] == "":
-                # todo: testen ob "tenor" eine Liste ist.
-                json_object['successful'] = classification.classify(json_object['tenor'])  # todo performance
+                json_object['successful'] = classification.classify(json_object['tenor'])
                 # Modify dict to fit ES Convention
                 updated = {
                     'doc': json_object
@@ -112,8 +111,7 @@ def update_missing_keywords():
             print("\t", int(i / n * 100), "%")
 
 
-# TODO: Call once per day
-def scrape_new_data(index="verdicts"):  # todo: index Variabel gestalten?
+def scrape_new_data(index="verdicts"):
     """
     Updates an existing Elasticsearch-Database by scraping the newest verdicts from
     www.rechtsprechung-im-internet.de
@@ -139,12 +137,11 @@ def update_database(index="verdicts"):
     update_missing_keywords()
     print("Updating incoming references-count ...")
     update_incoming_count()
-    # todo: classification
     toc = time.time()
     print("Update finished! Time needed: {}".format(str(toc - tic)))
 
 
-def initialize_database(index="verdicts"):  # todo: s.o.
+def initialize_database(index="verdicts"):
     """
     Creates a new 'verdicts' and 'verdict_nodes' index in an existing Elasticsearch-Database by scraping all data from
     www.rechtsprechung-im-internet.de
@@ -180,7 +177,7 @@ def initialize_database(index="verdicts"):  # todo: s.o.
         try:
             url_keywords = "https://raw.githubusercontent.com/8fuhst/BLS_Projekt/master/scraper/keywords.txt"
             r = requests.get(url_keywords)
-            f.write(r.content)  # todo testen
+            f.write(r.content)
         finally:
             f.close()
 
@@ -192,14 +189,9 @@ def initialize_database(index="verdicts"):  # todo: s.o.
     update_missing_keywords()
     print("Updating incoming references-count ...")
     update_incoming_count()
-    # todo: classification
-    # print("Updating classifications ...")
-    # classify_verdicts()
     toc = time.time()
     print("Done! Time needed: {}".format(str(toc - tic)))
 
 
 if __name__ == '__main__':
     update_database()
-    # update_missing_keywords()
-    # update_incoming_count()
