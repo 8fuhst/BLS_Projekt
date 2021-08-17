@@ -23,7 +23,7 @@ def get_label(index):
     elif index == 1:
         return "neutral"
     else:
-        print("unknown labbel ", index)
+        print("unknown label ", index)
 
 
 def classify(tenor_array):
@@ -48,7 +48,7 @@ def classify(tenor_array):
 
     prediction = model.predict(tokens_np)
     print(prediction)
-    # finds the index of the highest value in the prediction that isn't 3 because those are irrelevent:
+    # finds the index of the highest value in the prediction that isn't 3 because those are irrelevant:
     all_time_index = 3
     all_time_value = 0
     for sentence_prediction in prediction:
