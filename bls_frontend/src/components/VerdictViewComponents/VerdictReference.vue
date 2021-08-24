@@ -3,7 +3,7 @@
     <b-tabs v-if="tabs" class="margin tabs-c">
       <b-tab v-for="(reference, idx) in references" :key="idx" :title="(idx + 1) + ''">
         <div class="reference" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-          <HoverMenu class="hover-menu-tabs" :copy="true" :copyTextId="section + reference.index + 'ref'" :link="true" :linkFilenumber="reference.referenz" v-if="hover"/>
+          <HoverMenu class="hover-menu-tabs" :copy="true" :copyTextId="section + reference.index + 'ref'" :link="hasLink[idx]" :linkFilenumber="reference.referenz" v-if="hover"/>
           <b-card-text class="mb-2" :id="section + reference.index + 'ref'" >{{ reference.referenz }}</b-card-text>
 
           <div v-if="keywords[idx] && keywords[idx].length > 0" class="mb-2">
@@ -15,7 +15,7 @@
     </b-tabs>
 
     <div v-if="!tabs" class="reference margin" @mouseover="setHover(true)" @mouseleave="setHover(false)">
-      <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + references[0].index + 'ref'" :link="true" :linkFilenumber="references[0].referenz" v-if="hover"/>
+      <HoverMenu class="hover-menu" :copy="true" :copyTextId="section + references[0].index + 'ref'" :link="hasLink[0]" :linkFilenumber="references[0].referenz" v-if="hover"/>
       <b-card-text class="mb-2" :id="section + references[0].index + 'ref'" >{{ references[0].referenz }}</b-card-text>
 
       <div v-if="keywords[0] && keywords[0].length > 0" class="mb-2">
@@ -55,6 +55,7 @@ export default {
       index: 0,
       stopUpdating: false,
       keywords: [],
+      hasLink: [],
     }
   },
   computed: {
@@ -103,10 +104,12 @@ export default {
     async getKeywords() {
       for (let i = 0; i < this.references.length; i++) {
         const verdict = await this.$store.dispatch('getVerdictByFilenumber', this.references[i].referenz)
-        if (verdict && verdict.keywords) {
+        if (verdict && verdict.keywords && verdict.keywords.length > 0) {
           this.keywords.push(verdict.keywords.slice(0,5))
+          this.hasLink.push(true)
         } else {
           this.keywords.push([])
+          this.hasLink.push(false)
         }
       }
     },
