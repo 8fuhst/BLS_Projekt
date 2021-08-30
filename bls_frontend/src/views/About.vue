@@ -18,7 +18,7 @@
 export default {
   name: "About",
   created() {
-    window.document.title = 'BLS Tool - About'
+    window.document.title = 'About - BLS Tool'
   }
 }
 </script>
