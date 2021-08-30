@@ -19,7 +19,7 @@ export default {
     VerdictTileList,
   },
   created() {
-    window.document.title = 'BLS Tool - Home'
+    window.document.title = 'Home - BLS Tool'
   },
   mounted() {
     this.$store.dispatch('getNewest')

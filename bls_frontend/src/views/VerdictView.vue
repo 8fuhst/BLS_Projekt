@@ -40,7 +40,6 @@ export default {
   },
   created() {
     this.$store.dispatch('setCurrent', this.$route.query.docnr)
-    window.document.title = 'BLS Tool - Urteil - ' + this.verdict.filenumber[0]
   },
   mounted() {
     window.scroll({
@@ -49,6 +48,7 @@ export default {
     });
     if (this.verdict.filenumber[0] !== undefined) {
       this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+      window.document.title = this.verdict.filenumber[0] + ' - Urteil - BLS Tool'
     }
 
   },
@@ -59,6 +59,7 @@ export default {
     verdict: function () {
       if (this.verdict.filenumber[0] !== undefined) {
         this.$store.dispatch('setVerdictNode', this.verdict.filenumber[0])
+        window.document.title = this.verdict.filenumber[0] + ' - Urteil - BLS Tool'
       }
     },
     /**

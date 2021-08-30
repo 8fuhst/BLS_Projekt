@@ -23,7 +23,7 @@ export default {
     VerdictTileList
   },
   created() {
-    window.document.title = this.$route.query.query ? 'BLS Tool - Suche - ' + this.$route.query.query : 'BLS Tool - Suche'
+    window.document.title = this.$route.query.query ? this.$route.query.query + ' - Suche - BLS Tool' : 'Suche - BLS Tool'
   },
   /**
    * Dispatches new search query on mounted
@@ -56,7 +56,7 @@ export default {
     $route() {
       this.$store.commit('setPage', 0)
       this.dispatchQuery(this.$route.query.query)
-      window.document.title = this.$route.query.query ? 'BLS Tool - Suche - ' + this.$route.query.query : 'BLS Tool - Suche'
+      window.document.title = this.$route.query.query ? this.$route.query.query + ' - Suche - BLS Tool' : 'Suche - BLS Tool'
     }
   }
 }
